@@ -346,7 +346,7 @@
 %  Chapter headings
 %
 \def\@makechapterhead#1{ \vspace*{2pc} {\centering
- \ifnum \c@secnumdepth >\m@ne \large \@chapapp{} \Thechapter \par
+ \ifnum \c@secnumdepth >\m@ne \large \@chapapp{} \thechapter \par
  \vspace{10\p@} \fi 
   \def\baselinestretch{1.0}\normalfont
   \large\bf \uppercase\expandafter{#1}\par
