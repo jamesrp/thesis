@@ -1,1 +1,3 @@
 to compile after including new chapters, delete .toc (and also .log .aux?)
+
+basic compilation: pdflatex pfeiffer-thesis.tex
