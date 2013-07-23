@@ -1,3 +1,5 @@
 to compile after including new chapters, delete .toc (and also .log .aux?)
 
 basic compilation: pdflatex pfeiffer-thesis.tex
+
+to compile after messing with the .bib file, delete .bbl .blg .aux
