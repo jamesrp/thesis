@@ -1,5 +1,4 @@
-to compile after including new chapters, delete .toc (and also .log .aux?)
+basic compilation: bash compile.sh
 
-basic compilation: pdflatex pfeiffer-thesis.tex
-
-to compile after messing with the .bib file, delete .bbl .blg .aux
+issues: I have texlive-full installed on ubuntu 13.04. This is certainly 
+overkill but I wanted to make sure I have all packages to reduce headaches.
