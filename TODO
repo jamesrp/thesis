@@ -18,5 +18,6 @@ Import Bootstrap Percolation paper
  -> Make sure images work
  -> Make sure bibliography works
 
+Citations - figure out why \cite{kicover} doesn't work in the chapter title
 
 (in the future, write and import cube paper, mohit paper, and monty paper)
