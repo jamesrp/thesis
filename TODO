@@ -10,10 +10,33 @@ Write introduction
  of the results proved, and overviews of the methods used.
  Give a warning about notation differing between chapters.
 
-Import Bootstrap Percolation paper
+ Introduction outline: the thesis contains sums of squares and combinatorial
+ optimization, with a helping of symmetry and real algebraic geometry. 
+ For the general introduction section, discuss the general paradigm of 
+ solving an instance of an optimization problem by replacing the nonnegative
+ condition by a sum of squares condition. Can cite Pablo, Lasserre, etc. 
+ Much of this section can be taken from the introductions of the Ki Cover, 
+ Cube, etc papers, and by looking over existing papers in this area.
+
+ Is there a place for symmetry stuff in the general introduction? Can give
+ an overview of convex averaging and using representation theory. Cite Frank.
+
+ Then go through each paper included in the thesis and give a quick outline.
+ It seems like a good place to start for these would be the introductions
+ of the papers themselves. 
+
+ For the Ki Cover paper, want to define the ki Cover problem, cite Conforti
+ and give the problems that were unsolved there, also give applications and
+ say that it's a generalization of stable set. Can we find a nice application
+ that's not just stable set? Then give our theorems, that certain facets are 
+ i/2-sos. Then describe the Tuza and Cut applications and our results there.
+
+ For the monty, cube, and mohit papers, wait to import them or write their
+ introduction sections until they get close to finished.
+
+Import Bootstrap Percolation paper (Although, it might be better to leave
+this out since everything else fits into a nice theme.)
  -> Make sure images work
  -> Make sure bibliography works
 
 Citations - figure out why \cite{kicover} doesn't work in the chapter title
-
-(in the future, write and import cube paper, mohit paper, and monty paper)
