@@ -1,6 +1,18 @@
 TODO list for thesis:
 
+Write abstract
+ Very short. 1 sentence outline, 2 sentence model/problem domain,
+ 2 sentence results
+
 Write introduction
+ Give an introduction to the general area of study (so probably combinatorial
+ optimization, sums of squares, semidefinite programming, more?). 
+ Give outline of the rest of the introduction - relevant math, then each paper
+ Short overview of the relevant mathematics, open problems, applications.
+ For each paper, describe its motivation (what problems it addresses and why
+ we care, possibly applications as well). Give reasonably precise statements
+ of the results proved, and overviews of the methods used.
+ Give a warning about notation differing between chapters.
 
 Import Bootstrap Percolation paper
  -> Make sure images work
