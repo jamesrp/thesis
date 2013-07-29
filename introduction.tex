@@ -6,4 +6,44 @@
 \chapter{Introduction}
 \label{chap:Introduction}
 
-(Introduction) Semidefinite programming is the etc etc.
+\section{Combinatorial optimization problems}
+
+A combinatorial optimization problem is, given a discrete set of items and a 
+function on this set, to find the minimum value of the function and the
+minimizing item. Examples abound in computer science and operations research;
+for instance, the classic traveling salesman problem is to find the shortest
+tour among a set of nodes, with specified distances. Another example we will
+discuss is the stable set problem: given a graph, find the largest set of
+nodes, no two of which are connected. 
+
+Many combinatorial optimization problems are NP-complete; that is, finding
+efficient algorithms to exactly solve these problems is unlikely. Much research
+has focused on developing easily computable approximations. In this thesis,
+we study a specific approximation technique based on sums of squares.
+
+\section{Sums of Squares}
+
+A typical combinatorial optimization problem can be modeled as an optimization
+problem in Euclidean space $\RR^n$. We associate each object $x$ with a point
+$p_x$ 
+$\RR^n$ in such a way that the function $f$ to be optimized becomes linear. Then
+the problem can be relaxed to finding the minimum of $f$ over the convex hull
+of the $p_x$.
+
+For example, let $G=(V,E)$ be a graph with vertices $V = \{1,\ldots,n\}$.
+Then each stable set $S \subseteq V$ can be represented by the vector $p_S \in 
+\RR^n$, with $(p_S)_i = 1$ if $i \in S$, and 0 otherwise. If we seek the 
+largest stable set in $G$, the function we minimize over the $\{p_S\}$ is 
+$f(x)= - \sum_{i} x_i$. Since $f$ is linear, we may equivalently consider
+minimizing $f$ over the polytope $P = \conv \{p_S\}$.
+
+Now our problem has been reframed as $\min f(x): x \in P$ for some linear
+function $f$ and a polytope $P$. This is a linear programming problem. 
+However, in general, the polytope $P$ takes as much space to describe as a 
+list of all the stable sets itself. Therefore, we haven't simplified our
+problem.
+
+The goal of sums of squares is to find a concise approximate description of 
+$P$. In the case of the stable set polytope, an exact description of the 
+problem is:
+
