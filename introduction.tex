@@ -88,8 +88,48 @@ is to give a precise overview of results and be a guide to the rest of the
 thesis.
 
 \section{A Semidefinite Approach to the $K_\MakeLowercase{i}$ Cover Problem}
+Chapter 2 is a paper coauthored with Jo\~ao Gouveia, submitted to 
+\emph{Operations Research Letters}. We used the theta body framework to
+investigate some facets of the $K_i$ cover polytope.
 
-Extended abstract of the Ki cover paper goes here.
+The $K_i$ cover problem is a generalization of the stable set problem discussed
+in Chapter 1.1. A graph $G = (V,E)$ is given. For any $k$, a $k$-clique in $G$
+is a collection $C$ of $k$ nodes, each of which is connected by an edge in $E$.
+We define a covering relation, where an $i$-clique $C_1$ is covered by an 
+$(i-1)$-clique $C_2$ if $C_1 \supseteq C_2$. A $K_i$ cover in $G$ is a
+collection $F$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$
+is covered by some element of $F$. The $K_i$ cover problem is to find such a
+collection $F$ of smallest size.
+
+When $i=2$, this is the \emph{vertex cover problem} - to find the smallest
+number of vertices such that each edge touches a chosen vertex. To make the
+connection to the stable set problem, note that $F \subseteq V$ is a vertex
+cover if and only if $V \setminus F$ is a stable set; therefore, the polytopes
+defined by these problems as in section 1.1 are congruent via the transformation
+$x_v \to 1-x_v$.
+
+The stable set and vertex cover problems have been studied in many contexts. 
+The $K_i$ cover generalization was first studied in Conforti et al \cite{conforti}, wherein the associated polytope $P$ was studied and several facets
+identified. Conforti et al provided separation oracles for many of these
+facets, but left several families open. We showed that the theta body framework
+provides an efficient oracle for a body that is sandwiched between $P$ and 
+these facets. It is still an open problem whether it is possible to optimize in
+polynomial time over just these facets.
+
+To show that the facets were valid on the theta body, we choose a set of 
+polynomials which are idempotent mod $I$, and whose sum is the facet-defining
+inequality. There are yet more families of facets not addressed by Conforti 
+et al, and for these we were not able to find a theta body representation. 
+Computer simulations show that they may not be exact on the theta body, but
+more work is needed.
+
+We also use the $i=3$ case of the $K_i$ cover problem, known as the triangle
+cover problem, to prove two corollaries. First, that the triangle free problem
+takes at least $n/2$ steps to be captured by the theta body. We prove this
+by applying a result of Laurent that the same theta body is necessary for
+the cut polytope. Second, that there is an integrality gap of $1/2$ for the
+triangle cover's theta relaxation. We prove this by applying a result of 
+Krivelevich on the fractional triangle cover problem.
 
 \section{Sums of Squares on the Unit Hypercube}
 
