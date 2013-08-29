@@ -1,42 +1,10 @@
-TODO list for thesis:
+Updated TODO list 8/29
 
-Write introduction
- Give an introduction to the general area of study (so probably combinatorial
- optimization, sums of squares, semidefinite programming, more?). 
- Give outline of the rest of the introduction - relevant math, then each paper
- Short overview of the relevant mathematics, open problems, applications.
- For each paper, describe its motivation (what problems it addresses and why
- we care, possibly applications as well). Give reasonably precise statements
- of the results proved, and overviews of the methods used.
- Give a warning about notation differing between chapters.
+Polish Introduction 1.1
+Polish Ki abstract 1.2
+Change Ki Abstract to Sectioned form
+Write 1.3 (cube)
+Write 1.4 Matching abstract
+Write 1.5 Bootstrap abstract
 
- Introduction outline: the thesis contains sums of squares and combinatorial
- optimization, with a helping of symmetry and real algebraic geometry. 
- For the general introduction section, discuss the general paradigm of 
- solving an instance of an optimization problem by replacing the nonnegative
- condition by a sum of squares condition. Can cite Pablo, Lasserre, etc. 
- Much of this section can be taken from the introductions of the Ki Cover, 
- Cube, etc papers, and by looking over existing papers in this area.
-
- Is there a place for symmetry stuff in the general introduction? Can give
- an overview of convex averaging and using representation theory. Cite Frank.
-
- Then go through each paper included in the thesis and give a quick outline.
- It seems like a good place to start for these would be the introductions
- of the papers themselves. 
-
- For the Ki Cover paper, want to define the ki Cover problem, cite Conforti
- and give the problems that were unsolved there, also give applications and
- say that it's a generalization of stable set. Can we find a nice application
- that's not just stable set? Then give our theorems, that certain facets are 
- i/2-sos. Then describe the Tuza and Cut applications and our results there.
-
- For the monty, cube, and mohit papers, wait to import them or write their
- introduction sections until they get close to finished.
-
-Import Bootstrap Percolation paper (Although, it might be better to leave
-this out since everything else fits into a nice theme.)
- -> Make sure images work
- -> Make sure bibliography works
-
-Citations - figure out why \cite{kicover} doesn't work in the chapter title
+Write Chapter 4 Matching result
