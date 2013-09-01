@@ -173,22 +173,22 @@ to the triangle free polytope for $K_n$, and therefore this heirarchy does not g
 We show this by applying a result of Laurent \cite{moniquestuff} that the same $n/2$ theta body is necessary to equal the cut polytope.
 \item We show that there is an {\em integrality gap} of $1/2$ for the triangle cover's theta relaxation. 
 That is, if we optimize in the all-1 direction as in the triangle cover problem, we have $\min \{1 \cdot x: x \in \textup{TH}_2(G) \} \ge \frac{1}{2} \min \{1 \cdot x: x \in P_3(G)\}$ for all $G$. 
-We prove this by applying a result of Krivelevich \cite{krivelevich} on a fractional relaxation of the same problem, and proving that the theta body is contained in this fractional relaxation.
+We prove this by applying a result of Krivelevich \cite{krivelevich} on a fractional relaxation of the same problem, and proving that $\textup{TH}_2(G)$ is contained in this fractional relaxation.
 \end{itemize}
 \subsection{Comments}
-We don't fully address the open question in Conforti, because this is not a separation oracle for the family $\mathcal{F}$ of $K_i$-$p$-holes. 
-Let $Q$ be the body defined as the intersection of all $F \in \mathcal{F}$.
-We have $P_i(G) \subseteq \textup{TH}_{i/2}(G) \subseteq Q$.
-In terms of an approximation to $P_i(G)$, the theta body is sufficient, since we can optimize over it in polynomial time. 
+We don't fully address the open question in Conforti, because showing that family of the $K_i$-$p$-hole facets, $\mathcal{F}$, is valid on $\textup{TH}_{i/2}(G)$ does not give a separation oracle for $\mathcal{F}$.
+Indeed, let $Q$ be the body defined as the intersection of all $F \in \mathcal{F}$.
+We have $P_i(G) \subseteq \textup{TH}_{i/2}(G) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
 However, this doesn't allow us to optimize over exactly $Q$ in polynomial time.
-In fact, for $i=2$, the stable set case, we have a similar phenomenon.
-$\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$, where STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
-In this case both STAB and QSTAB are NP-hard to optimize over, while TH can be optimized over in polynomial time.
+In fact, for $i=2$, the stable set case, we have a similar phenomenon:
+$\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$. Here STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
+In this case it is NP-hard to optimize over either STAB or QSTAB, while TH can be optimized over in polynomial time.
 
-There are yet more families of facets not addressed by Conforti 
-et al, and for these we were not able to find a theta body representation. 
-Computer simulations show that they may not be exact on the theta body, but
-more work is needed.
+
+Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated
+to other subgraphs of $G$, for which no separation oracle is currently known. We
+checked numerically and found that they did not appear to be valid on
+$\textup{TH}_{i/2}(G)$, but they may be valid on higher theta bodies.
 
 
 
