@@ -7,101 +7,71 @@
 \label{chap:Introduction}
 
 \section{The Theta Body of the Stable Set Problem}
-This thesis studies the application of sums of squares to combinatorial optimization.
+This thesis studies the application of sums of squares to combinatorial optimization. 
 In this section, we give a description of the general area of combinatorial optimization and sums of squares in particular.
 We introduce many of the concepts which will be used in the following chapters. 
-In the remainder of the introduction, we give an extended abstract of each
-chapter.
+In the remainder of the introduction, we give an extended abstract of each chapter.
 
 \subsection{Combinatorial Optimization Problems}
-Combinatorial optimization is the branch of optimization problems concerning
-finding the best object from a discrete set. Applications are common in 
-computer science, mathematics, and operations research. For instance, the 
-objective of the traveling salesman problem is to find a minimum-cost tour among
-a set of cities; the shortest path problem is to find a shortest-distance
-path between two nodes in a graph; and the assignment problem is to assign
-workers to jobs while minimizing the total wages paid. In particular, we will
-consider the 
-stable set problem, where we find the maximum-size independent vertex set in a
-graph.
+Combinatorial optimization is the branch of optimization problems concerning finding the best object from a discrete set. 
+Applications are common in computer science, mathematics, and operations research.
+For instance, the objective of the traveling salesman problem is to find a minimum-cost tour among a set of cities; the shortest path problem is to find a shortest-distance path between two nodes in a graph; and the assignment problem is to assign workers to jobs while minimizing the total wages paid. 
+In particular, we will consider the stable set problem, where we find the maximum-size independent vertex set in a graph.
 
-Combinatorial optimization problems often end up being NP-complete or harder.
-That is, we are unlikely to ever find efficient algorithms to solve them
-exactly. And in some cases where the abstract mathematical problem does have
-an efficient algorithm, real-world constraints can make it intractable. For
-instance, when assigning medical students to residencies, the constraint that
-married couples live in the same city makes the problem NP-complete.
+Combinatorial optimization problems often end up being NP-complete or harder. 
+That is, we are unlikely to ever find efficient algorithms to solve them exactly. 
+And in some cases where the abstract mathematical problem does have an efficient algorithm, real-world constraints can make it intractable. 
+For instance, when assigning medical students to residencies, the constraint that married couples live in the same city makes the problem NP-complete.
 
-Therefore, much research has focused on developing methods to solve these
-problems approximately. In this paper, we describe one such method based on
-sums of squares.
+Therefore, much research has focused on developing methods to solve these problems approximately. 
+In this paper, we describe one such method based on sums of squares.
 
 \subsection{Sums of Squares and Optimization}
-Consider for the moment unconstrained optimization problems on $\RR^n$. That 
-is, we are given a function $f$ in $n$ real variables, and must find the 
-global minimum value $f_{\min}$. We can rephrase this as $f_{\min} = 
-\max \{r: f(x) - r \ge 0\}$. Now if we can write $f(x) - r$ as a sum of squares,
-then it is certainly nonnegative. Therefore, we can define the relaxation
-$f_{\textup{sos}} = \max \{r: f(x) - r \textup{ is a sum of squares}\}$.
-We have that $f_{\min} \ge f_{\textup{sos}}$, so this is a lower bound on
-the minimum. This idea is discussed at more length in \cite{sostools} and 
-\cite{lasserre}. We now specialize to the case of combinatorial optimization.
+Consider for the moment unconstrained optimization problems on $\RR^n$. 
+That  is, we are given a function $f$ in $n$ real variables, and must find the global minimum value $f_{\min}$. 
+We can rephrase this as $f_{\min} = \max \{r: f(x) - r \ge 0\}$. 
+Now if we can write $f(x) - r$ as a sum of squares, then it is certainly nonnegative. 
+Therefore, we can define the relaxation $f_{\textup{sos}} = \max \{r: f(x) - r \textup{ is a sum of squares}\}$.
+We have that $f_{\min} \ge f_{\textup{sos}}$, so this is a lower bound on the minimum. 
+This idea is discussed at more length in \cite{sostools} and \cite{lasserre}. 
+We now specialize to the case of combinatorial optimization.
 
 \subsection{The Theta Body}
-We would like to apply the $f_{\textup{sos}}$ construction above to
-combinatorial optimization problems. We will explain how to do this through
-an example.
+We would like to apply the $f_{\textup{sos}}$ construction above to combinatorial optimization problems. 
+We will explain how to do this through an example.
 
-The {\em stable set problem} is, given a graph $G = (V,E)$, to find the
-maximum size of a vertex set which is completely disconnected. We can embed
-this problem in $\RR^n$ as follows. Let $n = |V|$ and label the vertices by 
-$1, \ldots, n$. For each stable set $S \subseteq V$, let $\chi_S$ be its 
-characteristic vector: $(\chi_S)_i = 1$ if $i \in S$, and 0 if $i \notin S$.
-The collection $X$ of these characteristic vectors forms a discrete point set
-in $\RR^n$, and in fact it is an algebraic variety. Its ideal
-$I$ is generated by $\{x_i^2 - x_i \, (1\le i \le n);\, x_ix_j\, (ij \in E) \}$.
+The {\em stable set problem} is, given a graph $G = (V,E)$, to find the maximum size of a vertex set which is completely disconnected. 
+We can embed this problem in $\RR^n$ as follows. 
+Let $n = |V|$ and label the vertices by $1, \ldots, n$. 
+For each stable set $S \subseteq V$, let $\chi_S$ be its characteristic vector: $(\chi_S)_i = 1$ if $i \in S$, and 0 if $i \notin S$.
+The collection $X$ of these characteristic vectors forms a discrete point set in $\RR^n$, and in fact it is an algebraic variety. 
+Its ideal $I$ is generated by $\{x_i^2 - x_i \, (1\le i \le n);\, x_ix_j\, (ij \in E) \}$.
 
-The problem of finding the maximum size of a stable set can now be rephrased
-over $\RR^n$ as finding the minimum value of the function
-$f(x) = - \sum_{i=1}^n x_i$ over the set $X$ given above. To use the
-$f_{\textup{sos}}$ idea, we need to define a notion of being a sum of squares
-on $X$. As long as $X$ is an algebraic set, this is accomplished in 
-\cite{glpt}. The method is to take a basis $B$ for $\RR[x]/I$ and use 
-semidefinite programming to calculate the space of sums of squares mod $I$ by
-computing in the basis $B$. One caveat is that we need to restrict the 
-squares to some bounded degree $k$ to get a polynomial-time algorithm. If
-we set $k=1$ we get the celebrated Lovasz theta body for the stable set
-problem, which was the inspiration for \cite{glpt}. By increasing $k$ we
-increase the runtime of our algorithm but potentially improve its accuracy;
-this is discussed in chapter X. 
+The problem of finding the maximum size of a stable set can now be rephrased over $\RR^n$ as finding the minimum value of the function $f(x) = - \sum_{i=1}^n x_i$ over the set $X$ given above. 
+To use the $f_{\textup{sos}}$ idea, we need to define a notion of being a sum of squares on $X$. As long as $X$ is an algebraic set, this is accomplished in \cite{glpt}. 
+The method is to take a basis $B$ for $\RR[x]/I$ and use semidefinite programming to calculate the space of sums of squares mod $I$ by computing in the basis $B$.
+One caveat is that we need to restrict the squares to some bounded degree $k$ to get a polynomial-time algorithm. 
+If we set $k=1$ we get the celebrated Lovasz theta body for the stable set problem, which was the inspiration for \cite{glpt}. 
+By increasing $k$ we increase the runtime of our algorithm but potentially improve its accuracy; this is discussed in chapter X. 
 
 \subsection{Structure of the Thesis}
-In the remainder of the introduction, we give an extended abstract of each
-chapter. We will describe the problem and its motivation and applications,
-and give a precise statement of results and an indication of how they were 
-proved.
+In the remainder of the introduction, we give an extended abstract of each chapter. 
+We will describe the problem and its motivation and applications, and give a precise statement of results and an indication of how they were proved.
 
-Of course, the papers themselves are present as the other chapters here, so
-they are available to also read. However, the goal of this introduction
-is to give a precise overview of results and be a guide to the rest of the
-thesis.
+Of course, the papers themselves are present as the other chapters here, so they are available to also read.
+However, the goal of this introduction is to give a precise overview of results and be a guide to the rest of the thesis.
 
 \section{A Semidefinite Approach to the $K_\MakeLowercase{i}$ Cover Problem}
-Chapter 2 is taken from a paper coauthored with Jo\~ao Gouveia and submitted to 
-\emph{Operations Research Letters}. 
+Chapter 2 is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters}. 
 
 \subsection{Problem Description}
 
-The {\em $K_i$-cover problem} is a generalization of the stable set problem discussed
-in Chapter 1.1. A graph $G = (V,E)$ is given. For any $k$, a $k$-clique in $G$,
-denoted $K_i$,
-is a collection of $k$ nodes, each pair of which is connected by an edge in $E$.
-We define a covering relation where an $i$-clique $H_1$ is covered by an 
-$(i-1)$-clique $H_2$ if $H_1 \supseteq H_2$; i.e., if $H_2$ is a subgraph of
-$H_1$. A $K_i$-cover in $G$ is a
-collection $\mathcal{F}$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$
-is covered by some element of $\mathcal{F}$. The $K_i$-cover problem is to find such a
-collection $\mathcal{F}$ of smallest size.
+The {\em $K_i$-cover problem} is a generalization of the stable set problem discussed in Chapter 1.1. 
+A graph $G = (V,E)$ is given. 
+For any $k$, a $k$-clique in $G$, denoted $K_i$, is a collection of $k$ nodes, each pair of which is connected by an edge in $E$.
+We define a covering relation where an $i$-clique $H_1$ is covered by an $(i-1)$-clique $H_2$ if $H_1 \supseteq H_2$; i.e., if $H_2$ is a subgraph of $H_1$. 
+A $K_i$-cover in $G$ is a collection $\mathcal{F}$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$ is covered by some element of $\mathcal{F}$. 
+The $K_i$-cover problem is to find such a collection $\mathcal{F}$ of smallest size.
 In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$.
 
 \begin{figure}[htd]
@@ -112,40 +82,28 @@ In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$
 	\label{K5}
 \end{figure}
 
-When $i=2$, this is the \emph{vertex cover problem} - to find the smallest
-set $\mathcal{F}$ of vertices such that each edge is covered by a vertex in
-$\mathcal{F}$. To make the
-connection to the stable set problem, note that $\mathcal{F} \subseteq V$ is a vertex
-cover if and only if $V \setminus \mathcal{F}$ is a stable set.
-Therefore, the problems are essentially equivalent. In fact, the polytopes
-defined by these problems as in section 1.1 are congruent via the transformation
-$x_j \mapsto 1-x_j$ in each coordinate.
+When $i=2$, this is the \emph{vertex cover problem} - to find the smallest set $\mathcal{F}$ of vertices such that each edge is covered by a vertex in $\mathcal{F}$. 
+To make the connection to the stable set problem, note that $\mathcal{F} \subseteq V$ is a vertex cover if and only if $V \setminus \mathcal{F}$ is a stable set.
+Therefore, the problems are essentially equivalent.
+In fact, the polytopes defined by these problems as in section 1.1 are congruent via the transformation $x_j \mapsto 1-x_j$ in each coordinate.
 
 \subsection{Background}
 
 The stable set and vertex cover problems have been studied in many contexts. 
-The $K_i$-cover generalization was first studied in Conforti et al 
-\cite{conforti}, wherein the associated polytope $P_i(G)$ was 
-considered and several families of facets identified. 
-As in Section 1.1, $P_i(G) \subseteq \mathbb{R}^N$ is the convex hull of
-characteristic vectors of $K_i$-covers, where $N$ is the number of $K_{i-1}$s in
-$G$. 
+The $K_i$-cover generalization was first studied in Conforti et al \cite{conforti}, wherein the associated polytope $P_i(G)$ was considered and several families of facets identified. 
+As in Section 1.1, $P_i(G) \subseteq \mathbb{R}^N$ is the convex hull of characteristic vectors of $K_i$-covers, where $N$ is the number of $K_{i-1}$s in $G$. 
 Conforti et al provided polynomial-time {\em separation oracles} for many of these families of facets. 
-A separation oracle for a family $\mathcal{F}$ of facets is a decision procedure
-which takes a point $x$ and decides whether $x$ satisfies each facet $F \in
-\mathcal{F}$, or whether $x$ lies outside some facet $F \in \mathcal{F}$.
+A separation oracle for a family $\mathcal{F}$ of facets is a decision procedure which takes a point $x$ and decides whether $x$ satisfies each facet $F \in \mathcal{F}$, or whether $x$ lies outside some facet $F \in \mathcal{F}$.
 Since a typical family $\mathcal{F}$ will contain exponentially many elements, it is not possible in general to enumerate the $F \in \mathcal{F}$ and check them one by one, making such an oracle a nontrivial result.
 
-Conforti et al left open the existence of oracles for several families of
-facets, including the family associated with the {\em $K_i$-$p$-holes}. 
+Conforti et al left open the existence of oracles for several families of facets, including the family associated with the {\em $K_i$-$p$-holes}. 
 A graph $H$ is a $K_i$-$p$-hole if it contains $p$ copies of $K_i$ arranged in a cycle, with neighboring $K_i$ sharing a common $K_{i-1}$. 
 This does not determine $H$ up to isomorphism; see Figure 2 for three nonisomorpic $K_3$-9-holes.
 To understand the facet inequality associated to a $K_i$-$p$-hole, consider the graphs in Figure 2. 
 To construct a $K_3$-cover of minimum size, we need to pick an edge from each $K_3$. 
 We can pick four edges to eliminate eight $K_3$s, but we still need a fifth to pick up the last $K_3$. 
 Therefore, $\sum_{e \subseteq H} x_e \ge 5$ is valid on the polytope $P_3(G)$ for any graph $G$ containing $H$ as a subgraph. 
-The inequality for general $K_i$-$p$-holes is derived from a similar argument,
-and is given by $\sum_{e \subseteq H} x_e \ge \lceil \frac{p}{2} \rceil$.
+The inequality for general $K_i$-$p$-holes is derived from a similar argument, and is given by $\sum_{e \subseteq H} x_e \ge \lceil \frac{p}{2} \rceil$.
 It defines a facet of $P_i(G)$ for $i \ge 3$ and odd $p$.
 
 \begin{figure}[htd]
@@ -159,16 +117,11 @@ It defines a facet of $P_i(G)$ for $i \ge 3$ and odd $p$.
 
 \subsection{Results}
 \begin{itemize}
-\item We show that the family of facets corresponding to $K_i$-$p$-holes is valid on
-the theta body $\textup{TH}_{\lceil i/2\rceil }(G)$.
+\item We show that the family of facets corresponding to $K_i$-$p$-holes is valid on the theta body $\textup{TH}_{\lceil i/2\rceil }(G)$.
 Therefore, for fixed $i$, we have a polynomial-time algorithm to optimize over a relaxation at least as tight as this family. 
-To show that the $K_i$-$p$-hole facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, we choose a set of 
-polynomials which are idempotent mod $I$, and whose sum is the facet-defining
-inequality.
-\item We consider the triangle free problem, the special case $i=3$ of the
-$K_i$-free problem. We show that $P_3(K_n) \subsetneq \textup{TH}_{k}(K_n)$ for $k < n/2$.
-That is, it takes at least $n/2$ steps for the theta body heirarchy to converge
-to the triangle free polytope for $K_n$, and therefore this heirarchy does not give a polynomial-time algorithm for the triangle free problem.
+To show that the $K_i$-$p$-hole facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, we choose a set of  polynomials which are idempotent mod $I$, and whose sum is the facet-defining inequality.
+\item We consider the triangle free problem, the special case $i=3$ of the $K_i$-free problem. We show that $P_3(K_n) \subsetneq \textup{TH}_{k}(K_n)$ for $k < n/2$.
+That is, it takes at least $n/2$ steps for the theta body heirarchy to converge to the triangle free polytope for $K_n$, and therefore this heirarchy does not give a polynomial-time algorithm for the triangle free problem.
 We show this by observing that the cut polytope and triangle free polytope of $K_n$ share a facet, and apply a result of Laurent \cite{moniquestuff} that the theta heirarchy takes at least $n/2$ steps to reach this facet.
 \item We show that there is an {\em integrality gap} of $1/2$ for the triangle cover's second theta relaxation. 
 That is, if we optimize in the all-1 direction in the triangle cover problem, we have $\min \{1 \cdot x: x \in \textup{TH}_2(G) \} \ge \frac{1}{2} \min \{1 \cdot x: x \in P_3(G)\}$ for all $G$. 
@@ -181,15 +134,13 @@ However, this does not give a separation oracle for $\mathcal{F}$.
 Indeed, let $Q$ be the body defined as the intersection of all $F \in \mathcal{F}$.
 We have $P_i(G) \subseteq \textup{TH}_{\lceil i/2\rceil}(G) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
 However, this doesn't allow us to optimize over exactly $Q$ in polynomial time.
-In fact, for $i=2$, the stable set case, we have a similar phenomenon:
-$\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$. Here STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
+In fact, for $i=2$, the stable set case, we have a similar phenomenon: $\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$. 
+Here STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
 In this case it is NP-hard to optimize over either STAB or QSTAB, while TH can be optimized over in polynomial time.
 
 
-Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated
-to other subgraphs of $G$, for which no separation oracle is currently known. We
-checked numerically and found that they did not appear to be valid on
-$\textup{TH}_{\lceil i/2\rceil}(G)$, but they may be valid on higher theta bodies.
+Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated to other subgraphs of $G$, for which no separation oracle is currently known. 
+We checked numerically and found that they did not appear to be valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, but they may be valid on higher theta bodies.
 
 
 
@@ -207,7 +158,5 @@ Extended abstract of the flag algebras paper goes here.
 Extended abstract of the matchings paper goes here.
 
 \section{A Note on Notation}
-The following chapters were published as separate papers, and in some cases
-refer to different aspects of the same or related problems. As such, the 
-chapters use different notation to fit the topic at hand, so the same object
-may have different names in different chapters.
+The following chapters were published as separate papers, and in some cases refer to different aspects of the same or related problems. 
+As such, the chapters use different notation to fit the topic at hand, so the same object may have different names in different chapters.
