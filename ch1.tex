@@ -46,19 +46,39 @@ Therefore, much research has focused on developing methods to solve these proble
 Using various methods, we can construct a relaxation $P'(\mathcal{C})$ to $ P(\mathcal{C})$ and try to show that the gap between them is not very large.
 In the next section, we describe one such method based on sums of squares.
 
-\subsection{Sums of Squares}
-Consider for the moment unconstrained optimization problems on $\RR^n$. 
-That  is, we are given a function $f$ in $n$ real variables, and must find the global minimum value $f_{\min}$. 
-We can rephrase this as $f_{\min} = \max \{r: f(x) - r \ge 0\}$. 
-Now if we can write $f(x) - r$ as a sum of squares, then it is certainly nonnegative. 
+\subsection{Sums of Squares and the Theta Body}
+Consider for the moment unconstrained polynomial optimization problems on $\RR^n$. 
+That  is, we are given a polynomial $f$ in $n$ real variables, and must find the global minimum value $f_{\min}$. 
+It turns out that optimization is closely related to checking nonnegativity.
+If we can find the global minimum of a polynomial $f$, we can certainly check if $f$ is nonnegative everywhere by checking if its minimum $f_{\min} \ge 0$.
+Conversely, if we can check whether polynomials are nonnegative, we can compute $f_{\min}$: observe that $f_{\min} = \max \{r: f(x) - r \ge 0\}$. 
+We can solve the latter problem by sampling different $r$ (e.g. with binary search) and for each $r$ checking whether $f - r$ is nonnegative.
+
+Checking arbitrary polynomials for nonnegativity is NP-hard, so we seek an approximation.
+Note that if we can write $f(x)$ as a sum of squares, then it is certainly nonnegative. 
 Therefore, we can define the relaxation $f_{\textup{sos}} = \max \{r: f(x) - r \textup{ is a sum of squares}\}$.
 We have that $f_{\min} \ge f_{\textup{sos}}$, so this is a lower bound on the minimum. 
 This idea is discussed at more length in \cite{sostools} and \cite{lasserre}. 
-We now specialize to the case of combinatorial optimization.
 
-\subsection{The Theta Body}
-We would like to apply the $f_{\textup{sos}}$ construction above to combinatorial optimization problems. 
-We will explain how to do this through an example.
+So far, this only makes sense for polynomials on $\mathbb{R}^n$.
+We will define a notion of sums of squares that is applicable to combinatorial optimization problems.
+This definition originated with Lovasz \cite{lovasz} and was used to produce an approximation to the stable set problem.
+It was generalized to arbitrary problems by Gouveia, Parrilo, and Thomas \cite{gpt}.
+
+As in section 1.1.1, consider a collection $\mathcal{C}$ of subsets of $\{1, \ldots, n\}$. 
+Let $V = \{\chi_C: C \in \mathcal{C}\}$.
+$V$ is a finite set, and therefore an {\em algebraic variety}.
+That is, it is the set of solutions of a finite list of polynomials.
+The {\em ideal} $I$ of $V$ is defined to be the set of all polynomials vanishing on $V$.
+We can define an equivalence relation on polynomials, denoted $f \equiv g \mod I$, if and only if $f - g \in I$.
+It turns out that $f \equiv g \mod I$ if and only if $f(x) = g(x)$ for each $x \in V$.
+For a polynomial $f$ and an integer $k$, we say $f$ is {\em $k$-sos mod $I$} if we can write $f \equiv \sum_i g_i^2 \mod I$ for some polynomials $g_i$ with degree at most $k$.
+Now define the $k$th {\em theta body} of $I$, $\textup{TH}_k(I)$, to be the intersection of all affine linear functions $f$ which are $k$-sos mod $I$. 
+This defines a relaxation of the convex hull of $V$: $\conv(V) \subseteq \textup{TH}_k(I)$ for each $k$, with the approximation improving as $k$ increases.
+We can optimize over $\textup{TH}_k(I)$ in polynomial time for fixed $k$ using semidefinite programming, so this provides an efficient relaxation to $P(\mathcal{C}) = \conv(V)$.
+
+\subsection{Example: the stable set problem}
+We apply the theta body example with $k=1$ above to the {\em stable set problem}.
 
 The {\em stable set problem} is, given a graph $G = (V,E)$, to find the maximum size of a vertex set which is completely disconnected. 
 We can embed this problem in $\RR^n$ as follows. 
