@@ -6,25 +6,45 @@
 \chapter{Introduction}
 \label{chap:Introduction}
 
-\section{The Theta Body of the Stable Set Problem}
+\section{Background and Definitions}
 This thesis studies the application of sums of squares to combinatorial optimization. 
 In this section, we give a description of the general area of combinatorial optimization and sums of squares in particular.
 We introduce many of the concepts which will be used in the following chapters. 
 In the remainder of the introduction, we give an extended abstract of each chapter.
 
-\subsection{Combinatorial Optimization Problems}
-Combinatorial optimization is the branch of optimization problems concerning finding the best object from a discrete set. 
+\subsection{Combinatorial Optimization}
+Combinatorial optimization is the study of problems consisting of optimizing a function over a discrete set. 
 Applications are common in computer science, mathematics, and operations research.
-For instance, the objective of the traveling salesman problem is to find a minimum-cost tour among a set of cities; the shortest path problem is to find a shortest-distance path between two nodes in a graph; and the assignment problem is to assign workers to jobs while minimizing the total wages paid. 
-In particular, we will consider the stable set problem, where we find the maximum-size independent vertex set in a graph.
+For example, the goal of the traveling salesman problem is to find a minimum-cost tour among a set of cities.
+The goal of the shortest path problem is to find a shortest-distance path between two nodes in a graph.
+And the goal of the assignment problem is to assign workers to jobs while minimizing the total wages paid. 
 
-Combinatorial optimization problems often end up being NP-complete or harder. 
-That is, we are unlikely to ever find efficient algorithms to solve them exactly. 
+In each of the above problems, we minimize a linear function over a finite set.
+For instance, in the traveling salesman problem, we want to find the minimum of $f(T) = \sum_{e \in E} c_ex_e$ over all tours $T$.
+Here, a tour is represented by a 0/1 vector $x \in \mathbb{R}^{n \choose 2}$, with $x_e = 1$ if and only if the edge $e$ is part of $T$.
+The weights $c_e$ are part of the problem data and represent the cost to travel along edge $e$.
+
+A common approach is to rewrite this as a linear program. 
+The problem is naturally an integer linear program, as we can replace the constraints $x_e \in \{0,1\}$ by $x_e \in \mathbb{Z}$, $0 \le x_e \le 1$, and encode the fact that $T$ is a tour using other linear constraints.
+But since we optimizea linear function, the optimum is unchanged if we instead consider the convex hull $\textup{TSP}(G)$ of all tours.
+This is a natural object to study without referring to a specific set $(c_e)$ of weights, since changing the weights is equivalent to optimizing in a different direction over $\textup{TSP}(G)$.
+
+To construct this convex hull in general, consider a problem where we optimize over some feasible collection $\mathcal{C}$ of subsets of a fixed set $X$.
+For instance, in the TSP we let $\mathcal{C}$ be the collection of all tours; here $X$ is the set of edges.
+In the shortest-path problem we consider $\mathcal{C}$ to be the collection of all paths from a fixed $x \to y$; again $X$ is the set of edges.
+A non-graph example is the knapsack problem, where $\mathcal{C}$ is the set of subsets of $X = \{1, \ldots, n\}$ satisfying a capacity constraint.
+In general, we will assume that $X = \{1, \ldots, n\}$ for some $n$; this can always be accomplished by enumerating $X$.
+For each $C \in \mathcal{C}$, define its characteristic vector $\chi_C \in \{0,1\}^n$, where for $1 \le i \le n$, $(\chi_C)_i = 1$ if and only if $i \in C$.
+Then define the polytope $P(\mathcal{C}) = \conv \{\chi_C: C \in \mathcal{C}\}$.
+If we can optimize in polynomial time over $P(\mathcal{C})$ in any direction, we have solved the problem associated to $\mathcal{C}$.
+
+Of course, many combinatorial optimization problems often end up being NP-complete or harder. 
+That is, we are unlikely to ever find efficient algorithms to solve them exactly.
 And in some cases where the abstract mathematical problem does have an efficient algorithm, real-world constraints can make it intractable. 
-For instance, when assigning medical students to residencies, the constraint that married couples live in the same city makes the problem NP-complete.
-
+For instance, when assigning medical students to residencies, the constraint that married pairs of students live in the same city makes the problem NP-complete.
 Therefore, much research has focused on developing methods to solve these problems approximately. 
-In this paper, we describe one such method based on sums of squares.
+Using various methods, we can construct a relaxation $P'(\mathcal{C})$ to $ P(\mathcal{C})$ and try to show that the gap between them is not very large.
+In the next section, we describe one such method based on sums of squares.
 
 \subsection{Sums of Squares and Optimization}
 Consider for the moment unconstrained optimization problems on $\RR^n$. 
