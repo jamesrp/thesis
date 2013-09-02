@@ -97,7 +97,7 @@ The {\em $K_i$-cover problem} is a generalization of the stable set problem disc
 in Chapter 1.1. A graph $G = (V,E)$ is given. For any $k$, a $k$-clique in $G$,
 denoted $K_i$,
 is a collection of $k$ nodes, each pair of which is connected by an edge in $E$.
-We define a covering relation, where an $i$-clique $H_1$ is covered by an 
+We define a covering relation where an $i$-clique $H_1$ is covered by an 
 $(i-1)$-clique $H_2$ if $H_1 \supseteq H_2$; i.e., if $H_2$ is a subgraph of
 $H_1$. A $K_i$-cover in $G$ is a
 collection $\mathcal{F}$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$
@@ -114,7 +114,7 @@ In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$
 \end{figure}
 
 When $i=2$, this is the \emph{vertex cover problem} - to find the smallest
-set $\mathcal{F}$ of vertices such that each edge touches a vertex in
+set $\mathcal{F}$ of vertices such that each edge is covered by a vertex in
 $\mathcal{F}$. To make the
 connection to the stable set problem, note that $\mathcal{F} \subseteq V$ is a vertex
 cover if and only if $V \setminus \mathcal{F}$ is a stable set.
@@ -141,7 +141,7 @@ Conforti et al left open the existence of oracles for several families of
 facets, including the family associated with the {\em $K_i$-$p$-holes}. 
 A graph $H$ is a $K_i$-$p$-hole if it contains $p$ copies of $K_i$ arranged in a cycle, with neighboring $K_i$ sharing a common $K_{i-1}$. 
 This does not determine $H$ up to isomorphism; see Figure 2 for three nonisomorpic $K_3$-9-holes.
-To see the facet associated to a $K_i$-$p$-hole, consider the graphs in Figure 2. 
+To understand the facet inequality associated to a $K_i$-$p$-hole, consider the graphs in Figure 2. 
 To construct a $K_3$-cover of minimum size, we need to pick an edge from each $K_3$. 
 We can pick four edges to eliminate eight $K_3$s, but we still need a fifth to pick up the last $K_3$. 
 Therefore, $\sum_{e \subseteq H} x_e \ge 5$ is valid on the polytope $P_3(G)$ for any graph $G$ containing $H$ as a subgraph. 
@@ -161,24 +161,26 @@ It defines a facet of $P_i(G)$ for $i \ge 3$ and odd $p$.
 \subsection{Results}
 \begin{itemize}
 \item We show that the family of facets corresponding to $K_i$-$p$-holes is valid on
-the theta body $\textup{TH}_{i/2}(G)$.
+the theta body $\textup{TH}_{\lceil i/2\rceil }(G)$.
 Therefore, for fixed $i$, we have a polynomial-time algorithm to optimize over a relaxation at least as tight as this family. 
-To show that the $K_i$-$p$-hole facets were valid on $\textup{TH}_{i/2}(G)$, we choose a set of 
+To show that the $K_i$-$p$-hole facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, we choose a set of 
 polynomials which are idempotent mod $I$, and whose sum is the facet-defining
 inequality.
 \item We consider the triangle free problem, the special case $i=3$ of the
 $K_i$-free problem. We show that $P_3(K_n) \subsetneq \textup{TH}_{k}(K_n)$ for $k < n/2$.
 That is, it takes at least $n/2$ steps for the theta body heirarchy to converge
 to the triangle free polytope for $K_n$, and therefore this heirarchy does not give a polynomial-time algorithm for the triangle free problem.
-We show this by applying a result of Laurent \cite{moniquestuff} that the same $n/2$ theta body is necessary to equal the cut polytope.
-\item We show that there is an {\em integrality gap} of $1/2$ for the triangle cover's theta relaxation. 
-That is, if we optimize in the all-1 direction as in the triangle cover problem, we have $\min \{1 \cdot x: x \in \textup{TH}_2(G) \} \ge \frac{1}{2} \min \{1 \cdot x: x \in P_3(G)\}$ for all $G$. 
+We show this by observing that the cut polytope and triangle free polytope of $K_n$ share a facet, and apply a result of Laurent \cite{moniquestuff} that the theta heirarchy takes at least $n/2$ steps to reach this facet.
+\item We show that there is an {\em integrality gap} of $1/2$ for the triangle cover's second theta relaxation. 
+That is, if we optimize in the all-1 direction in the triangle cover problem, we have $\min \{1 \cdot x: x \in \textup{TH}_2(G) \} \ge \frac{1}{2} \min \{1 \cdot x: x \in P_3(G)\}$ for all $G$. 
 We prove this by applying a result of Krivelevich \cite{krivelevich} on a fractional relaxation of the same problem, and proving that $\textup{TH}_2(G)$ is contained in this fractional relaxation.
 \end{itemize}
 \subsection{Comments}
-We don't fully address the open question in Conforti, because showing that family of the $K_i$-$p$-hole facets, $\mathcal{F}$, is valid on $\textup{TH}_{i/2}(G)$ does not give a separation oracle for $\mathcal{F}$.
+We don't fully address the question raised in Conforti of whether there is a polynomial time separation oracle for the family $\mathcal{F}$ of $K_i$-$p$-hole facets.
+We show that the facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, and that we can check membership of $\textup{TH}_{\lceil i/2 \rceil}$ in polynomial time. 
+However, this does not give a separation oracle for $\mathcal{F}$.
 Indeed, let $Q$ be the body defined as the intersection of all $F \in \mathcal{F}$.
-We have $P_i(G) \subseteq \textup{TH}_{i/2}(G) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
+We have $P_i(G) \subseteq \textup{TH}_{\lceil i/2\rceil}(G) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
 However, this doesn't allow us to optimize over exactly $Q$ in polynomial time.
 In fact, for $i=2$, the stable set case, we have a similar phenomenon:
 $\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$. Here STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
@@ -188,7 +190,7 @@ In this case it is NP-hard to optimize over either STAB or QSTAB, while TH can b
 Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated
 to other subgraphs of $G$, for which no separation oracle is currently known. We
 checked numerically and found that they did not appear to be valid on
-$\textup{TH}_{i/2}(G)$, but they may be valid on higher theta bodies.
+$\textup{TH}_{\lceil i/2\rceil}(G)$, but they may be valid on higher theta bodies.
 
 
 
