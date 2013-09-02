@@ -2,3 +2,5 @@ basic compilation: bash compile.sh
 
 issues: I have texlive-full installed on ubuntu 13.04. This is certainly 
 overkill but I wanted to make sure I have all packages to reduce headaches.
+
+update: it looks like I can make do with smaller packages. I forgot which they are now though.
