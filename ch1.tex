@@ -55,6 +55,7 @@ Using various methods, we can construct a relaxation $P'(\mathcal{C})$ to $ P(\m
 In the next section, we describe one such method based on sums of squares.
 
 \subsection{Sums of Squares and the Theta Body}
+\label{section:introtheta}
 Consider for the moment unconstrained polynomial optimization problems on $\RR^n$. 
 That  is, we are given a polynomial $f$ in $n$ real variables, and must find the global minimum value $f_{\min}$. 
 It turns out that optimization is closely related to checking nonnegativity.
@@ -85,9 +86,8 @@ Now define the $k$th {\em theta body} of $I$, $\textup{TH}_k(I)$, to be the inte
 This defines a relaxation of the convex hull of $V$: $\conv(V) \subseteq \textup{TH}_k(I)$ for each $k$, with the approximation improving as $k$ increases.
 We can optimize over $\textup{TH}_k(I)$ in polynomial time for fixed $k$ using semidefinite programming, so this provides an efficient relaxation to $P(\mathcal{C}) = \conv(V)$.
 
-TODO - put example of stable set first theta body here.
-Also define: 
-Here STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
+TODO - Define and work out first theta body of stable set problem.
+Also define STAB, TH, and QSTAB and say something about them.
 
 \section{A Semidefinite Approach to the $K_{\lowercase{i}}$-Cover Problem}
 Chapter \ref{chap:kicover} is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters} and is an application of theta bodies to the $K_i$-cover problem.
@@ -170,7 +170,7 @@ However, this does not give a separation oracle for $\mathcal{F}$.
 Indeed, let $Q$ be the body defined as the intersection of all $F \in \mathcal{F}$.
 We have $P_i(G) \subseteq \textup{TH}_{\lceil i/2\rceil}(G) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
 However, this doesn't allow us to optimize over exactly $Q$ in polynomial time.
-In fact, for $i=2$, the stable set case, we have a similar phenomenon: $\textup{STAB}(G) \subseteq \textup{TH}_1(G) \subseteq \textup{QSTAB}(G)$. 
+In fact, for $i=2$, the stable set case, we have a similar phenomenon: $\textup{STAB}(G) \subseteq \textup{TH}_1(G) \subseteq \textup{QSTAB}(G)$; recall \ref{section:introtheta} for the definitions of these bodies.
 In this case it is NP-hard to optimize over either STAB or QSTAB, while TH can be optimized over in polynomial time.
 
 
