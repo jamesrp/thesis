@@ -1,4 +1,6 @@
-basic compilation: bash compile.sh
+basic compilation:
+python compile.py    # Compiles stub.tex
+python compile.py -f # Compiles thesis.tex and does bibtex
 
 issues: I have texlive-full installed on ubuntu 13.04. This is certainly 
 overkill but I wanted to make sure I have all packages to reduce headaches.
