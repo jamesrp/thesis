@@ -2,7 +2,7 @@
 
 import subprocess, sys
 
-if sys.argv[1] == '-f':
+if len(sys.argv) > 1: # heh
     subprocess.call(["pdflatex", "thesis.tex"])
     subprocess.call(["bibtex", "thesis"])
     subprocess.call(["pdflatex", "thesis.tex"])
