@@ -14,6 +14,7 @@ Chapter \ref{chap:matchings} is a short note on representation theory that grew 
 Extended abstract of the bootstrap paper goes here.
 
 \section{Combinatorial Optimization and Sums of Squares}
+\label{section:cosos}
 Chapters \ref{chap:kicover} and \ref{chap:cube} study the application of sums of squares to combinatorial optimization. 
 In this section, we give a description of the general area of combinatorial optimization and sums of squares in particular.
 We introduce many of the concepts which will be used later.
@@ -84,12 +85,16 @@ Now define the $k$th {\em theta body} of $I$, $\textup{TH}_k(I)$, to be the inte
 This defines a relaxation of the convex hull of $V$: $\conv(V) \subseteq \textup{TH}_k(I)$ for each $k$, with the approximation improving as $k$ increases.
 We can optimize over $\textup{TH}_k(I)$ in polynomial time for fixed $k$ using semidefinite programming, so this provides an efficient relaxation to $P(\mathcal{C}) = \conv(V)$.
 
+TODO - put example of stable set first theta body here.
+Also define: 
+Here STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
+
 \section{A Semidefinite Approach to the $K_{\lowercase{i}}$-Cover Problem}
-Chapter 2 is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters}. 
+Chapter \ref{chap:kicover} is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters} and is an application of theta bodies to the $K_i$-cover problem.
 
 \subsection{Problem Description}
 
-The {\em $K_i$-cover problem} is a generalization of the stable set problem discussed in Chapter 1.1. 
+The {\em $K_i$-cover problem} is a generalization of the stable set problem discussed in Section \ref{section:cosos}.
 A graph $G = (V,E)$ is given. 
 For any $k$, a $k$-clique in $G$, denoted $K_i$, is a collection of $k$ nodes, each pair of which is connected by an edge in $E$.
 We define a covering relation where an $i$-clique $H_1$ is covered by an $(i-1)$-clique $H_2$ if $H_1 \supseteq H_2$; i.e., if $H_2$ is a subgraph of $H_1$. 
@@ -101,14 +106,15 @@ In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$
 	\centering
 	\includegraphics[width=.4\textwidth,natwidth=613,natheight=584]{K5.png}
 	\includegraphics[width=.4\textwidth,natwidth=613,natheight=584]{K4cover.png}
-	\caption{A graph with 5 copies of $K_4$: 0123,0124,0134,0234,1234; along with a possible $K_4$-cover.}
+	\caption{A graph with 5 copies of $K_4$: 0123,0124,0134,0234,1234; along with an example $K_4$-cover.}
 	\label{K5}
 \end{figure}
 
-When $i=2$, this is the \emph{vertex cover problem} - to find the smallest set $\mathcal{F}$ of vertices such that each edge is covered by a vertex in $\mathcal{F}$. 
+When $i=2$, the $K_i$-cover problem is the \emph{vertex cover problem} - to find the smallest set $\mathcal{F}$ of vertices such that each edge is covered by a vertex in $\mathcal{F}$. 
 To make the connection to the stable set problem, note that $\mathcal{F} \subseteq V$ is a vertex cover if and only if $V \setminus \mathcal{F}$ is a stable set.
 Therefore, the problems are essentially equivalent.
 In fact, the polytopes defined by these problems as in section 1.1 are congruent via the transformation $x_j \mapsto 1-x_j$ in each coordinate.
+Similarly, a set $\mathcal{F}$ of $K_{i-1}$s is a $K_i$-cover if and only if its complement $\mathcal{F}^c$ is $K_i$-free.
 
 \subsection{Background}
 
@@ -140,25 +146,31 @@ It defines a facet of $P_i(G)$ for $i \ge 3$ and odd $p$.
 
 \subsection{Results}
 \begin{itemize}
-\item We show that the family of facets corresponding to $K_i$-$p$-holes is valid on the theta body $\textup{TH}_{\lceil i/2\rceil }(G)$.
-Therefore, for fixed $i$, we have a polynomial-time algorithm to optimize over a relaxation at least as tight as this family. 
-To show that the $K_i$-$p$-hole facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, we choose a set of  polynomials which are idempotent mod $I$, and whose sum is the facet-defining inequality.
-\item We consider the triangle free problem, the special case $i=3$ of the $K_i$-free problem. We show that $P_3(K_n) \subsetneq \textup{TH}_{k}(K_n)$ for $k < n/2$.
+\item Our main result is that the family of facets corresponding to $K_i$-$p$-holes is valid on the theta body $\textup{TH}_{\lceil i/2\rceil }(G)$.
+Therefore, for fixed $i$, we have a polynomial-time algorithm to optimize over a relaxation at least as tight as the polyhedron described by this family. 
+To show that the $K_i$-$p$-hole facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, we exhibit a set of  polynomials which are {\em idempotent} mod $I$, and whose sum is the facet-defining inequality.
+\end{itemize}
+In additional, we proved two additional results about the triangle free problem, the case $i=3$ of the $K_i$-free problem.
+\begin{itemize}
+\item For the triangle free problem, we show that $P_3(K_n) \subsetneq \textup{TH}_{k}(K_n)$ for $k < n/2$.
 That is, it takes at least $n/2$ steps for the theta body heirarchy to converge to the triangle free polytope for $K_n$, and therefore this heirarchy does not give a polynomial-time algorithm for the triangle free problem.
 We show this by observing that the cut polytope and triangle free polytope of $K_n$ share a facet, and apply a result of Laurent \cite{moniquestuff} that the theta heirarchy takes at least $n/2$ steps to reach this facet.
-\item We show that there is an {\em integrality gap} of $1/2$ for the triangle cover's second theta relaxation. 
+\item We show that there is an {\em integrality gap} of $1/2$ for the triangle cover problem's second theta relaxation. 
 That is, if we optimize in the all-1 direction in the triangle cover problem, we have $\min \{1 \cdot x: x \in \textup{TH}_2(G) \} \ge \frac{1}{2} \min \{1 \cdot x: x \in P_3(G)\}$ for all $G$. 
 We prove this by applying a result of Krivelevich \cite{krivelevich} on a fractional relaxation of the same problem, and proving that $\textup{TH}_2(G)$ is contained in this fractional relaxation.
 \end{itemize}
 \subsection{Comments}
-We don't fully address the question raised in Conforti of whether there is a polynomial time separation oracle for the family $\mathcal{F}$ of $K_i$-$p$-hole facets.
-We show that the facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, and that we can check membership of $\textup{TH}_{\lceil i/2 \rceil}$ in polynomial time. 
+In our main result, we consider the theta body $\textup{TH}_{\lceil i/2 \rceil}(G)$. 
+The reason for choosing this level of the theta heirarchy is that the generators of the $K_i$-free ideal are polynomials of degree $i$.
+Therefore, they can't capture any inequalities on $\textup{TH}_k(G)$ when $2k < i$.
+
+We don't fully address the question raised in Conforti et al \cite{conforti} of whether there is a polynomial time separation oracle for the family $\mathcal{F}$ of $K_i$-$p$-hole facets.
+We show that these facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, and that we can check membership of $\textup{TH}_{\lceil i/2 \rceil}$ in polynomial time. 
 However, this does not give a separation oracle for $\mathcal{F}$.
 Indeed, let $Q$ be the body defined as the intersection of all $F \in \mathcal{F}$.
 We have $P_i(G) \subseteq \textup{TH}_{\lceil i/2\rceil}(G) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
 However, this doesn't allow us to optimize over exactly $Q$ in polynomial time.
-In fact, for $i=2$, the stable set case, we have a similar phenomenon: $\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$. 
-Here STAB is the convex hull of stable sets in $G$ and QSTAB is the LP relaxation given by clique inequalities.
+In fact, for $i=2$, the stable set case, we have a similar phenomenon: $\textup{STAB}(G) \subseteq \textup{TH}_1(G) \subseteq \textup{QSTAB}(G)$. 
 In this case it is NP-hard to optimize over either STAB or QSTAB, while TH can be optimized over in polynomial time.
 
 
