@@ -1,12 +1,11 @@
 \chapter{A Semidefinite Approach to the $K_\MakeLowercase{i}$-Cover Problem}
 \label{chap:kicover}
 
-
 \section{Introduction}
 A common way to model a combinatorial optimization problem is as the optimization of a function over the set $S \subseteq \{0,1\}^n$ of  characteristic vectors of the objects in question. When the objective function is linear, 
 we may replace $S$ by its convex hull $\hbox{conv}(S)$. The problem can be solved efficiently if we can find a small description of this polytope. Since for NP hard problems we cannot expect this, we look instead for  approximations to $\hbox{conv}(S)$. One possibility is to use semidefinite approximations, as introduced by Lov\'{a}sz \cite{lovasz} with the construction of the {\em theta body} of the stable set polytope of a graph. Another famous example is the approximation algorithm for the max cut problem due to Goemans and Williamson \cite{goemans_williamson}. In this paper we will use the semidefinite relaxations introduced by Gouveia, Parrilo and Thomas \cite{gpt} to analyze the {\em $K_i$-cover problem}.
 
-Recall that $K_i$ denotes the complete graph, or clique, on $i$ vertices. Given a graph $G$, let $\KK_j(G)$ be the collection of cliques in $G$ of size $j$ (usually, the graph is clear from context, and we write $\KK_j$). A collection $C \subset \KK_{i-1}$ is said to be a $K_i$-cover if for each $K \in \KK_i$, there is some $H \in C$ with $H \subset K$. In this case we say that $H$ covers $K$. The $K_i$-cover problem is, given a graph $G$ and a set of weights on $\KK_{i-1}$, to compute the minimum weight $K_i$-cover. The case $i=2$ is more commonly known as the vertex cover problem, in which we seek a collection of vertices such that each edge in $G$ contains at least one vertex from the collection. However, note that the usage of ``cover'' is reversed here: the vertex cover problem is the $K_2$-cover problem, not the $K_1$-cover problem.
+Recall that $K_i$ denotes the complete graph, or clique, on $i$ vertices. Given a graph $G$, let $\KK_j(G)$ be the collection of cliques in $G$ of size $j$ (usually, the graph is clear from context, and we write $\KK_j$). A (possibly empty) collection $C \subset \KK_{i-1}$ is said to be a $K_i$-cover if for each $K \in \KK_i$, there is some $H \in C$ with $H \subset K$. In this case we say that $H$ covers $K$. The $K_i$-cover problem is, given a graph $G$ and a set of weights on $\KK_{i-1}$, to compute the minimum weight $K_i$-cover. The case $i=2$ is more commonly known as the vertex cover problem, in which we seek a collection $C$ of vertices such that each edge in $G$ contains at least one vertex from $C$. However, note that the usage of ``cover'' is reversed here: the vertex cover problem is the $K_2$-cover problem, not the $K_1$-cover problem.
 
 A closely related problem, and the setting in which we will prove our results, is the {\em $K_i$-free problem}. As before, we are given a graph and a collection of weights on $\KK_{i-1}$. But now we seek the maximum weight collection $C \subseteq \KK_{i-1}$ such that $C$ is $K_i$-free. That is, for each $K \in \KK_i$, there is some $H \in \KK_{i-1}$, with $H \subset K$ and $H \notin C$. Again, the case $i=2$ of this problem is well-known as the stable set problem: we seek a maximum weight {\em stable set} $C$, where $C$ is stable if no two of its vertices are connected by an edge.
 
@@ -16,21 +15,26 @@ In this paper, we consider the polytope associated with the $K_i$-free problem. 
 $P_i(G) = \hbox{conv}(\{\chi_S: S \subset \KK_{i-1}(G) \text{ and $S$ is $K_i$-free}\})$, 
 the convex hull of the incidence vectors of the $K_i$-free sets. Note that $P_i(G) \subseteq [0,1]^{\KK_{i-1}(G)}$.
 
-As the $K_i$-free problem is NP-complete (see \cite{conforti}), we cannot expect a small description of $P_i(G)$ for general graphs $G$. However, for certain classes of facets of $P_i(G)$, Conforti, Corneil, and Mahjoub \cite{conforti} show that we can solve the separation problem in polynomial time, allowing us to optimize efficiently over a relaxation of $P_i(G)$. We provide a tighter relaxation of $P_i(G)$, improving their result.
+As the $K_i$-free problem is NP-complete (see \cite{conforti}), we cannot expect a small description of $P_i(G)$ for general graphs $G$. However, for certain classes of facets of $P_i(G)$, Conforti, Corneil, and Mahjoub \cite{conforti} show that we can solve the separation problem in polynomial time, allowing us to optimize efficiently over a relaxation of $P_i(G)$. We provide a strictly tighter relaxation of $P_i(G)$, improving their optimization result, but without proving the existence of polynomial separation oracles for any new family of facets.
 
 The structure of this paper is: in Section 2, we outline the main algebraic
 machinery, {\em theta bodies}, a semidefinite relaxation hierarchy. In Section 3
-we show that the $K_i$-$p$-hole facets are valid on the theta bodies. Finally,
+we show that the $K_i$-$p$-hole facets are valid on $\lceil i/2 \rceil$ level of the theta body hierarchy. Finally,
 in Section 4 we focus on the triangle free problem. We show that in the case of
-$G = K_n$, the theta body relaxations cannot converge in less than $n/4$ steps.
+$G = K_n$, the theta body relaxations cannot converge in less than $(n-2)/4$ steps.
 We also use a result of Krivelevich \cite{krivelevich}  to show an integrality gap of 2 for the second theta body.
+
+\subsection*{Acknowledgements}
+The authors would like to thank the anonymous referees for their helpful comments.
+The authors were partially supported on this project
+as follows: JG by `Centro de Matem\'{a}tica da Universidade de Coimbra' and `Funda\c{c}\~{a}o para a Ci\^{e}ncia e a Tecnologia', through European program COMPETE/FEDER; and JP by NSF grant DMS-1115293.
 
 \section{Theta bodies}
 Theta bodies are semidefinite approximations to the convex hull of an algebraic variety. For background, see \cite{frg} and \cite{gpt}. Here we state the necessary results for this paper without proofs.
 
-Let $V \subseteq \RR^n$ be a finite point set. One description of the convex hull of $V$ is as the intersection of all affine half spaces containing $V$:
+Let $V \subseteq \RR^n$ be a finite point set. One description of the convex hull of $V$ is as the intersection of all affine half spaces containing $V$ (recall that $f|_V$ is the restriction of $f$ to $V$):
 $$\hbox{conv}(V) = \{x \in \RR^n: f(x) \ge 0 \hbox{ for all linear $f$ such that } f|_V \ge 0\}.$$
-Since it is computationally intractable to find whether $f|_V \ge 0$, we relax this condition. Let $I$ be the vanishing ideal of $V$, i.e., the set of all polynomials vanishing on $V$. Recall that $f \equiv g \mod I$ means $f - g \in I$, and implies that $f$ and $g$ agree on $V$. A function $f$ is said to be a sum of squares of degree at most $k$ mod $I$, or {\em $k$-sos mod $I$}, if there exist functions $g_j$, $j=1,\ldots,m$ with degree at most $k$, such that $f \equiv \sum_{j=1}^mg_j^2$ mod $I$. If $f$ is $k$-sos mod $I$ for any $k$, it is clear that $f|_V \ge 0$ since $g_j^2$ is visibly nonnegative on $V$. Therefore, we make the following definition of $\THETABODY_k(I)$, the $k$-th theta body of $I$:
+Since it is computationally intractable to find whether $f|_V \ge 0$, we relax this condition. Let $I$ be the vanishing ideal of $V$, i.e., the set of all polynomials vanishing on $V$. Recall that $f \equiv g \mod I$ means $f - g \in I$, and implies that $f(x) = g(x)$ for all $x \in V$. A function $f$ is said to be a sum of squares of degree at most $k$ mod $I$, or {\em $k$-sos mod $I$}, if there exist functions $g_j$, $j=1,\ldots,m$ with degree at most $k$, such that $f \equiv \sum_{j=1}^mg_j^2$ mod $I$. If $f$ is $k$-sos mod $I$ for any $k$, it is clear that $f|_V \ge 0$ since $g_j^2$ is visibly nonnegative on $V$. Therefore, we make the following definition of $\THETABODY_k(I)$, the $k$-th theta body of $I$:
 $$\THETABODY_k(I) = \{x \in \RR^n: f(x) \ge 0 \hbox{ for all linear $f \equiv$ $k$-sos mod $I$}\}.$$
 The reason why the theta bodies $\THETABODY_k(I)$ provide a computationally tractable relaxation of $\hbox{conv}(V)$ is that the membership problem for $\THETABODY_k(I)$ can be expressed as a semidefinite program, using {\em moment matrices} that are reduced mod $I$. 
 
@@ -44,7 +48,7 @@ x^S: S \notin V\rangle,$$ and a basis for $\RR[V] = \RR[x]/I$ is given by $B = \
 where $x^S := \prod_{i \in S} x_i$ is a shorthand used throughout the paper.
 \end{lemma}
 
-Another important fact about $\THETABODY_k(I)$ in this setting (when $I$ is real radical) is that a linear inequality $f(x) \geq 0$ is valid on $\THETABODY_k(I)$ if and only if $f$ is actually $k$-sos modulo $I$.
+Another important fact about $\THETABODY_k(I)$ in this setting (when $I$ is a real ideal) is that a linear inequality $f(x) \geq 0$ is valid on $\THETABODY_k(I)$ if and only if $f$ is actually $k$-sos modulo $I$.
 In Section 3, we will prove that certain facet-defining inequalities of $P_i(G)$ are also valid on its theta relaxations $\THETABODY_k(I)$ by presenting a sum of squares representation modulo the ideal. For now, we observe that by considering degrees, we can get a bound on which theta bodies are trivial; that is, equal to the hypercube $[0,1]^n$.
 
 \begin{lemma} \label{lowerbound}
@@ -74,7 +78,7 @@ y_{X \cup Y} & \ \ \textrm{ if } X \cup Y \in V, \\
 With these matrices we can finally give a semidefinite description of $\THETABODY_k(I)$.
 
 \begin{proposition}
-With $I$ and $V$ as before, $\THETABODY_k(I)$ is the projection onto the coordinates $(y_{e_1}, \cdots, y_{e_n})$ of the set
+With $I$ and $V$ as before, $\THETABODY_k(I)$ is the canonical projection onto $\mathbb{R}^n$ via the coordinates $(y_{e_1}, \cdots, y_{e_n})$ of the set
 $$\{y \in \RR^{V_{2k}}\ : \ M_{V_k}(y) \succeq 0 \textrm{ and } y_{0}=1\}.$$
 In particular, optimizing to arbitrary fixed precision over $\THETABODY_k(I)$
 can be done in time polynomial in $n$, for fixed $k$.
@@ -104,22 +108,120 @@ y_6 & 0 & y_6 & y_6 & 0 & 0 & y_6 \\
 Projecting the set $\{y: y_0 = 1, M_{V_2}(y) \succeq 0 \}$ onto $(y_1,y_2,y_3)$ gives $\THETABODY_2(I)$ for this graph.
 
 \section{Polynomial-time algorithm}
-A graph $H$ is a $K_i$-$p$-hole if $H$ contains $p$ copies of $K_i$ as subgraphs, $G_1, \ldots, G_p$, and $G_j$ and $G_l$ share a common $K_{i-1}$ if and only if $j-l = \pm 1 \mod p$; see Figure \ref{ki-p-hole}. Theorem 3.5 in \cite{conforti} establishes that for $i \ge 3$ and odd $p$, the inequality $\sum_{\KK_{i-1}(H)} x_j \le (\frac{p-1}{2})(2i-3)+i-2$ defines a facet of $P_i(G)$ for each induced $K_i$-$p$-hole $H$ of $G$.
+A graph $H$ is a $K_i$-$p$-hole if $H$ is the union of $G_1, \ldots, G_p$, each a copy of $K_i$, where $G_j$ and $G_l$ share a common $K_{i-1}$ if and only if $j-l = \pm 1 \mod p$; see Figure \ref{9holeintro}. Theorem 3.5 in \cite{conforti} establishes that for $i \ge 3$ and odd $p$, the inequality $\sum_{\KK_{i-1}(H)} x_j \le (\frac{p-1}{2})(2i-3)+i-2$ defines a facet of $P_i(G)$ for each induced $K_i$-$p$-hole $H$ of $G$.
 We will show that the facets corresponding to induced $K_i$-$p$-holes are valid
 on $\THETABODY_{\lceil i/2 \rceil}(I)$, which can be optimized over in
-polynomial time for fixed $i$, addressing an open question in Conforti, Corneil and Mahjoub \cite{conforti}. Note that in this section, the ideal $I$ always refers to the $K_i$-free problem, and the associated graph $G$ will be clear from context.
+polynomial time for fixed $i$, and relate this complexity result with the ones in Conforti, Corneil and Mahjoub \cite{conforti}. Note that in this section, the ideal $I$ always refers to the $K_i$-free problem, and the associated graph $G$ will be clear from context.
 Therefore, we will say $k$-sos for $k$-sos mod $I$.
 
 \begin{figure}[htd]
-	\centering
-	\includegraphics[width=.3\textwidth,natwidth=589,natheight=584]{9holeA.png}
-	\includegraphics[width=.3\textwidth,natwidth=575,natheight=584]{9holeB.png}
-	\includegraphics[width=.3\textwidth,natwidth=584,natheight=584]{9holeC.png}
+\begin{tikzpicture}
+  [scale=1.8,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (0) at
+(1.00000000000000,0.000000000000000) {};
+  \node (1) at (0.766044443118978,0.642787609686539) {};
+  \node (2) at (0.173648177666930,0.984807753012208) {};
+  \node (3) at (-0.500000000000000,0.866025403784439) {};
+  \node (4) at (-0.939692620785908,0.342020143325669) {};
+  \node (5) at (-0.939692620785908,-0.342020143325669) {};
+  \node (6) at (-0.500000000000000,-0.866025403784439) {};
+  \node (7) at (0.173648177666930,-0.984807753012208) {};
+  \node (8) at (0.766044443118978,-0.642787609686540) {};
+
+
+  \draw (0) -- (1);
+  \draw (0) -- (2);
+  \draw (0) -- (7);
+  \draw (0) -- (8);
+  \draw (1) -- (2);
+  \draw (1) -- (3);
+  \draw (1) -- (8);
+  \draw (2) -- (3);
+  \draw (2) -- (4);
+  \draw (3) -- (4);
+  \draw (3) -- (5);
+  \draw (4) -- (5);
+  \draw (4) -- (6);
+  \draw (5) -- (6);
+  \draw (5) -- (7);
+  \draw (6) -- (7);
+  \draw (6) -- (8);
+  \draw (7) -- (8);
+
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+  [scale=.9,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (0) at (1,0) {};
+  \node (1) at (-0.150000000000000,1.20000000000000) {};
+  \node (2) at (-0.600000000000000,0.600000000000000) {};
+  \node (3) at (-0.600000000000000,-0.600000000000000) {};
+  \node (4) at (-0.150000000000000,-1.20000000000000) {};
+  \node (5) at (2,0) {};
+  \node (6) at (0,2) {};
+  \node (7) at (-2,0) {};
+  \node (8) at (0,-2) {};
+
+
+  \draw (0) -- (1);
+  \draw (0) -- (4);
+  \draw (0) -- (5);
+  \draw (1) -- (2);
+  \draw (1) -- (5);
+  \draw (1) -- (6);
+  \draw (1) -- (7);
+  \draw (2) -- (3);
+  \draw (2) -- (7);
+  \draw (3) -- (4);
+  \draw (3) -- (7);
+  \draw (4) -- (5);
+  \draw (4) -- (7);
+  \draw (4) -- (8);
+  \draw (5) -- (6);
+  \draw (5) -- (8);
+  \draw (6) -- (7);
+  \draw (7) -- (8);
+
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+  [scale=1.8,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (0) at
+(1.00000000000000,0.000000000000000) {};
+  \node (1) at (0.766044443118978,0.642787609686539) {};
+  \node (2) at (0.173648177666930,0.984807753012208) {};
+  \node (3) at (-0.500000000000000,0.866025403784439) {};
+  \node (4) at (-0.939692620785908,0.342020143325669) {};
+  \node (5) at (-0.939692620785908,-0.342020143325669) {};
+  \node (6) at (-0.500000000000000,-0.866025403784439) {};
+  \node (7) at (0.173648177666930,-0.984807753012208) {};
+  \node (8) at (0.766044443118978,-0.642787609686540) {};
+  \node (9) at (0.000000000000000,0.000000000000000) {};
+
+
+  \draw (0) -- (1);
+  \draw (0) -- (8);
+  \draw (0) -- (9);
+  \draw (1) -- (2);
+  \draw (1) -- (9);
+  \draw (2) -- (3);
+  \draw (2) -- (9);
+  \draw (3) -- (4);
+  \draw (3) -- (9);
+  \draw (4) -- (5);
+  \draw (4) -- (9);
+  \draw (5) -- (6);
+  \draw (5) -- (9);
+  \draw (6) -- (7);
+  \draw (6) -- (9);
+  \draw (7) -- (8);
+  \draw (7) -- (9);
+  \draw (8) -- (9);
+
+\end{tikzpicture}
 	\caption{Three non-isomorphic $K_3$-9-holes.}
 	\label{9holeintro}
 \end{figure}
 
-The first lemma is an auxiliary result that a class of functions are sums of squares. For an ideal $I$, a function $f$ is said to be {\em idempotent} mod $I$ if $f^2 \equiv f \mod I$. Since an idempotent is visibly a square, we can use it as a summand in our sum of squares. In practice, idempotents end up being very useful in sums of squares.
+The first lemma is an auxiliary result that certain functions are sums of squares. For an ideal $I$, a function $f$ is said to be {\em idempotent} mod $I$ if $f^2 \equiv f \mod I$. Since an idempotent is visibly a square, we can use it as a summand in our sum of squares. In practice, idempotents end up being very useful in constructing sums of squares.
 
 \begin{lemma}\label{ki}\
 Suppose 
@@ -141,15 +243,22 @@ The inequality $\sum_{k \in \KK_{i-1}(H)}x_k \le i-1$ is valid on $\THETABODY_{\
 Let $J$ be a subset of $\KK_{i-1}(H)$ of size $\lceil i/2 \rceil$. Applying Lemma \ref{ki} with 
 $A=\emptyset$ and $B=J$ we see that 
  $$ f(x) =  |J|-1 + x^J - \sum_{l \in J} x_l $$ is $|J|$-sos. Similarly 
-$$g(x)= |J^c|-1 + x^{J^c} - \sum_{l \in J^c} x_l $$ is $|J^c|$-sos. Finally observe that 
+$$g(x)= |J^c|-1 + x^{J^c} - \sum_{l \in J^c} x_l $$ is $|J^c|$-sos ($J^c$ is the complement of $J$ in $\KK_{i-1}(H)$). Finally observe that 
 $h(x) = 1 - x^J - x^{J^c}$ is idempotent. Since these polynomials are all $\lceil i/2 \rceil$-sos, it remains to observe that their sum,
 $$f(x)+g(x)+h(x)=i-1-\sum_{k \in \KK_{i-1}(H)}x_k,$$
 is also $\lceil i/2 \rceil$-sos.
 \end{proof}
 
-Now we are ready to prove that the $K_i$-$p$-hole inequalities are valid on $\THETABODY_{\lceil i/2 \rceil}(I)$. Recall that if $H$ is a $K_i$-$p$-hole, we write $G_1,\ldots,G_p$ for the $K_i$s in $H$, with adjacent $K_i$ sharing a common $K_{i-1}$. If $G$ has an induced $K_i$-$p$-hole $H$, then the inequality
+Now we are ready to prove that the $K_i$-$p$-hole inequalities are valid on $\THETABODY_{\lceil i/2 \rceil}(I)$. Recall that if $H$ is a $K_i$-$p$-hole, we write $G_1,\ldots,G_p$ for the $K_i$s in $H$, with adjacent $K_i$ sharing a common $K_{i-1}$. 
+
+\begin{theorem} \cite[Theorem 3.4]{conforti}
+If $G$ has an induced $K_i$-$p$-hole $H$, then the inequality
 $$\frac{p-1}{2} (2i-3)+i-2 - \sum_{i \in H} x_i \geq 0$$
-defines a facet of $P_i(G)$ for $i \ge 3$; see \cite{conforti}.
+defines a facet of $P_i(G)$ for $i \ge 3$.
+\end{theorem}
+
+For even $i$ these  inequalities are still valid, but not facets anymore. In the next result we give a sums of squares certificate to
+the validity of these inequalities.
 
 \begin{lemma}\label{kiphole}
 The $K_i$-$p$-hole inequalities are $\lceil i/2 \rceil$-sos for $p$ odd.
@@ -184,7 +293,7 @@ valid on $\THETABODY_{\lceil i/2 \rceil}(I)$. But since these inequalities defin
 facets of $P_i(G) \subseteq \THETABODY_{\lceil i/2 \rceil}(I)$, we see that they also
 define facets of $\THETABODY_{\lceil i/2 \rceil}(I)$.
 
-In Section 3.3 of \cite{conforti}, Conforti, Corneil, and Mahjoub show that polynomial time separation oracles exist for each of the following facets of $P_i(G)$.
+In Section 3.3 of \cite{conforti}, Conforti, Corneil, and Mahjoub show that polynomial time separation oracles exist for the following facets of $P_i(G)$.
 \begin{enumerate}
 \item Nonnegativities $0 \le x_k \le 1$,
 \item $K_i$ (clique) inequalities $\sum_{k \subset K_i}x_k \le i-1$,
@@ -196,11 +305,13 @@ Define the polytope $Q(G)$ as the intersection of these facets, and define $Q'(G
 \end{enumerate}
 a superclass of (3).
 
-The result from Conforti, Corneil, and Mahjoub \cite{conforti} allows us to optimize over $Q(G)$ in polynomial time. However, it is open in \cite{conforti} whether there is also a polynomial time separation oracle for the class ($3'$), or more generally, whether we can optimize efficiently over $Q'(G)$. 
+The separation oracle provided by Conforti, Corneil, and Mahjoub \cite{conforti} allows us to use the ellipsoid method to optimize over $Q(G)$ in polynomial time. However, it is stated as an open problem in \cite{conforti} whether there is also such a polynomial time oracle for the class ($3'$), which would allow us to optimize in polynomial time over $Q'(G)$.
 
-The results in this section show that we can optimize in polynomial time (for
-fixed $i$) over $\THETABODY_{\lceil i/2 \rceil}(I)$, a tighter relaxation than $Q'(G)$. Precisely, we have the following inclusions:
+The results in this section show that $\THETABODY_{\lceil i/2 \rceil}(I)$, over which we can optimize in polynomial time (for
+fixed $i$ and to fixed arbitrary precision), is a tighter relaxation than $Q'(G)$. Precisely, we have the following inclusions:
 $$P_{i}(G) \subseteq  \THETABODY_{\lceil i/2 \rceil}(I) \subseteq Q'(G) \subseteq Q(G).$$
+A big advantage of this result is how easy it is to use in practice. The polynomial time results derived from the separation oracle rely on the ellipsoid method, which is numerically unstable and poor in practice even for small instances. By contrast, optimizing over the theta body is a standard semidefinite program; hence it can be done using interior point methods and can be straightforwardly implemented using any off-the-shelf solver. The original question in \cite{conforti} is however still open, since we have not provided any separation oracle for the class ($3'$).
+
 There are other families of facets of $P_i(G)$ for which efficient separation oracles are given in \cite{conforti}. We have not treated them here, as they would not yield any new polynomial time results.
 
 \section{Related Problems}
@@ -208,7 +319,7 @@ Here we apply two results appearing in the literature to the triangle free probl
 
 \subsection{A lower bound on theta convergence}
 In Section 3, we showed that the earliest possible theta body, $\THETABODY_{\lceil i/2 \rceil}(I_G)$, satisfies several inequalities defining facets of $P_i(G)$. However, in general it can take many steps of the theta hierarchy before a given facet of $P_i(G)$ is valid on $\THETABODY_k(G)$. This is the case even for the triangle free problem. In particular, we will show:
-\begin{theorem}
+\begin{theorem}\label{trianglecut}
 For $k < \frac{n-2}{4}$, $P_3(K_n) \subsetneq \THETABODY_{k}(I_{K_n})$.
 \end{theorem}
 
@@ -234,14 +345,15 @@ notation from the $K_i$-free problem.
 
 For the complete graph $K_n$, when $n$ is odd, the inequality
 \begin{equation} \sum_{e \in E} x_e \le \frac{n^2-1}{4}\end{equation}
-defines a facet of both $P_3(K_n)$ and $\textup{CUT}(K_n)$ \cite{moniquestuff}.
-This inequality is not valid on $\THETABODY_k(I(C_{K_n}))$ for $k < \frac{n-2}{4}$; see Example 3.9 in \cite{GLPT}.
-\begin{theorem}
+defines a facet of both $P_3(K_n)$ and $\textup{CUT}(K_n)$.
+%This inequality is not valid on $\THETABODY_k(I(C_{K_n}))$ for $k < \frac{n-2}{4}$; see Example 3.9 in \cite{GLPT}.
+\begin{theorem}{\cite[Theorem 6]{moniquestuff}}
 For $k < \frac{n-2}{4}$, $\textup{CUT}(K_n) \subsetneq
 \THETABODY_{k}(I(C_{K_n}))$. In particular, equation (1) does not hold on $\THETABODY_{k}(I(C_{K_n}))$.
 \end{theorem}
-
-We can now prove Theorem 4.1.
+In \cite{moniquestuff} this result appears in terms of a different but related relaxation.
+A translation of that result
+to the theorem above can be found in Example 3.9 of \cite{GLPT}. We can now prove Theorem 4.1.
 
 \begin{proof}
 By Theorem 4.3, there is a point $x \in \THETABODY_{k}(I(C_{K_n}))$ violating (1). But by Lemma 4.2, $x \in \THETABODY_{k}(I(T_{K_n}))$. Since (1) is valid on $P_3(K_n)$, $x \notin P_3(K_n)$.
@@ -249,6 +361,9 @@ By Theorem 4.3, there is a point $x \in \THETABODY_{k}(I(C_{K_n}))$ violating (1
 
 This implies that the theta body hierarchy does not polynomially capture the $K_n$ inequalities, as the size of the reduced moment matrices associated with the $\lceil\frac{n-2}{4}\rceil$-th theta body is exponential in $n$. It is still an open question, for both $\textup{CUT}(K_n)$ and $P_3(K_n)$, what is the
 smallest $k$ so that the $k$-th theta body is exact.
+
+Recall that for $i=2$, the $K_i$-free problem is simply the stable set problem. In that case it is well known that the clique inequalities
+are valid for the first theta body relaxation. A simple byproduct of Theorem \ref{trianglecut} is that this fact fails to generalize even to $i=3$, as it is impossible to capture all the clique inequalities with a constant rank of theta bodies in this case.
 
 \subsection{An integrality gap for triangle cover}
 Let $G$ be a graph. A {\it triangle cover} is a collection of edges in $G$, containing at least one edge from every triangle in $G$. Let $\tau(G)$ be the minimum-size triangle cover in $G$ (in the language of the introduction, the $K_3$-cover problem with unit weights). Let $I$ be the ideal of the triangle cover problem. Define the following semidefinite relaxation:
