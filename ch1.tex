@@ -1,18 +1,25 @@
 %!TEX root = thesis.tex
 
 
-\pagenumbering{arabic}
-
 \chapter{Introduction}
-\label{chap:Introduction}
+\label{chap:introduction}
 
-\section{Background and Definitions}
-This thesis studies the application of sums of squares to combinatorial optimization. 
+This thesis studies several problems in probability and optimization.
+We give an extended abstract of each chapter, and give some context and motivation.
+Chapter \ref{chap:bootstrap} studies bootstrap percolation, a probabilistic model of nucleation and growth.
+Chapters \ref{chap:kicover} and \ref{chap:cube} apply sums of squares approximations to combinatorial optimization.
+Chapter \ref{chap:matchings} is a short note on representation theory that grew out of Chapter \ref{chap:cube}.
+
+\section{Bootstrap Percolation on the Hamming Torus}
+Extended abstract of the bootstrap paper goes here.
+
+\section{Combinatorial Optimization and Sums of Squares}
+Chapters \ref{chap:kicover} and \ref{chap:cube} study the application of sums of squares to combinatorial optimization. 
 In this section, we give a description of the general area of combinatorial optimization and sums of squares in particular.
-We introduce many of the concepts which will be used in the following chapters. 
-In the remainder of the introduction, we give an extended abstract of each chapter.
+We introduce many of the concepts which will be used later.
 
 \subsection{Combinatorial Optimization}
+\label{section:copt}
 Combinatorial optimization is the study of problems consisting of optimizing a function over a discrete set. 
 Applications are common in computer science, mathematics, and operations research.
 For example, the goal of the traveling salesman problem is to find a minimum-cost tour among a set of cities.
@@ -65,7 +72,7 @@ We will define a notion of sums of squares that is applicable to combinatorial o
 This definition originated with Lovasz \cite{lovasz} and was used to produce an approximation to the stable set problem.
 It was generalized to arbitrary problems by Gouveia, Parrilo, and Thomas \cite{gpt}.
 
-As in section 1.1.1, consider a collection $\mathcal{C}$ of subsets of $\{1, \ldots, n\}$. 
+As in Section \ref{section:copt}, consider a collection $\mathcal{C}$ of subsets of $\{1, \ldots, n\}$. 
 Let $V = \{\chi_C: C \in \mathcal{C}\}$.
 $V$ is a finite set, and therefore an {\em algebraic variety}.
 That is, it is the set of solutions of a finite list of polynomials.
@@ -77,7 +84,7 @@ Now define the $k$th {\em theta body} of $I$, $\textup{TH}_k(I)$, to be the inte
 This defines a relaxation of the convex hull of $V$: $\conv(V) \subseteq \textup{TH}_k(I)$ for each $k$, with the approximation improving as $k$ increases.
 We can optimize over $\textup{TH}_k(I)$ in polynomial time for fixed $k$ using semidefinite programming, so this provides an efficient relaxation to $P(\mathcal{C}) = \conv(V)$.
 
-\section{A Semidefinite Approach to the $K_\MakeLowercase{i}$-Cover Problem}
+\section{A Semidefinite Approach to the $K_{\lowercase{i}}$-Cover Problem}
 Chapter 2 is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters}. 
 
 \subsection{Problem Description}
@@ -164,10 +171,6 @@ We checked numerically and found that they did not appear to be valid on $\textu
 \section{Sums of Squares on the Unit Hypercube}
 
 Extended abstract of the cube paper goes here.
-
-\section{Flag Algebras and Sums of Squares}
-
-Extended abstract of the flag algebras paper goes here.
 
 \section{The Representation Theory of Matchings}
 
