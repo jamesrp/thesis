@@ -7,7 +7,7 @@
 \newcommand{\THETABODY}{\textup{TH}}
 
 
-
+%THEOREM DEFINITIONS
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{conjecture}{Conjecture}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -16,6 +16,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
 \newtheorem{xca}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
@@ -25,3 +26,86 @@
 
 \theoremstyle{proposition}
 \newtheorem{proposition}[theorem]{Proposition}
+ 
+\newenvironment{pfofthm}[1]
+{\par\vskip2\parsep\noindent{\sc Proof of\ #1. }}{{\hfill
+$\Box$}
+\par\vskip2\parsep}
+
+%% From Bootstrap
+
+%\usepackage[inline]{showlabels}
+
+
+
+%DEFINITIONS
+     \newcommand{\Prob}[1]{\mathbb{P}\left(#1\right)}
+     \newcommand{\E}[0]{\mathbb{E}}
+     \newcommand{\floor}[1]{\left\lfloor#1\right \rfloor}
+     \newcommand{\ceil}[1]{\left\lceil#1\right \rceil}
+     \newcommand{\vect}[1]{{ #1}}
+      \newcommand{\deq}[0]{\ {\buildrel d \over =}\  }
+      \newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\text{Plane Active}}
+\newcommand{\threshold}{\theta}
+\newcommand{\vertical}{\text{vert}}
+\newcommand{\horizontal}{\text{horiz}}
+\newcommand{\plane}{P}
+%\newcommand{\noodle}{\aleph}
+%\newcommand{\magic}{\gimel}
+\newcommand{\noodle}{r}
+\newcommand{\magic}{s}
+\newcommand{\abovethresh}{\text{Above Threshold}}
+\newcommand{\I}[2]{\hbox{Initial}\left(#1, \geq #2\right)}
+     \newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+     \newcommand{\abs}[1]{\left|#1\right|}
+     \newcommand{\ip}[2]{\left \langle #1, #2 \right \rangle}
+     
+     %% Indicators, rv's and events
+     \newcommand{\B}{I^{\text{\em B}}}
+     \newcommand{\EB}{I^{\text{\em EB}}}
+     \newcommand{\Lfoo}{I^{\text{\em L}}}
+     \newcommand{\OL}{I^{\emptyset\text{\em L}}}
+     \newcommand{\EL}{I^{\text{\em EL}}}
+     \newcommand{\NEL}{I^{\text{\em NEL}}}
+     \newcommand{\JB}{J^{\text{\em B}}}
+     \newcommand{\JEB}{J^{\text{\em EB}}}
+     \newcommand{\JL}{J^{\text{\em L}}}
+          \newcommand{\JOL}{J^{\emptyset\text{\em L}}}
+     \newcommand{\JEL}{J^{\text{\em EL}}}
+     \newcommand{\JNEL}{J^{\text{\em NEL}}}
+      \newcommand{\basic}{\operatorname{\tt Basic}}
+     \newcommand{\lin}{\operatorname{\tt Line}}
+     \newcommand{\oline}{\operatorname{\tt  Line\emptyset}}
+     \newcommand{\eline}{\operatorname{\tt Enhanced Line}}
+     \newcommand{\ebasic}{\operatorname{\tt Enhanced Basic}}
+     \newcommand{\neline}{\operatorname{\tt NonEnhancedLine}}
+     \newcommand{\good}{\text{good}}
+     \newcommand{\event}{G}
+
+\newcommand{\cF}{\mathcal F}
+     
+     
+\newcommand{\Gone}[1]{\hbox{Cross Lines}_m(#1)}
+\newcommand{\Gtwo}[1]{\hbox{Cross Lines}_r(#1)}
+\newcommand{\Gonez}{\hbox{Cross Lines}_m}
+\newcommand{\Gtwoz}{\hbox{Cross Lines}_r}
+\newcommand{\Linear}[2]{\text{Linear}(#1, #2)}
+\numberwithin{equation}{section}
+     
+     %% Sets of lines and planes
+     \newcommand{\planeset}{\mathscr{P}}
+     \newcommand{\lineset}{\mathscr{L}}
+     \newcommand{\Pl}{\mathbf{P}}
+     \newcommand{\Ln}{\ell}
+
+%These are for adjusting spacing around \hline - use them in a table cell that needs top/bottom spacing
+\newcommand\Ts{\rule{0pt}{2.8ex}}
+\newcommand\Bs{\rule[-1.6ex]{0pt}{0pt}}
+
+
+

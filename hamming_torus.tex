@@ -1,4 +1,146 @@
-\chapter{Bootstrap Percolation on the Hamming Torus}
+\documentclass{amsart}
+
+%PACKAGES
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{fullpage}
+\usepackage{mathrsfs}
+\usepackage{subfigure}
+\usepackage{verbatim}
+%\usepackage[inline]{showlabels}
+
+%\graphicspath{{Figures/}}%comment out to upload to arxiv
+
+
+%DEFINITIONS
+     \newcommand{\Prob}[1]{\mathbb{P}\left(#1\right)}
+     \newcommand{\E}[0]{\mathbb{E}}
+     \newcommand{\floor}[1]{\left\lfloor#1\right \rfloor}
+     \newcommand{\ceil}[1]{\left\lceil#1\right \rceil}
+     \newcommand{\vect}[1]{{ #1}}
+      \newcommand{\deq}[0]{\ {\buildrel d \over =}\  }
+      \newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\text{Plane Active}}
+\newcommand{\threshold}{\theta}
+\newcommand{\vertical}{\text{vert}}
+\newcommand{\horizontal}{\text{horiz}}
+\newcommand{\plane}{P}
+%\newcommand{\noodle}{\aleph}
+%\newcommand{\magic}{\gimel}
+\newcommand{\noodle}{r}
+\newcommand{\magic}{s}
+\newcommand{\abovethresh}{\text{Above Threshold}}
+\newcommand{\I}[2]{\hbox{Initial}\left(#1, \geq #2\right)}
+     \newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+     \newcommand{\abs}[1]{\left|#1\right|}
+     \newcommand{\ip}[2]{\left \langle #1, #2 \right \rangle}
+     
+     %% Indicators, rv's and events
+     \newcommand{\B}{I^{\text{\em B}}}
+     \newcommand{\EB}{I^{\text{\em EB}}}
+     \newcommand{\Lfoo}{I^{\text{\em L}}}
+     \newcommand{\OL}{I^{\emptyset\text{\em L}}}
+     \newcommand{\EL}{I^{\text{\em EL}}}
+     \newcommand{\NEL}{I^{\text{\em NEL}}}
+     \newcommand{\JB}{J^{\text{\em B}}}
+     \newcommand{\JEB}{J^{\text{\em EB}}}
+     \newcommand{\JL}{J^{\text{\em L}}}
+          \newcommand{\JOL}{J^{\emptyset\text{\em L}}}
+     \newcommand{\JEL}{J^{\text{\em EL}}}
+     \newcommand{\JNEL}{J^{\text{\em NEL}}}
+      \newcommand{\basic}{\operatorname{\tt Basic}}
+     \newcommand{\lin}{\operatorname{\tt Line}}
+     \newcommand{\oline}{\operatorname{\tt  Line\emptyset}}
+     \newcommand{\eline}{\operatorname{\tt Enhanced Line}}
+     \newcommand{\ebasic}{\operatorname{\tt Enhanced Basic}}
+     \newcommand{\neline}{\operatorname{\tt NonEnhancedLine}}
+     \newcommand{\good}{\text{good}}
+     \newcommand{\event}{G}
+
+\newcommand{\cF}{\mathcal F}
+     
+     
+\newcommand{\Gone}[1]{\hbox{Cross Lines}_m(#1)}
+\newcommand{\Gtwo}[1]{\hbox{Cross Lines}_r(#1)}
+\newcommand{\Gonez}{\hbox{Cross Lines}_m}
+\newcommand{\Gtwoz}{\hbox{Cross Lines}_r}
+\newcommand{\Linear}[2]{\text{Linear}(#1, #2)}
+\numberwithin{equation}{section}
+     
+     %% Sets of lines and planes
+     \newcommand{\planeset}{\mathscr{P}}
+     \newcommand{\lineset}{\mathscr{L}}
+     \newcommand{\Pl}{\mathbf{P}}
+     \newcommand{\Ln}{\ell}
+
+%These are for adjusting spacing around \hline - use them in a table cell that needs top/bottom spacing
+\newcommand\Ts{\rule{0pt}{2.8ex}}
+\newcommand\Bs{\rule[-1.6ex]{0pt}{0pt}}
+
+
+
+%THEOREM DEFINITIONS
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+ 
+\newenvironment{pfofthm}[1]
+{\par\vskip2\parsep\noindent{\sc Proof of\ #1. }}{{\hfill
+$\Box$}
+\par\vskip2\parsep}
+
+
+\begin{document}
+
+\title{Bootstrap Percolation on the Hamming Torus}
+\author{Janko Gravner}
+\address{Janko Gravner, Department of Mathematics, University of California, Davis, CA 95616} 
+\email{ gravner{@}math.ucdavis.edu}
+\author{Christopher Hoffman}
+\address{Christopher Hoffman, Department of Mathematics,
+University of Washington, Seattle, WA 98195}
+\email{
+hoffman{@}math.washington.edu}
+\author{James Pfeiffer}
+\address{James Pfeiffer, Department of Mathematics,
+University of Washington, Seattle, WA 98195}
+\email{
+jpfeiff{@}math.washington.edu}
+\author{David Sivakoff}
+\address{David Sivakoff,
+Mathematics Department, Duke University, Durham, NC 27708}
+\email{
+djsivy{@}math.duke.edu}
+\thanks{The authors were partially supported on this project 
+as follows: JG by NSF grant DMS-0204376 and the
+Republic of Slovenia's Ministry of Science program P1-285; CH by NSF grant DMS-0806024 and by an AMS Centennial Fellowship; JP by NSF grant DMS-1115293; and 
+DS by NSF grant DMS-10-57675 and by SAMSI}
+
+
+
+%\begin{document}
+
+%\maketitle
+
+\begin{abstract}
+ The Hamming torus of dimension $d$ is the graph with vertices $\{1,\dots, n\}^d$ and an edge between any two vertices that differ in a single coordinate. Bootstrap percolation with threshold $\theta$ starts with a random set of open vertices, to which every vertex belongs independently with probability $p$, and at each time step the open set grows by adjoining every vertex with at least $\theta$ open neighbors. We assume that $n$ is large and that $p$ scales as $n^{-\alpha}$ for some $\alpha>1$, and study the probability that an $i$-dimensional subgraph ever becomes open. For large $\theta$, we prove that the critical exponent $\alpha$ is about $1+d/\theta$ for $i=1$, and about $1+2/\theta+\Theta(\theta^{-3/2})$ for $i\ge 2$. Our small $\theta$ results are mostly limited to $d=3$, where we identify the critical $\alpha$ in many cases and, when $\theta=3$, compute exactly the critical probability that the entire graph is eventually open.
+\end{abstract}
+
+\maketitle
 
 \section{Introduction}
 
@@ -1291,7 +1433,7 @@ what are the correct exponents for $\theta = 8, 10$ and $\theta \geq 12$?
 \end{question}
 
 %%%%%%%%% Appendix
-%\appendix % Not appendix in the thesis
+\appendix
 \section{Poisson convergence for $d=\threshold=3$}
 \label{ap:poisson}
 In this section we outline the proof of Lemma~\ref{3d-poisson-lem} regarding Poisson convergence of the random variables that count the configurations that lead to spanning when $d=\threshold=3$ and $p = an^{-2}$.  Our approach is to apply the Chen-Stein method~\cite{poissonbook}, and to do so we need to introduce some notation.
@@ -1428,3 +1570,15 @@ requires that at least one vertex among the $6(n-2)$ vertices in $\mathcal{N}(\m
 \begin{proof}[Proof of Lemma~\ref{3d-poisson-lem}]
 The limiting means are straightforward to calculate, as outlined in remark~\ref{3d-poisson-rem}.  It is also not difficult to show that $d_{TV}(P_{\lambda_n},P_{\lambda}) \leq \abs{\lambda_n-\lambda}$ so if $\lambda_n \to \lambda$ then $P_{\lambda_n}$ converges to $P_\lambda$.  Therefore, applying Lemma~\ref{chen-stein} and using Lemmas~\ref{basic-coupling-lem}-\ref{nel-coupling-lem} to bound the second summation in~(\ref{cs1}) implies that the random variables $\basic$, $\oline_i$, $\neline_i$, and $\eline$ (where $i=1,2,3$, so there are a total of 8 random variables) converge jointly to independent Poisson random variables with the appropriate limiting means.  Similarly, applying Lemma~\ref{chen-stein} and using Lemma~\ref{ebasic-line-lem} to bound the second summation in~(\ref{cs2}) implies that the random variables $\ebasic$ and $\lin$ converge jointly to independent Poisson random variables with the appropriate limiting means.
 \end{proof}
+
+%%%%%%%%% Bibliography
+\bibliographystyle{siam}
+\bibliography{hamming_torus}
+%\include{bibliography}
+%\bibliography{paper}
+
+
+\end{document}
+
+
+
