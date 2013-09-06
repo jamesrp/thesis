@@ -91,8 +91,79 @@ This defines a relaxation of the convex hull of $V$: $\conv(V) \subseteq \textup
 We can optimize over $\textup{TH}_k(I)$ to fixed precision, for fixed $k$,  in time polynomial in $n$.
 This is done using {\em semidefinite programming}, and provides an efficient relaxation to $P(\mathcal{C}) = \conv(V)$ for small $k$.
 
-TODO - Define and work out first theta body of stable set problem.
-Also define STAB, TH, and QSTAB and say something about them.
+As an example of the theta body heirarchy, we describe the first theta body of the stable set problem.
+Historically, this was the first example where theta bodies were used, and where the general heirarchy was abstracted from.
+Given a graph $G=(N,E)$, a subset $X$ of $N$ is {\em stable} if for all $i,j \in X$, $(ij) \notin E$. 
+Let $|N| = n$.
+As in Section \ref{section:copt}, we will consider the set $V \subset \{0,1\}^n$ of characteristic vectors of stable sets in $G$.
+Our goal is to describe the convex hull $\conv(V)$, denoted $\textup{STAB}(G)$.
+We can check that the ideal of $V$ is 
+$$I = \langle x_i^2 - x_i \, \forall \le i \le n\, ;\,  x_ix_j \, \forall (ij) \in E \rangle.$$
+To describe the first theta body, denoted $\textup{TH}(G)$ in this case, we must find all linear functions which are sums of squares of linear polynomials mod $I$.
+We can describe this in terms of a semidefinite program: $x \in \textup{TH}(G)$ if and only if there exists $M \in \mathbb{R}^{(n + 1) \times (n + 1)}$
+such that $M \succeq 0$ and the following linear conditions hold:
+\begin{enumerate}
+\item For $1 \le i \le n$, $M_{0i} = M_{ii} = x_i$,
+\item For each $ij \in E$, $M_{ij} = 0$,
+\item $M_{00} = 1$.
+\end{enumerate}
+
+The class of graphs for which $\textup{TH}(G) = \textup{STAB}(G)$ is known to be exactly the {\em perfect graphs}.
+A graph is $G$ defined to be perfect if the chromatic number equals the clique number for each subgraph of $G$.
+Equivalently, $G$ is perfect if $G$ contains no induced odd cycle or the complement of an odd cycle; see Figure \ref{stabtheta}.
+
+\begin{figure}[htd]
+	\centering
+\begin{tikzpicture}
+  [scale=1.2,auto=left,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (0) at
+(1.00000000000000,0.000000000000000) {};
+  \node (1) at (0.309016994374947,0.951056516295154) {};
+  \node (2) at (-0.809016994374947,0.587785252292473) {};
+  \node (3) at (-0.809016994374947,-0.587785252292473) {};
+  \node (4) at (0.309016994374947,-0.951056516295154) {};
+
+
+  \draw (0) -- (1);
+  \draw (0) -- (4);
+  \draw (1) -- (2);
+  \draw (2) -- (3);
+  \draw (3) -- (4);
+
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}
+  [scale=.8,auto=left,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (1) at
+(-1.00000000000000,1.00000000000000) {};
+  \node (2) at (-1.00000000000000,0.000000000000000) {};
+  \node (3) at (-1.00000000000000,-1.00000000000000) {};
+  \node (4) at (1.00000000000000,-1.50000000000000) {};
+  \node (5) at (1.00000000000000,0.000000000000000) {};
+  \node (6) at (1.00000000000000,1.50000000000000) {};
+
+
+  \draw (1) -- (4);
+  \draw (1) -- (5);
+  \draw (1) -- (6);
+  \draw (2) -- (4);
+  \draw (2) -- (5);
+  \draw (2) -- (6);
+  \draw (3) -- (4);
+  \draw (3) -- (5);
+  \draw (3) -- (6);
+
+\end{tikzpicture} 
+\hfill
+\caption{(Left) the odd cycle $C_5$. (Right) a perfect graph.}
+\label{stabtheta}
+\end{figure}
+
+There is another relaxation to $\textup{STAB}(G)$ known as $\textup{QSTAB}(G)$.
+This is the polytope in $[0,1]^n$ cut out by the nonnegativities $x_i \ge 0$ and the {\em clique inequalities} $\sum_{i \in K} x_i \le 1$ for each clique $K$ in $G$.
+Since $f = 1 - \sum_{i \in K} x_i$ is idempotent mod $I$, that is, $f^2 \equiv f \mod I$, it is visibly a sum of squares.
+Therefore the clique inequalities are valid on $\textup{TH}(G)$, and $\textup{TH}(G) \subseteq \textup{QSTAB}(G)$.
+
 
 \section{A Semidefinite Approach to the $K_{\lowercase{i}}$-Cover Problem}
 Chapter \ref{chap:kicover} is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters} and is an application of theta bodies to the $K_i$-cover problem.
