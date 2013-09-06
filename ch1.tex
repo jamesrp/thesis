@@ -203,7 +203,7 @@ Since a typical family $\mathcal{F}$ will contain exponentially many elements, i
 
 Conforti et al left open the existence of oracles for several families of facets, including the family associated with the {\em $K_i$-$p$-holes}. 
 A graph $H$ is a $K_i$-$p$-hole if it contains $p$ copies of $K_i$ arranged in a cycle, with neighboring $K_i$ sharing a common $K_{i-1}$. 
-This does not determine $H$ up to isomorphism; see Figure 2 for three nonisomorpic $K_3$-9-holes.
+This does not determine $H$ up to isomorphism; see Figure \ref{chap1:9holeintro} for three nonisomorpic $K_3$-9-holes.
 To understand the facet inequality associated to a $K_i$-$p$-hole, consider the graphs in Figure 2. 
 To construct a $K_3$-cover of minimum size, we need to pick an edge from each $K_3$. 
 We can pick four edges to eliminate eight $K_3$s, but we still need a fifth to pick up the last $K_3$. 
@@ -212,12 +212,110 @@ The inequality for general $K_i$-$p$-holes is derived from a similar argument, a
 It defines a facet of $P_i(G)$ for $i \ge 3$ and odd $p$.
 
 \begin{figure}[htd]
-	\centering
-	\includegraphics[width=.3\textwidth,natwidth=589,natheight=584]{9holeA.png}
-	\includegraphics[width=.3\textwidth,natwidth=575,natheight=584]{9holeB.png}
-	\includegraphics[width=.3\textwidth,natwidth=584,natheight=584]{9holeC.png}
+\begin{tikzpicture}
+  [scale=1.8,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (0) at
+(1.00000000000000,0.000000000000000) {};
+  \node (1) at (0.766044443118978,0.642787609686539) {};
+  \node (2) at (0.173648177666930,0.984807753012208) {};
+  \node (3) at (-0.500000000000000,0.866025403784439) {};
+  \node (4) at (-0.939692620785908,0.342020143325669) {};
+  \node (5) at (-0.939692620785908,-0.342020143325669) {};
+  \node (6) at (-0.500000000000000,-0.866025403784439) {};
+  \node (7) at (0.173648177666930,-0.984807753012208) {};
+  \node (8) at (0.766044443118978,-0.642787609686540) {};
+
+
+  \draw (0) -- (1);
+  \draw (0) -- (2);
+  \draw (0) -- (7);
+  \draw (0) -- (8);
+  \draw (1) -- (2);
+  \draw (1) -- (3);
+  \draw (1) -- (8);
+  \draw (2) -- (3);
+  \draw (2) -- (4);
+  \draw (3) -- (4);
+  \draw (3) -- (5);
+  \draw (4) -- (5);
+  \draw (4) -- (6);
+  \draw (5) -- (6);
+  \draw (5) -- (7);
+  \draw (6) -- (7);
+  \draw (6) -- (8);
+  \draw (7) -- (8);
+
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+  [scale=.9,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (0) at (1,0) {};
+  \node (1) at (-0.150000000000000,1.20000000000000) {};
+  \node (2) at (-0.600000000000000,0.600000000000000) {};
+  \node (3) at (-0.600000000000000,-0.600000000000000) {};
+  \node (4) at (-0.150000000000000,-1.20000000000000) {};
+  \node (5) at (2,0) {};
+  \node (6) at (0,2) {};
+  \node (7) at (-2,0) {};
+  \node (8) at (0,-2) {};
+
+
+  \draw (0) -- (1);
+  \draw (0) -- (4);
+  \draw (0) -- (5);
+  \draw (1) -- (2);
+  \draw (1) -- (5);
+  \draw (1) -- (6);
+  \draw (1) -- (7);
+  \draw (2) -- (3);
+  \draw (2) -- (7);
+  \draw (3) -- (4);
+  \draw (3) -- (7);
+  \draw (4) -- (5);
+  \draw (4) -- (7);
+  \draw (4) -- (8);
+  \draw (5) -- (6);
+  \draw (5) -- (8);
+  \draw (6) -- (7);
+  \draw (7) -- (8);
+
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+  [scale=1.8,every node/.style={circle,fill=black,inner
+sep=0pt, minimum width=6pt}]  \node (0) at
+(1.00000000000000,0.000000000000000) {};
+  \node (1) at (0.766044443118978,0.642787609686539) {};
+  \node (2) at (0.173648177666930,0.984807753012208) {};
+  \node (3) at (-0.500000000000000,0.866025403784439) {};
+  \node (4) at (-0.939692620785908,0.342020143325669) {};
+  \node (5) at (-0.939692620785908,-0.342020143325669) {};
+  \node (6) at (-0.500000000000000,-0.866025403784439) {};
+  \node (7) at (0.173648177666930,-0.984807753012208) {};
+  \node (8) at (0.766044443118978,-0.642787609686540) {};
+  \node (9) at (0.000000000000000,0.000000000000000) {};
+
+
+  \draw (0) -- (1);
+  \draw (0) -- (8);
+  \draw (0) -- (9);
+  \draw (1) -- (2);
+  \draw (1) -- (9);
+  \draw (2) -- (3);
+  \draw (2) -- (9);
+  \draw (3) -- (4);
+  \draw (3) -- (9);
+  \draw (4) -- (5);
+  \draw (4) -- (9);
+  \draw (5) -- (6);
+  \draw (5) -- (9);
+  \draw (6) -- (7);
+  \draw (6) -- (9);
+  \draw (7) -- (8);
+  \draw (7) -- (9);
+  \draw (8) -- (9);
+
+\end{tikzpicture}
 	\caption{Three non-isomorphic $K_3$-9-holes.}
-	\label{9holeintro}
+	\label{chap1:9holeintro}
 \end{figure}
 
 \subsection{Results}
