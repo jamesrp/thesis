@@ -4,19 +4,19 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-This thesis studies several problems in probability and optimization.
-We give an extended abstract of each chapter, and give some context and motivation.
+This thesis studies three problems in probability and optimization.
+In this introduction, we give an extended abstract of each chapter, and give some context and motivation.
 Chapter \ref{chap:bootstrap} studies bootstrap percolation, a probabilistic model of nucleation and growth.
 Chapters \ref{chap:kicover} and \ref{chap:cube} apply sums of squares approximations to combinatorial optimization.
-Chapter \ref{chap:matchings} is a short note on representation theory that grew out of Chapter \ref{chap:cube}.
+Chapter \ref{chap:matchings} studies the representation theory of the set of matchings.
 
 \section{Bootstrap Percolation on the Hamming Torus}
 Extended abstract of the bootstrap paper goes here.
 
 \section{Combinatorial Optimization and Sums of Squares}
 \label{section:cosos}
-Chapters \ref{chap:kicover} and \ref{chap:cube} study the application of sums of squares to combinatorial optimization. 
-In this section, we give a description of the general area of combinatorial optimization and sums of squares in particular.
+Chapters \ref{chap:kicover} and \ref{chap:cube} study the application of sums of squares of polynomials to combinatorial optimization. 
+In this section, we give a description of the general area of combinatorial optimization and of polynomial sums of squares in particular.
 We introduce many of the concepts which will be used later.
 
 \subsection{Combinatorial Optimization}
@@ -28,17 +28,16 @@ For example, the goal of the {\em traveling salesman problem} is to find a minim
 The goal of the {\em shortest path problem} is to find a shortest-distance path between two nodes in a graph, and the goal of the {\em assignment problem} is to assign workers to jobs while minimizing the total wages paid. 
 
 In each of the above problems, we minimize a linear function over a finite set.
-For instance, in the traveling salesman problem (TSP), we model the problem as a complete graph $G=(V,E)=([n],{ {[n]} \choose 2}$, where for each $e \in E$, a cost $c_e$ is given.
+For instance, in the traveling salesman problem (TSP), we model the problem as a complete graph $G=([n],{ {[n]} \choose 2}$, where $[n] = \{1, \ldots, n\}$.
+For each $e \in E$, a cost $c_e$ is given.
 The vertices represent cities, with specified costs to travel between them.
 We want to find the minimum of $f(T) = \sum_{e \in E} c_ex_e$ over all tours $T$.
 Here, a tour is represented by a 0/1 vector $x \in \mathbb{R}^{n \choose 2}$, with $x_e = 1$ if and only if the edge $e$ is part of $T$.
-The weights $c_e$ are part of the problem data and represent the cost to travel along edge $e$.
 
-A common approach is to rewrite this as a {\em linear program}. 
-The problem is naturally an {\em integer linear program}, as we can replace the constraints $x_e \in \{0,1\}$ by $x_e \in \mathbb{Z}$, $0 \le x_e \le 1$, and encode the fact that $T$ is a tour using other linear constraints.
-But since we optimize a linear function, the optimum is unchanged if we instead consider the {\em convex hull} $\textup{TSP}(G)$ of all tours.
-$\textup{TSP}(G) \subset [0,1]^{n \choose 2}$ is a polytope whose vertices are the vectors coming from tours.
-This is a natural object to study without referring to a specific set $(c_e)$ of weights, since changing the weights is equivalent to optimizing in a different direction over $\textup{TSP}(G)$.
+A common approach is to rewrite this as an {\em integer linear program} by replacing the constraints $x_e \in \{0,1\}$ by $x_e \in \mathbb{Z}$, $0 \le x_e \le 1$, and encoding the fact that $T$ is a tour using other linear constraints.
+But since we optimize a linear function, the optimum is unchanged if we instead optimize over the {\em convex hull} $\textup{TSP}(n)$ of all tours.
+The set $\textup{TSP}(n) \subset [0,1]^{n \choose 2}$ is a polytope whose vertices are the vectors coming from tours.
+This is a natural object to study without referring to a specific set $(c_e)$ of costs, since changing the costs is equivalent to optimizing in a different direction over $\textup{TSP}(G)$.
 
 To explain this geometric approach in general, consider a problem where we optimize a linear function over some feasible collection $\mathcal{C}$ of subsets of a fixed set $X$.
 For instance, in the TSP we let $\mathcal{C}$ be the collection of all tours; here $X$ is the set of edges.
@@ -47,11 +46,11 @@ A non-graph example is the knapsack problem, where $\mathcal{C}$ is the set of s
 In general, we will assume that $X = \{1, \ldots, n\}$ for some $n$; this can always be accomplished by enumerating $X$.
 For each $C \in \mathcal{C}$, define its characteristic vector $\chi_C \in \{0,1\}^n$, where for $1 \le i \le n$, $(\chi_C)_i = 1$ if and only if $i \in C$.
 Then define the polytope $P(\mathcal{C}) = \conv \{\chi_C: C \in \mathcal{C}\}$.
-If we can optimize any linear function in polynomial time over $P(\mathcal{C})$, we have solved the original problem of optimizing the same linear function over $\mathcal{C}$.
+If we can optimize any linear function in polynomial time over $P(\mathcal{C})$, we can optimize the same linear function over $\mathcal{C}$ in polynomial time.
 
 Of course, many combinatorial optimization problems often end up being NP-complete or harder. 
 That is, we are unlikely to ever find efficient algorithms to solve them exactly.
-And in some cases where the abstract mathematical problem does have an efficient algorithm, real-world constraints can make it intractable. 
+In some cases where the abstract mathematical problem does have an efficient algorithm, real-world constraints can make it intractable. 
 For instance, when assigning medical students to residencies, the constraint that married pairs of students live in the same city makes the problem NP-complete.
 Therefore, much research has focused on developing methods to solve these problems approximately. 
 Using various methods, we can construct a relaxation $P'(\mathcal{C})$ to $ P(\mathcal{C})$ and try to show that the gap between them is not very large.
@@ -74,7 +73,7 @@ This idea is discussed at more length in \cite{sostools} and \cite{lasserre}.
 
 So far, this only makes sense for polynomials on $\mathbb{R}^n$.
 We will define a notion of sums of squares that is applicable to combinatorial optimization problems.
-This definition originated with Lov\'asz \cite{lovasz} and was used to produce an approximation to {\em stable set problem}.
+This definition originated with Lov\'asz \cite{lovasz} and was used to produce an approximation to the {\em stable set problem}.
 It was generalized by Gouveia, Parrilo, and Thomas \cite{gpt} to give an approximation to the convex hull of any algebraic set.
 This idea is also closely related to Lasserre's \cite{lasserre} and Parrilo's \cite{parrilo} heirarchies for polynomial optimization.
 
@@ -88,6 +87,7 @@ It turns out that $f \equiv g \mod I$ if and only if $f(x) = g(x)$ for each $x \
 For a polynomial $f$ and an integer $k$, we say $f$ is {\em $k$-sos mod $I$} if we can write $f \equiv \sum_i g_i^2 \mod I$ for some polynomials $g_i$ with degree at most $k$.
 Now define the $k$th {\em theta body} of $I$, $\textup{TH}_k(I)$, to be the intersection of all affine linear functions $f$ which are $k$-sos mod $I$. 
 This defines a relaxation of the convex hull of $V$: $\conv(V) \subseteq \textup{TH}_k(I)$ for each $k$, with the approximation improving as $k$ increases.
+In our case, $V \subseteq \{0,1\}^n$, so it turns out that $\textup{TH}_n(I) =  \conv(V)$.
 We can optimize over $\textup{TH}_k(I)$ to fixed precision, for fixed $k$,  in time polynomial in $n$.
 This is done using {\em semidefinite programming}, and provides an efficient relaxation to $P(\mathcal{C}) = \conv(V)$ for small $k$.
 
@@ -99,8 +99,9 @@ As in Section \ref{section:copt}, we will consider the set $V \subset \{0,1\}^n$
 Our goal is to describe the convex hull $\conv(V)$, denoted $\textup{STAB}(G)$.
 We can check that the ideal of $V$ is 
 $$I = \langle x_i^2 - x_i \, \forall \le i \le n\, ;\,  x_ix_j \, \forall (ij) \in E \rangle.$$
-To describe the first theta body, denoted $\textup{TH}(G)$ in this case, we must find all linear functions which are sums of squares of linear polynomials mod $I$.
-We can describe this in terms of a semidefinite program: $x \in \textup{TH}(G)$ if and only if there exists $M \in \mathbb{R}^{(n + 1) \times (n + 1)}$
+To describe the first theta body $\textup{TH}_1(I)$, denoted $\textup{TH}(G)$ in this case, we must find all linear functions which are sums of squares of linear polynomials mod $I$.
+It turns out that $\textup{TH}(G)$ has a semidefinite description first discovered by Lov\'asz \cite{lovasz}.
+We reproduce it here; see Chapter 9 of \cite{gls} for the derivation: $x \in \textup{TH}(G)$ if and only if there exists $M \in \mathbb{R}^{(n + 1) \times (n + 1)}$
 such that $M \succeq 0$ and the following linear conditions hold:
 \begin{enumerate}
 \item For $1 \le i \le n$, $M_{0i} = M_{ii} = x_i$,
@@ -109,7 +110,7 @@ such that $M \succeq 0$ and the following linear conditions hold:
 \end{enumerate}
 
 The class of graphs for which $\textup{TH}(G) = \textup{STAB}(G)$ is known to be exactly the {\em perfect graphs}.
-A graph is $G$ defined to be perfect if the chromatic number equals the clique number for each subgraph of $G$.
+A graph is $G$ defined to be perfect if the chromatic number equals the clique number for each induced subgraph of $G$.
 Equivalently, $G$ is perfect if $G$ contains no induced odd cycle or the complement of an odd cycle; see Figure \ref{stabtheta}.
 
 \begin{figure}[htd]
@@ -159,10 +160,10 @@ sep=0pt, minimum width=6pt}]  \node (1) at
 \label{stabtheta}
 \end{figure}
 
-There is another relaxation to $\textup{STAB}(G)$ known as $\textup{QSTAB}(G)$.
+There is an older polyhedral relaxation to $\textup{STAB}(G)$ known as $\textup{QSTAB}(G)$.
 This is the polytope in $[0,1]^n$ cut out by the nonnegativities $x_i \ge 0$ and the {\em clique inequalities} $\sum_{i \in K} x_i \le 1$ for each clique $K$ in $G$.
 Since $f = 1 - \sum_{i \in K} x_i$ is idempotent mod $I$, that is, $f^2 \equiv f \mod I$, it is visibly a sum of squares.
-Therefore the clique inequalities are valid on $\textup{TH}(G)$, and $\textup{TH}(G) \subseteq \textup{QSTAB}(G)$.
+Therefore the clique inequalities are valid on $\textup{TH}(G)$, and $\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$.
 
 
 \section{A Semidefinite Approach to the $K_{\lowercase{i}}$-Cover Problem}
