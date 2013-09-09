@@ -11,7 +11,39 @@ Chapters \ref{chap:kicover} and \ref{chap:cube} apply sums of squares approximat
 Chapter \ref{chap:matchings} studies the representation theory of the set of matchings.
 
 \section{Bootstrap Percolation on the Hamming Torus}
-Extended abstract of the bootstrap paper goes here.
+Chapter \ref{chap:bootstrap} is taken from a paper coauthored with Janko Gravner, Christopher Hoffman, and Davis Sivakoff, and submitted to \emph{Annals of Applied Probability}.
+
+\subsection{Problem Description}
+Let $G = (V,E)$ be a graph and $\theta \in \mathbb{N}$ a threshold.
+For any initial configuration $\omega_0 \in \{0,1\}^V$, define a sequence $\omega_i$ for $i \ge 1$ by the recursion
+$$
+\omega_{j+1}(v)=
+\begin{cases}
+1& \text{if $\omega_j(v)=1$ or $\sum_{w \sim  v}\omega_j(w) \geq
+\threshold$}\\
+0 &\text{else}
+\end{cases}
+$$
+and let $\omega_\infty = \lim_i \omega_i$; this limit is defined pointwise as $(\omega_i(v))_i$ is increasing for each $v$.
+Let $S_0 = \omega_0^{-1}(1)$.
+
+We think of bootstrap percolation as a growing set of {\em infected} or {\em active} vertices which starts with only the vertices in $S_0$ active.
+Once a vertex is active, it stays active, and new vertices become active once at least $\theta$ of their neighbors are active.
+The main goal is to determine under what conditions the entire graph eventually becomes active; that is, if $\omega_\infty(v) = 1$ for all $v$.
+In this case, we say that percolation has occurred, or that $S_0$ {\em spans} $G$.
+
+The initial set $S_0 $ of active vertices can be deterministic or random.
+See \cite{huang-lee} for some results on the minimal size of $S_0$ required for percolation in the deterministic case.
+In this paper, we let each vertex be active at time 0 independently with probability $p$.
+Thus, the bootstrap percolation process becomes a random variable.
+We are interested in the {\em critical probability} $p_c$ at which $\mathbb{P}(\textup{percolation}) = \frac{1}{2}$.
+For most graphs, computing $p_c$ exactly is too difficult, but it is often possible to compute $p_c$ to first order in $n$ for a family of graphs $G_n$.
+
+\subsection{Background}
+
+\subsection{Results}
+
+\subsection{Comments}
 
 \section{Combinatorial Optimization and Sums of Squares}
 \label{section:cosos}
