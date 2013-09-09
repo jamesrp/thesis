@@ -40,6 +40,13 @@ Thus, the bootstrap percolation process becomes a random variable.
 We are interested in the {\em critical probability} $p_c$ at which $\mathbb{P}(\textup{percolation}) = \frac{1}{2}$.
 For most graphs, computing $p_c$ exactly is too difficult, but it is often possible to compute $p_c$ to first order in $n$ for a family of graphs $G_n$.
 
+For the graphs we consider, it turns out that the critical probability is essentially $n^{a}$ for some $a < 0$ in the following sense.
+Let $p = n^b$.
+If $b < a$, then $\mathbb{P}(\textup{percolation}) \to 0$ as $n \to \infty$, while if $b > a$, then $\mathbb{P}(\textup{percolation}) \to 1$.
+In certain cases, we are able to look within the {\em scaling window} and determine $f(c) = \mathbb{P}(\textup{percolation})$, when $p = cn^a$.
+
+We study bootstrap percolation on the {\em Hamming torus} $G = ([n]^d,E)$, where $x$ and $y$ are adjacent if they differ in exactly one coordinate.
+In Figure \ref{htperc} we see an example of an initial percolating set when $\threshold = 2$ on the two-dimensional Hamming torus.
 \begin{figure}[htd]
 	\centering
 \begin{tikzpicture}
@@ -51,12 +58,9 @@ For most graphs, computing $p_c$ exactly is too difficult, but it is often possi
 \draw (11*\scaledist,-1*\scaledist) -- (11*\scaledist,5*\scaledist);
 \draw (17*\scaledist,-1*\scaledist) -- (17*\scaledist,5*\scaledist);
 \end{tikzpicture}
-\caption{The bootstrap percolation process with threshold $\threshold = 2$ on the Hamming torus with $n=5$, $d=2$. Nodes are adjacent iff they share an $x$ or $y$ coordinate. This example takes four steps to complete.}
+\caption{The bootstrap percolation process with threshold $\threshold = 2$ on the Hamming torus with $n=5$, $d=2$. Nodes are adjacent iff they share an $x$ or $y$ coordinate. This example takes four steps to percolate.}
 \label{htperc}
 \end{figure}
-
-We study bootstrap percolation on the {\em Hamming torus} $G = ([n]^d,E)$, where $x$ and $y$ are adjacent if they differ in exactly one coordinate.
-In FIgure \ref{htperc} we see an example of an initial percolating set when $\threshold = 2$ on the two-dimensional Hamming torus.
 
 \subsection{Background}
 Bootstrap percolation was introduced in 1979 by Chalupa, Leath and Reich \cite{bethe} as a model of nucleation and metastability in physical processes such as crack formations, clustering, and magnetic spin alignment.
@@ -66,22 +70,33 @@ The first results in this area were by van Enter~\cite{vanenter} and Schonmann~\
 For a large lattice cube $[n]^d\subset \mathbb{Z}^d$ (where each point is connected to the nearest $2d$ points), Aizenman and Lebowitz \cite{aizenman} proved that $p_c$ behaves as $(\frac{1}{\log n})^{d-1}$ when $\threshold=2$.
 Later Cerf and Cirillo~\cite{cerfcirillo} and Cerf and Manzo~\cite{cerfmanzo} established the scaling $p_c \approx (\log_{\threshold-1} n)^{-d+\threshold-1}$ for $3\le \theta\le d$.
 Here $\log_{\threshold-1}$ denotes the $(\theta-1)$'st iteration of the logarithm. 
-For the hypercube $\{0,1\}^n$, Balogh and Bollob\'as~\cite{BB:2006} proved that $p_c \approx n^{-2}4^{-\sqrt n}$ when $\threshold=2$.
-By contrast,  for the very large threshold $\threshold=\ceil{n/2}$, the {\it majority bootstrap percolation\/} studied by  Balogh, Bollob\'as, and Morris~\cite{bollobas}, $p_c$ is close to $1/2$.
+
+The Hamming torus is interesting because of computer simulations showing that the percolation on $[n]^d$ tends to proceed along straight lines.
+By changing the distance to the Hamming metric, we can investigate this behavior.
 
 \subsection{Results}
 All our results are for the Hamming torus described in \ref{section:bootstrap1}. 
 In addition to finding the critical probability for the entire graph to percolate, we consider the event that an $i$-dimensional subgraph percolates.
 We find an expression for the critical probability of this event for $1 \le i \le d$.
 \begin{itemize}
-\item For $d=2$, we find the critical probability scaling limit for all $\theta$. 
-We also describe the behaviour within the scaling window as $n \to \infty$.
-\item For the case $d=\theta = 3$, we again find the critical probability and describe the asymptotic behaviour within the scaling window.
+\item For $d=2$, we find the critical probability exponent for all $\theta$ and describe the behavior within the scaling window as $n \to \infty$.
+For $d=\theta = 3$, we again find the critical probability and describe the limiting behavior within the scaling window.
+These results are powered by Stein's method \cite{poissonbook}, a method for dealing with almost independent events.
 \item For all $d$ and all $i \ge 2$, we show that the critical probability for an $i$-dimensional subgraph to percolate is $p_c = n^{-1-\frac{2}{\theta} + \Theta(\theta^{-\frac{3}{2}})}$.
+We prove this by constructing critical events which are necessary (respectively sufficient) for percolation and which are easier to analyze than the percolation event.
+We show that when $p >> p_c$, the sufficient event happens with probability going to 1, and with $p << p_c$, the necessary event happens with probability going to 0.
 \item In particular, we show that the critical probability for the entire graph to percolate is, as above, $p_c = n^{-1-\frac{2}{\theta} + \Theta(\theta^{-\frac{3}{2}})}$.
 \end{itemize}
 
 \subsection{Comments}
+Although our results are stated asymptotically in $n$ and for large $\theta$, the proofs in fact give results for large finite graphs.
+However, computing the constants involved is arduous. 
+
+It is interesting that the critical probabilities are all approximately $n^{-1-\frac{2}{\theta}}$ for $2 \le i \le d$.
+It turns out that for $i=1$, the critical probability is $n^{-1-\frac{d}{\theta}}$, a qualitatively different behavior.
+
+For $d = 3$ we get the same upper and lower bound for $p_c$ for $\theta \le 7$ as well as $\theta = 9, 11$, and therefore can determine the exact critical exponent.
+This raises the question of whether our proof technique can be improved to bring the bounds closer together for other values of $\theta$.
 
 \section{Combinatorial Optimization and Sums of Squares}
 \label{section:cosos}
