@@ -545,15 +545,37 @@ We checked numerically and found that they did not appear to be valid on $\textu
 Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Joao Gouveia, currently being written.
 
 \subsection{Problem Description}
-recall hypercube and ideal and notion of sums of squares
+Let $C = \{0,1\}^n$ be the hypercube.
+Its ideal is $I = \langle x_i^2 - x_i \rangle$, and the space of functions mod $I$ is denoted $\RR[C] = \RR[x]/I$.
+The symmetric group $S_n$ acts on $\RR[C]$ by permuting variables, and we can decompose $\RR[C]$ into $S_n$-irreducibles to analyze its structure.
 
-definition of divisibility and degree mod I
+Because we can cancel squarefree terms mod $I$, every function in $\RR[C]$ has a unique represenative of lowest degree.
+Therefore, there is a natural notion of degree in $\RR[C]$.
+This allows us to define a notion of divisibility mod $I$ that, like the usual polynomial divisibility, respects degree.
+(Note that this is not the standard definition of divisibility in a ring.)
 
-sum of squares multipliers, global and mod I
+Recall from Section \ref{section{cosos} that we have a notion of sum of squares mod $I$.
+In this chapter, we will consider functions $f \in \RR[C]$ that are invariant under the $S_n$ action and derive a condition for when they are a sum of squares.
+We also introduce the notion of {\em sum of squares multipliers mod $I$}. 
+A function $f \in \RR[C]$ is said to be $(d_1,d_2)$-sos mod $I$ if there exist $g_1,g_2 \in \RR[C]$, such that $g_i$ is $d_i$-sos mod $I$, and $fg_1=g_2$.
+We also assume in this definition that $g_1> 0$ on $C$.
+Since any $f$ which is $(d_1,d_2)$-sos mod $I$ is also nonnegative on $C$, this gives a generalization of the theta body heirarchy which can still be optimized over in polynomial time.
 
-max cuts
+The idea of sums of squares multipliers came from work in real algebraic geometry, where the same idea is considered.
+It is a celebrated result of Hilbert \cite{hilbert} that for homogeneous polynomials $f$ in $n$ variables of even degree $d$, the implication
+\begin{itemize}
+\item $f \ge 0$ everywhere if and only if $f$ is a sum of squares
+\end{itemize}
+holds exactly for $d=2$,n=2$, and the special case $(n,d)=(3,4)$.
 
-symmetry of Sn acting on functions on cube
+Artin \cite{artin} generalized this result by showing that every nonnegative polynomial can be written as a sum of squares using sum of squares multipliers.
+In general it is thought that the degrees of these multipliers must be large, but no explicit bounds have been given so far.
+We find a simple degree-4 polynomial in $n$ variables which requires multipliers of degree at least $n/2$.
+
+We also reprove a result of Laurent on the max cut polytope's theta heirarchy.
+We show that the theta body does not converge until at least the $n/2$ level.
+
+
 
 \subsection{Background}
 laurent result on lasserre rank of max cut = n/2
