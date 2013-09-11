@@ -279,6 +279,15 @@ Therefore, the problems are essentially equivalent.
 In fact, the polytopes defined by these problems as in section 1.1 are congruent via the transformation $x_j \mapsto 1-x_j$ in each coordinate.
 Similarly, a set $\mathcal{C}$ of $K_{i-1}$s is a $K_i$-cover if and only if its complement $\mathcal{C}^c$ is $K_i$-free.
 
+We will need the description of the ideal $I$ of the variety of $K_i$-free sets.
+We merely state it here; for the derivation see Chapter \ref{chap:kicover}.
+Let $X$ be the collection of $K_{i-1}$s in $G$ and $Y$ the collection of $K_i$s in $G$.
+$$I = \langle x_H^2 - x_H\, \forall \le H \in X\, ;\,  \prod_{H \subseteq H'} x_H\, \forall H' \in Y \rangle.$$
+To understand this, recall that we have a variable $x_H$ for each $K_{i-1}$ $H$ in $G$.
+The functions that generate $I$ come in two forms.
+The type $x_H^2 - x_H = 0$ enforces the constraint that $x_H \in \{0,1\}$, i.e., that $x$ is a characteristic vector.
+The type $\prod_{H \subseteq H'} x_H= 0$ ensures that $x$ actually comes from a $K_i$-free set.
+
 \subsection{Background}
 
 The stable set and vertex cover problems have been studied in many contexts. 
