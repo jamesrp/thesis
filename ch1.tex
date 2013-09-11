@@ -544,7 +544,7 @@ We checked numerically and found that they did not appear to be valid on $\textu
 \section{Sums of Squares on the Unit Hypercube}
 Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Joao Gouveia, currently being written.
 
-\subsection{Problem Description}
+\subsection{Background}
 Let $C = \{0,1\}^n$ be the hypercube.
 Its ideal is $I = \langle x_i^2 - x_i \rangle$, and the space of functions mod $I$ is denoted $\RR[C] = \RR[x]/I$.
 The symmetric group $S_n$ acts on $\RR[C]$ by permuting variables, and we can decompose $\RR[C]$ into $S_n$-irreducibles to analyze its structure.
@@ -554,7 +554,7 @@ Therefore, there is a natural notion of degree in $\RR[C]$.
 This allows us to define a notion of divisibility mod $I$ that, like the usual polynomial divisibility, respects degree.
 (Note that this is not the standard definition of divisibility in a ring.)
 
-Recall from Section \ref{section{cosos} that we have a notion of sum of squares mod $I$.
+Recall from Section \ref{section:scosos} that we have a notion of sum of squares mod $I$.
 In this chapter, we will consider functions $f \in \RR[C]$ that are invariant under the $S_n$ action and derive a condition for when they are a sum of squares.
 We also introduce the notion of {\em sum of squares multipliers mod $I$}. 
 A function $f \in \RR[C]$ is said to be $(d_1,d_2)$-sos mod $I$ if there exist $g_1,g_2 \in \RR[C]$, such that $g_i$ is $d_i$-sos mod $I$, and $fg_1=g_2$.
@@ -566,7 +566,7 @@ It is a celebrated result of Hilbert \cite{hilbert} that for homogeneous polynom
 \begin{itemize}
 \item $f \ge 0$ everywhere if and only if $f$ is a sum of squares
 \end{itemize}
-holds exactly for $d=2$,n=2$, and the special case $(n,d)=(3,4)$.
+holds exactly for $d=2$,$n=2$, and the special case $(n,d)=(3,4)$.
 
 Artin \cite{artin} generalized this result by showing that every nonnegative polynomial can be written as a sum of squares using sum of squares multipliers.
 In general it is thought that the degrees of these multipliers must be large, but no explicit bounds have been given so far.
@@ -574,13 +574,6 @@ We find a simple degree-4 polynomial in $n$ variables which requires multipliers
 
 We also reprove a result of Laurent on the max cut polytope's theta heirarchy.
 We show that the theta body does not converge until at least the $n/2$ level.
-
-
-
-\subsection{Background}
-laurent result on lasserre rank of max cut = n/2
-
-previous results on global sos multipliers
 
 \subsection{Results}
 \begin{itemize}
@@ -602,14 +595,13 @@ This polynomial is actually the quadratic polynomial from the max cut problem, s
 \section{The Representation Theory of Matchings}
 Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern, currently being written.
 
-\subsection{Problem Description}
+\subsection{Background}
 A {\em perfect matching} in a graph $G=(V,E)$ is a subset $X \subseteq E$ such that each $v \in V$ meets some $x \in X$, and where each pair $x_1,x_2 \in X$ is disjoint.
 We abuse notation here and say {\em matching} for perfect matching; normally, a matching is a perfect matching with the vertex condition removed.
 Let $M_{2n}$ be the set of all matchings in the complete graph $K_{2n}$.
 The symmetric group $S_{2n}$ acts naturally on $M_{2n}$.
 We wish to decompose $M_{2n}$ into irreducible representations of $S_{2n}$.
 
-\subsection{Background}
 In \cite{bv} Barbasch and Vogan showed that $\CC[M_{2n}] \cong \oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash 2n$ consisting of even parts.
 They showed this by considering the restriction of $\CC[M_{2n}$ to an $S_{2n-1}$-module and using induction.
 However, they did not provide an explicit description of the isomorphism.
