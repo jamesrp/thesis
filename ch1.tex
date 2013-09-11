@@ -8,7 +8,7 @@ This thesis studies three problems in probability and optimization.
 In this introduction, we give an extended abstract of each chapter, and give some context and motivation.
 Chapter \ref{chap:bootstrap} studies bootstrap percolation, a probabilistic model of nucleation and growth.
 Chapters \ref{chap:kicover} and \ref{chap:cube} apply sums of squares approximations to combinatorial optimization.
-Chapter \ref{chap:matchings} studies the representation theory of the set of matchings.
+Chapter \ref{chap:matchings} studies the representation theory of the set of matchings and is an offshoot of the work in Chapter \ref{chap:cube}.
 
 \section{Bootstrap Percolation on the Hamming Torus}
 Chapter \ref{chap:bootstrap} is taken from a paper coauthored with Janko Gravner, Christopher Hoffman, and Davis Sivakoff, and submitted to \emph{Annals of Applied Probability}.
@@ -20,7 +20,7 @@ For any initial configuration $\omega_0 \in \{0,1\}^V$, define a sequence $\omeg
 $$
 \omega_{j+1}(v)=
 \begin{cases}
-1& \text{if $\omega_j(v)=1$ or $\sum_{w \sim  v}\omega_j(w) \geq
+1& \text{if $\omega_j(v)=1$ or $\sum_{(v,w) \in E}\omega_j(w) \geq
 \threshold$}\\
 0 &\text{else}
 \end{cases}
@@ -46,6 +46,7 @@ If $b < a$, then $\mathbb{P}(\textup{percolation}) \to 0$ as $n \to \infty$, whi
 In certain cases, we are able to look within the {\em scaling window} and determine $f(c) = \mathbb{P}(\textup{percolation})$, when $p = cn^a$.
 
 We study bootstrap percolation on the {\em Hamming torus} $G = ([n]^d,E)$, where $x$ and $y$ are adjacent if they differ in exactly one coordinate.
+Here $[n] = \{1, \ldots, n\}$.
 In Figure \ref{htperc} we see an example of an initial percolating set when $\threshold = 2$ on the two-dimensional Hamming torus.
 \begin{figure}[htd]
 	\centering
@@ -113,7 +114,7 @@ For example, the goal of the {\em traveling salesman problem} is to find a minim
 The goal of the {\em shortest path problem} is to find a shortest-distance path between two nodes in a graph, and the goal of the {\em assignment problem} is to assign workers to jobs while minimizing the total wages paid. 
 
 In each of the above problems, we minimize a linear function over a finite set.
-For instance, in the traveling salesman problem (TSP), we model the problem as a complete graph $G=([n],{ {[n]} \choose 2}$, where $[n] = \{1, \ldots, n\}$.
+For instance, in the traveling salesman problem (TSP), we model the problem as a complete graph $G=([n],{ {[n]} \choose 2})$.
 For each $e \in E$, a cost $c_e$ is given.
 The vertices represent cities, with specified costs to travel between them.
 We want to find the minimum of $f(T) = \sum_{e \in E} c_ex_e$ over all tours $T$.
@@ -122,7 +123,7 @@ Here, a tour is represented by a 0/1 vector $x \in \mathbb{R}^{n \choose 2}$, wi
 A common approach is to rewrite this as an {\em integer linear program} by replacing the constraints $x_e \in \{0,1\}$ by $x_e \in \mathbb{Z}$, $0 \le x_e \le 1$, and encoding the fact that $T$ is a tour using other linear constraints.
 But since we optimize a linear function, the optimum is unchanged if we instead optimize over the {\em convex hull} $\textup{TSP}(n)$ of all tours.
 The set $\textup{TSP}(n) \subset [0,1]^{n \choose 2}$ is a polytope whose vertices are the vectors coming from tours.
-This is a natural object to study without referring to a specific set $(c_e)$ of costs, since changing the costs is equivalent to optimizing in a different direction over $\textup{TSP}(G)$.
+This is a natural object to study without referring to a specific set $(c_e)$ of costs, since changing the costs is equivalent to optimizing in a different direction over $\textup{TSP}(n)$.
 
 To explain this geometric approach in general, consider a problem where we optimize a linear function over some feasible collection $\mathcal{C}$ of subsets of a fixed set $X$.
 For instance, in the TSP we let $\mathcal{C}$ be the collection of all tours; here $X$ is the set of edges.
@@ -163,26 +164,26 @@ It was generalized by Gouveia, Parrilo, and Thomas \cite{gpt} to give an approxi
 This idea is also closely related to Lasserre's \cite{lasserre} and Parrilo's \cite{parrilo} heirarchies for polynomial optimization.
 
 As in Section \ref{section:copt}, consider a collection $\mathcal{C}$ of subsets of $\{1, \ldots, n\}$. 
-Let $V = \{\chi_C: C \in \mathcal{C}\}$.
-Since $V$ is a finite set, it is an {\em algebraic variety}.
+Let $\mathcal{V} = \{\chi_C: C \in \mathcal{C}\}$.
+Since $\mathcal{V}$ is a finite set, it is an {\em algebraic variety}.
 That is, it is the set of solutions of a finite list of polynomials.
-The {\em ideal} $I$ of $V$ is defined to be the set of all polynomials vanishing on $V$.
+The {\em ideal} $I$ of $\mathcal{V}$ is defined to be the set of all polynomials vanishing on $\mathcal{V}$.
 We can define an equivalence relation on polynomials, denoted $f \equiv g \mod I$, if and only if $f - g \in I$.
-It turns out that $f \equiv g \mod I$ if and only if $f(x) = g(x)$ for each $x \in V$.
+It turns out that $f \equiv g \mod I$ if and only if $f(x) = g(x)$ for each $x \in \mathcal{V}$.
 For a polynomial $f$ and an integer $k$, we say $f$ is {\em $k$-sos mod $I$} if we can write $f \equiv \sum_i g_i^2 \mod I$ for some polynomials $g_i$ with degree at most $k$.
 Now define the $k$th {\em theta body} of $I$, $\textup{TH}_k(I)$, to be the intersection of all affine linear functions $f$ which are $k$-sos mod $I$. 
-This defines a relaxation of the convex hull of $V$: $\conv(V) \subseteq \textup{TH}_k(I)$ for each $k$, with the approximation improving as $k$ increases.
-In our case, $V \subseteq \{0,1\}^n$, so it turns out that $\textup{TH}_n(I) =  \conv(V)$.
+This defines a relaxation of the convex hull of $\mathcal{V}$: $\conv(\mathcal{V}) \subseteq \textup{TH}_k(I)$ for each $k$, with the approximation improving as $k$ increases.
+In our case, $\mathcal{V} \subseteq \{0,1\}^n$, so it turns out that $\textup{TH}_n(I) =  \conv(\mathcal{V})$.
 We can optimize over $\textup{TH}_k(I)$ to fixed precision, for fixed $k$,  in time polynomial in $n$.
-This is done using {\em semidefinite programming}, and provides an efficient relaxation to $P(\mathcal{C}) = \conv(V)$ for small $k$.
+This is done using {\em semidefinite programming}, and provides an efficient relaxation to $P(\mathcal{C}) = \conv(\mathcal{V})$ for small $k$.
 
 As an example of the theta body heirarchy, we describe the first theta body of the stable set problem.
 Historically, this was the first example where theta bodies were used, and where the general heirarchy was abstracted from.
-Given a graph $G=(N,E)$, a subset $X$ of $N$ is {\em stable} if for all $i,j \in X$, $(ij) \notin E$. 
-Let $|N| = n$.
-As in Section \ref{section:copt}, we will consider the set $V \subset \{0,1\}^n$ of characteristic vectors of stable sets in $G$.
-Our goal is to describe the convex hull $\conv(V)$, denoted $\textup{STAB}(G)$.
-We can check that the ideal of $V$ is 
+Given a graph $G=(V,E)$, a subset $C$ of $V$ is {\em stable} if for all $i,j \in C$, $(ij) \notin E$. 
+Let $n = |V|$.
+As in Section \ref{section:copt}, we will consider the set $\mathcal{V} \subset \{0,1\}^n$ of characteristic vectors of stable sets in $G$.
+Our goal is to describe the convex hull $\conv(\mathcal{V})$, denoted $\textup{STAB}(G)$.
+We can check that the ideal of $\mathcal{V}$ is 
 $$I = \langle x_i^2 - x_i \, \forall \le i \le n\, ;\,  x_ix_j \, \forall (ij) \in E \rangle.$$
 To describe the first theta body $\textup{TH}_1(I)$, denoted $\textup{TH}(G)$ in this case, we must find all linear functions which are sums of squares of linear polynomials mod $I$.
 It turns out that $\textup{TH}(G)$ has a semidefinite description first discovered by Lov\'asz \cite{lovasz}.
@@ -260,8 +261,8 @@ The {\em $K_i$-cover problem} is a generalization of the stable set problem disc
 A graph $G = (V,E)$ is given. 
 For any $k$, a $k$-clique in $G$, denoted $K_i$, is a collection of $k$ nodes, each pair of which is connected by an edge in $E$.
 We define a covering relation where an $i$-clique $H_1$ is covered by an $(i-1)$-clique $H_2$ if $H_1 \supseteq H_2$; i.e., if $H_2$ is a subgraph of $H_1$. 
-A $K_i$-cover in $G$ is a collection $\mathcal{F}$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$ is covered by some element of $\mathcal{F}$. 
-The $K_i$-cover problem is to find such a collection $\mathcal{F}$ of smallest size.
+A $K_i$-cover in $G$ is a collection $\mathcal{C}$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$ is covered by some element of $\mathcal{C}$. 
+The $K_i$-cover problem is to find such a collection $\mathcal{C}$ of smallest size.
 In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$.
 
 \begin{figure}[htd]
@@ -272,11 +273,11 @@ In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$
 	\label{K5}
 \end{figure}
 
-When $i=2$, the $K_i$-cover problem is the \emph{vertex cover problem} - to find the smallest set $\mathcal{F}$ of vertices such that each edge is covered by a vertex in $\mathcal{F}$. 
-To make the connection to the stable set problem, note that $\mathcal{F} \subseteq V$ is a vertex cover if and only if $V \setminus \mathcal{F}$ is a stable set.
+When $i=2$, the $K_i$-cover problem is the \emph{vertex cover problem} - to find the smallest set $\mathcal{C}$ of vertices such that each edge is covered by a vertex in $\mathcal{C}$. 
+To make the connection to the stable set problem, note that $\mathcal{C} \subseteq V$ is a vertex cover if and only if $V \setminus \mathcal{C}$ is a stable set.
 Therefore, the problems are essentially equivalent.
 In fact, the polytopes defined by these problems as in section 1.1 are congruent via the transformation $x_j \mapsto 1-x_j$ in each coordinate.
-Similarly, a set $\mathcal{F}$ of $K_{i-1}$s is a $K_i$-cover if and only if its complement $\mathcal{F}^c$ is $K_i$-free.
+Similarly, a set $\mathcal{C}$ of $K_{i-1}$s is a $K_i$-cover if and only if its complement $\mathcal{C}^c$ is $K_i$-free.
 
 \subsection{Background}
 
@@ -406,36 +407,38 @@ sep=0pt, minimum width=6pt}]  \node (0) at
 
 \subsection{Results}
 \begin{itemize}
-\item Our main result is that the family of facets corresponding to $K_i$-$p$-holes is valid on the theta body $\textup{TH}_{\lceil i/2\rceil }(G)$.
+\item Our main result is that the family of facets corresponding to $K_i$-$p$-holes is valid on the theta body $\textup{TH}_{\lceil i/2\rceil }(I)$.
 Therefore, for fixed $i$, we have a polynomial-time algorithm to optimize over a relaxation at least as tight as the polyhedron described by this family. 
-To show that the $K_i$-$p$-hole facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, we exhibit a set of  polynomials which are {\em idempotent} mod $I$, and whose sum is the facet-defining inequality.
+To show that the $K_i$-$p$-hole facets are valid on $\textup{TH}_{\lceil i/2\rceil}(I)$, we exhibit a set of  polynomials which are {\em idempotent} mod $I$, and whose sum is the facet-defining inequality.
 \end{itemize}
-In additional, we proved two additional results about the triangle free problem, the case $i=3$ of the $K_i$-free problem.
+We also proved two results about the triangle free problem, the case $i=3$ of the $K_i$-free problem.
 \begin{itemize}
-\item For the triangle free problem, we show that $P_3(K_n) \subsetneq \textup{TH}_{k}(K_n)$ for $k < n/2$.
+\item For the triangle free problem on the complete graph $K_n$, we show that $P_3(K_n) \subsetneq \textup{TH}_{k}(I)$ for $k < n/2$.
 That is, it takes at least $n/2$ steps for the theta body heirarchy to converge to the triangle free polytope for $K_n$, and therefore this heirarchy does not give a polynomial-time algorithm for the triangle free problem.
 We show this by observing that the cut polytope and triangle free polytope of $K_n$ share a facet, and apply a result of Laurent \cite{moniquestuff} that the theta heirarchy takes at least $n/2$ steps to reach this facet.
 \item We show that there is an {\em integrality gap} of $1/2$ for the triangle cover problem's second theta relaxation. 
-That is, if we optimize in the all-1 direction in the triangle cover problem, we have $\min \{1 \cdot x: x \in \textup{TH}_2(G) \} \ge \frac{1}{2} \min \{1 \cdot x: x \in P_3(G)\}$ for all $G$. 
-We prove this by applying a result of Krivelevich \cite{krivelevich} on a fractional relaxation of the same problem, and proving that $\textup{TH}_2(G)$ is contained in this fractional relaxation.
+That is, if we optimize in the all-ones direction in the triangle cover problem, we have 
+$$\min \{1 \cdot x: x \in \textup{TH}_2(I) \} \ge \frac{1}{2} \min \{1 \cdot x: x \in P_3(G)\}$$
+or all $G$. 
+We prove this by applying a result of Krivelevich \cite{krivelevich} on a fractional relaxation of the same problem, and proving that $\textup{TH}_2(I)$ is contained in this fractional relaxation.
 \end{itemize}
 \subsection{Comments}
-In our main result, we consider the theta body $\textup{TH}_{\lceil i/2 \rceil}(G)$. 
+In our main result, we consider the theta body $\textup{TH}_{\lceil i/2 \rceil}(I)$. 
 The reason for choosing this level of the theta heirarchy is that the generators of the $K_i$-free ideal are polynomials of degree $i$.
-Therefore, they can't capture any inequalities on $\textup{TH}_k(G)$ when $2k < i$.
+Therefore, they can't capture any inequalities on $\textup{TH}_k(I)$ when $2k < i$, so $\textup{TH}_{\lceil i/2 \rceil}(I)$ is the first theta body it makes sense to consider.
 
 We don't fully address the question raised in Conforti et al \cite{conforti} of whether there is a polynomial time separation oracle for the family $\mathcal{F}$ of $K_i$-$p$-hole facets.
-We show that these facets are valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, and that we can check membership of $\textup{TH}_{\lceil i/2 \rceil}$ in polynomial time. 
+We show that these facets are valid on $\textup{TH}_{\lceil i/2\rceil}(I)$, and that we can check membership of $\textup{TH}_{\lceil i/2 \rceil}(I)$ in polynomial time. 
 However, this does not give a separation oracle for $\mathcal{F}$.
 Indeed, let $Q$ be the body defined as the intersection of all $F \in \mathcal{F}$.
-We have $P_i(G) \subseteq \textup{TH}_{\lceil i/2\rceil}(G) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
+We have $P_i(G) \subseteq \textup{TH}_{\lceil i/2\rceil}(I) \subseteq Q$, so in terms of an approximation to $P_i(G)$, the theta body is tighter, and we can optimize over it in polynomial time (for fixed $i$).
 However, this doesn't allow us to optimize over exactly $Q$ in polynomial time.
-In fact, for $i=2$, the stable set case, we have a similar phenomenon: $\textup{STAB}(G) \subseteq \textup{TH}_1(G) \subseteq \textup{QSTAB}(G)$; recall \ref{section:introtheta} for the definitions of these bodies.
-In this case it is NP-hard to optimize over either STAB or QSTAB, while TH can be optimized over in polynomial time.
+In fact, for $i=2$, the stable set case, we have a similar phenomenon: $\textup{STAB}(G) \subseteq \textup{TH}(G) \subseteq \textup{QSTAB}(G)$; recall \ref{section:introtheta} for the definitions of these bodies.
+In this case it is NP-hard to optimize over either $\textup{STAB}(G)$ or $\textup{QSTAB}(G)$, while $\textup{TH}(G)$ can be optimized over in polynomial time.
 
 
 Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated to other subgraphs of $G$, for which no separation oracle is currently known. 
-We checked numerically and found that they did not appear to be valid on $\textup{TH}_{\lceil i/2\rceil}(G)$, but they may be valid on higher theta bodies.
+We checked numerically and found that they did not appear to be valid on $\textup{TH}_{\lceil i/2\rceil}(I)$, but they may be valid on higher theta bodies.
 
 
 
