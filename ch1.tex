@@ -541,16 +541,77 @@ In this case it is NP-hard to optimize over either $\textup{STAB}(G)$ or $\textu
 Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated to other subgraphs of $G$, for which no separation oracle is currently known. 
 We checked numerically and found that they did not appear to be valid on $\textup{TH}_{\lceil i/2\rceil}(I)$, but they may be valid on higher theta bodies.
 
-
-
-
 \section{Sums of Squares on the Unit Hypercube}
+Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Joao Gouveia, currently being written.
 
-Extended abstract of the cube paper goes here.
+\subsection{Problem Description}
+recall hypercube and ideal and notion of sums of squares
+
+definition of divisibility and degree mod I
+
+sum of squares multipliers, global and mod I
+
+max cuts
+
+symmetry of Sn acting on functions on cube
+
+\subsection{Background}
+laurent result on lasserre rank of max cut = n/2
+
+previous results on global sos multipliers
+
+\subsection{Results}
+\begin{itemize}
+\item Let $f$ be an $S_n$-invariant function on the hypercube.
+Suppose $f$ vanishes to odd degree on a level $\{x \in C: \sum x_i ] t\}$ of the cube for some $t$ with $\deg (f) \le t \le n/2$. 
+Then $f$ is not a sum of squares of degree $\le t$.
+\item As a corollary, we show that such an $f$ is not $(d_1,d_2)$-sos for $d_1,d_2 \le t$.
+\item We reprove the result used in Chapter \ref{chap:kicover} that the theta body heirarchy does not converge to the max cut polytope until at least the $n/2$ level.
+To do this, we interpret the objective function of the theta body as a quadratic function on the hypercube.
+This quadratic function is symmetric and vanishes to odd degree, so it cannot be a sum of squares of degree $\le n/2$.
+Since the map preserves degree of sums of squares, we find that the same is true for the theta bodies of the cut polytope.
+\item We give an explicit example of a degree-4 polynomial on $\mathbb{R}^n$ which is nonnegative, but requires multipliers of degree at least $n/2$ to be written as a sum of squares.
+This polynomial is actually the quadratic polynomial from the max cut problem, suitably extended to $\mathbb{R}^n$ from the cube.
+\end{itemize}
+
+\subsection{Comments}
+???
 
 \section{The Representation Theory of Matchings}
+Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern, currently being written.
 
-Extended abstract of the matchings paper goes here.
+\subsection{Problem Description}
+A {\em perfect matching} in a graph $G=(V,E)$ is a subset $X \subseteq E$ such that each $v \in V$ meets some $x \in X$, and where each pair $x_1,x_2 \in X$ is disjoint.
+We abuse notation here and say {\em matching} for perfect matching; normally, a matching is a perfect matching with the vertex condition removed.
+Let $M_{2n}$ be the set of all matchings in the complete graph $K_{2n}$.
+The symmetric group $S_{2n}$ acts naturally on $M_{2n}$.
+We wish to decompose $M_{2n}$ into irreducible representations of $S_{2n}$.
+
+\subsection{Background}
+In \cite{bv} Barbasch and Vogan showed that $\CC[M_{2n}] \cong \oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash 2n$ consisting of even parts.
+They showed this by considering the restriction of $\CC[M_{2n}$ to an $S_{2n-1}$-module and using induction.
+However, they did not provide an explicit description of the isomorphism.
+
+\subsection{Results}
+\begin{itemize}
+\item We find an explicit isomorphism between $\CC[M_{2n}]$ and $\oplus_\lambda S^\lambda$, where the sum is over all partitions $\lambda \vdash 2n$ having only even parts.
+To construct the isomorphism, we give a map from each $S^\lambda$ to $\CC[M_{2n}]$ by imposing a matching structure on the group algebra elements in $S^\lambda$.
+We check that this map is injective; by the Barbasch-Vogan result, it is an isomorphism.
+\end{itemize}
+
+\subsection{Comments}
+A natural idea is to extend both the Barbasch-Vogan result and our explicit map to the case of matchings on hypergraphs.
+That is, let $M_{3,3n}$ be the set of all set partitions of $[3n]$ into $n$ sets of size $3$.
+One might guess that $\CC[M_{3,3n}] \cong \oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash 3n$ with all parts divisible by 3.
+In fact, even for $n=2$ we get $6+42$ instead of $6+33$ as conjectured, so the true decomposition is more complicated.
+Thus far we have not been able to find the pattern behind the decomposition.
+However, if a pattern is identified, it should be straightforward to generalize the Barbasch-Vogan result to this case.
+The main lemma providing the induction for their result does seem to apply.
+
+The decomposition here originally arose due to work on Chapter \ref{chap:cube}.
+It is possible to apply the symmetry techniques used there to varieties beyond the hypercube.
+In general, since the decompositions of these varieties into $S_n$ irreducibles are more complicated than that of the hypercube, it is harder to prove general statements.
+However, we were able to use the symmetry reduction to compute for the matchings on $K_9$ and show that the second theta body did not capture the convex hull in this case, a previously open question.
 
 \section{A Note on Notation}
 The following chapters were published as separate papers, and in some cases refer to different aspects of the same or related problems. 
