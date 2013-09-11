@@ -37,9 +37,13 @@ The initial set $S_0 $ of active vertices can be deterministic or random.
 See \cite{huang-lee} for some results on the minimal size of $S_0$ required for percolation in the deterministic case.
 In this paper, we let each vertex be active at time 0 independently with probability $p$.
 Thus, the bootstrap percolation process becomes a random variable.
-We are interested in the probability that the percolation occurs.
+We are interested in the probability that percolation occurs.
+In Figure \ref{fig:percgraphs}, we plot $\mathbb{P}(\textup{percolation})$ vs $p$ for the graph $[n]^2$ with Euclidean nearest neighbors and threshold $\theta=2$.
+As $p$ increases, there is a relatively sharp transition from a low probability of percolation to a high probability.
+As we increase $n$, the transition becomes sharper.
 
 \begin{figure}[htd]
+\label{fig:percgraphs}
 	\centering
 \begin{tikzpicture}[scale=3]
 \node at (.32,-.1) {0.32};
@@ -58,7 +62,7 @@ We are interested in the probability that the percolation occurs.
 \draw[very thick] (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
 \draw[dotted] (.195,0) -- (.195,1);
 \draw[dotted] (0,.5) -- (1,.5);
-  \draw[thick] (0,0) -- (0.1,0.0333) -- (0.11,0.0539) -- (0.12,0.0841) -- (0.13,0.1298) -- (0.14,0.1776) -- (0.15,0.2369) -- (0.16,0.2949) -- (0.17,0.3546) -- (0.18,0.4124) -- (0.19,0.4674) -- (0.2,0.5277) -- (0.22,0.6441) -- (0.24,0.7197) -- (0.26,0.7911) -- (0.28,0.8466) -- (0.3,0.8852) -- (0.333,0.9259) -- (0.366,0.9575) -- (0.4,0.9762) -- (0.5,0.997) -- (0.6,0.9995) -- (0.7,1.0) -- (0.8,1.0) -- (0.9,1.0) -- (1,1);
+  \draw[thick] (0,0) -- (.025,0) -- (.05,.0005) -- (.075,.0049) -- (0.1,0.0333) -- (0.11,0.0539) -- (0.12,0.0841) -- (0.13,0.1298) -- (0.14,0.1776) -- (0.15,0.2369) -- (0.16,0.2949) -- (0.17,0.3546) -- (0.18,0.4124) -- (0.19,0.4674) -- (0.2,0.5277) -- (0.22,0.6441) -- (0.24,0.7197) -- (0.26,0.7911) -- (0.28,0.8466) -- (0.3,0.8852) -- (0.333,0.9259) -- (0.366,0.9575) -- (0.4,0.9762) -- (0.5,0.997) -- (0.6,0.9995) -- (0.7,1.0) -- (0.8,1.0) -- (0.9,1.0) -- (1,1);
 \end{tikzpicture}
 \hfill
 \begin{tikzpicture}[scale=3]
@@ -68,14 +72,26 @@ We are interested in the probability that the percolation occurs.
 \draw[very thick] (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
 \draw[dotted] (.145,0) -- (.145,1);
 \draw[dotted] (0,.5) -- (1,.5);
-  \draw[thick] (0,0) -- (0.1,0.1105) -- (0.11,0.1849) -- (0.12,0.2734) -- (0.13,0.3628) -- (0.14,0.4638) -- (0.15,0.5466) -- (0.16,0.6424) -- (0.17,0.7048) -- (0.18,0.7521) -- (0.19,0.8045) -- (0.2,0.8329) -- (0.23,0.9148) -- (0.26,0.9532) -- (0.3,0.9819) -- (0.4,0.9982) -- (0.5,0.9999) -- (0.7,1.0) -- (1,1);
+  \draw[thick] (0,0) -- (0.025,0) -- (.05,.0005) -- (.075,.0156) -- (0.1,0.1105) -- (0.11,0.1849) -- (0.12,0.2734) -- (0.13,0.3628) -- (0.14,0.4638) -- (0.15,0.5466) -- (0.16,0.6424) -- (0.17,0.7048) -- (0.18,0.7521) -- (0.19,0.8045) -- (0.2,0.8329) -- (0.23,0.9148) -- (0.26,0.9532) -- (0.3,0.9819) -- (0.4,0.9982) -- (0.5,0.9999) -- (0.7,1.0) -- (1,1);
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[scale=3]
+\node at (.117,-.1) {0.12};
+\node at (.5,1.1) {$n=20$};
+%\node[rotate=90] at (-.1,.5) {$\mathbb{P}(\textup{percolation})$};
+\draw[very thick] (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
+\draw[dotted] (.117,0) -- (.117,1);
+\draw[dotted] (0,.5) -- (1,.5);
+  \draw[thick] (0,0) --   (0.02,0.0) -- (0.04,0.0) -- (0.06,0.0043) -- (0.08,0.0654) -- (0.1,0.2716) -- (.11,.4088) -- (.12,.5414) -- (.13,.6499) -- (0.14,0.7333) -- (0.15,0.8015) -- (0.16,0.8507) -- (0.17,0.8851) -- (0.18,0.9179) -- (0.19,0.9346) -- (0.2,0.9527) -- (.23,.9765) -- (.26,.9893) -- (0.3,0.9968) -- (0.5,1.0)       -- (1,1);
 \end{tikzpicture}
 \caption{Plots of $\mathbb{P}(\textup{percolation})$ vs $p$ for nearest neighbor $[n]^2$, for $n = 5, 10, 15$. Critical probabilities are indicated.}
 \label{htperc}
 \end{figure}
 
-We are interested in the {\em critical probability} $p_c$ at which $\mathbb{P}(\textup{percolation}) = \frac{1}{2}$.
-For most graphs, computing $p_c$ exactly is too difficult, but it is often possible to compute $p_c$ to first order in $n$ for a family of graphs $G_n$.
+To pin down this transition, we define the {\em critical probability} $p_c$ to be the $p$ at which $\mathbb{P}(\textup{percolation}) = \frac{1}{2}$.
+(Since the transition window narrows as $n$ increases, we could choose any fixed $c \in (0,1)$ in the definition without changing the theory.)
+We consider a family of graphs $G_n$ and wish to find the dependence of $p_c$ on $n$.
+For example, in the example in Figure \ref{fig:percgraphs}, it turns out that $p_c$ scales as $\frac{1}{\log n}$.
 
 For the graphs we consider, it turns out that the critical probability is essentially $n^{a}$ for some $a < 0$ in the following sense.
 Let $p = n^b$.
