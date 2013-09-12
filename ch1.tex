@@ -569,11 +569,19 @@ It is a celebrated result of Hilbert \cite{hilbert} that for homogeneous polynom
 holds exactly for $d=2$,$n=2$, and the special case $(n,d)=(3,4)$.
 
 Artin \cite{artin} generalized this result by showing that every nonnegative polynomial can be written as a sum of squares using sum of squares multipliers.
-In general it is thought that the degrees of these multipliers must be large, but no explicit bounds have been given so far.
+In general it is known that the degrees of these multipliers must be large, but no constructive examples have existed to this point.
 We find a simple degree-4 polynomial in $n$ variables which requires multipliers of degree at least $n/2$.
 
 We also reprove a result of Laurent on the max cut polytope's theta heirarchy.
-We show that the theta body does not converge until at least the $n/2$ level.
+A {\em cut} in a graph is a partition of the vertices into two sets $A,B$; variously, a cut also refers to the set of edges between $A$ and $B$.
+The {\em max cut problem} is the problem of finding a cut containing the maximal number of edges in a given graph.
+For example, in the complete graph $K_n$, max cuts are attained by partitioning the vertices into two sets of size $\frac{n}{2}$ (or $\frac{n-1}{2}$,$\frac{n+1}{2}$ if $n$ is odd).
+The max cut problem is NP-hard \cite{who}.
+We can apply the theta body relaxations to the max cut problem.
+However, Laurent \cite{laurent} showed that the theta body heirarchy does not converge to the max cut polytope until the level at least $n/2$.
+We reprove this result using our criterion for the hypercube.
+It turns out that the quadratic function $f(x) = (\frac{n-1}{2} - \sum x_i)(\frac{n+1}{2} - \sum x_i)$ equals the max cut problem's objective function in the {\em vertex model}, where a cut corresponds to a vector in $\{0,1\}^n$.
+By applying our lemma, we are able to show that this function, though nonnegative on $C$, is not $k$-sos mod $I$ for $k < n/2$.
 
 \subsection{Results}
 \begin{itemize}
