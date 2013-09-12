@@ -597,21 +597,26 @@ Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGove
 
 \subsection{Background}
 A {\em perfect matching} in a graph $G=(V,E)$ is a subset $X \subseteq E$ such that each $v \in V$ meets some $x \in X$, and where each pair $x_1,x_2 \in X$ is disjoint.
-We abuse notation here and say {\em matching} for perfect matching; normally, a matching is a perfect matching with the vertex condition removed.
-Let $M_{2n}$ be the set of all matchings in the complete graph $K_{2n}$.
-The symmetric group $S_{2n}$ acts naturally on $M_{2n}$.
+Let $M_{2n}$ be the set of all perfect matchings in the complete graph $K_{2n}$.
+The symmetric group $S_{2n}$ acts naturally on $M_{2n}$ by permuting the labels of vertices.
 We wish to decompose $M_{2n}$ into irreducible representations of $S_{2n}$.
 
+We quickly recall the necessary concepts from representation theory.
+A {\em representation} of a group $G$ is a vector space $V$ on which $G$ acts by linear transformations.
+A {\em subrepresentation} of $V$ is a vector subspace $W \subseteq V$ for which $GV = V$.
+A representation $V$ is {\em irreducible} if the only subrepresentations of $V$ are 0 and $V$ itself.
+For the symmetric group $S_n$, the irreducible representations are called the {\em Specht modules} $S^\lambda$ and are in bijection with the partitions $\lambda$ of $n$.
+For their construction, see the textbooks \cite{Sagan} and \cite{Fulton}.
+
+
 In \cite{bv} Barbasch and Vogan showed that $\CC[M_{2n}] \cong \oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash 2n$ consisting of even parts.
-They showed this by considering the restriction of $\CC[M_{2n}$ to an $S_{2n-1}$-module and using induction.
+They showed this by considering the restriction of $\CC[M_{2n}]$ to an $S_{2n-1}$-module and using induction.
 However, they did not provide an explicit description of the isomorphism.
 
 \subsection{Results}
-\begin{itemize}
-\item We find an explicit isomorphism between $\CC[M_{2n}]$ and $\oplus_\lambda S^\lambda$, where the sum is over all partitions $\lambda \vdash 2n$ having only even parts.
-To construct the isomorphism, we give a map from each $S^\lambda$ to $\CC[M_{2n}]$ by imposing a matching structure on the group algebra elements in $S^\lambda$.
+We find an explicit isomorphism between $\CC[M_{2n}]$ and $\oplus_\lambda S^\lambda$, where the sum is over all partitions $\lambda \vdash 2n$ having only even parts.
+To construct the isomorphism, we give a map from each $S^\lambda$ to $\CC[M_{2n}]$ by imposing a matching structure on the elements of $S^\lambda$.
 We check that this map is injective; by the Barbasch-Vogan result, it is an isomorphism.
-\end{itemize}
 
 \subsection{Comments}
 A natural idea is to extend both the Barbasch-Vogan result and our explicit map to the case of matchings on hypergraphs.
