@@ -598,7 +598,17 @@ This polynomial is actually the quadratic polynomial from the max cut problem, s
 \end{itemize}
 
 \subsection{Comments}
-???
+Although for a fixed $f$, the question of whether $f$ is $(d_1,d_2)$-sos can be solved by semidefinite programming, we lose the ability to optimize the constant coefficient of $f$ such that $f$ is $(d_1,d_2)$-sos.
+This doesn't affect complexity considerations, as in general we have a bound on the quantity we want to optimize (e.g. it lies between 0 and $n$ a priori).
+Then, we can use binary search to home in on the value to any fixed precision.
+However, it is still an interesting geometric question whether the set $\Sigma_{d_1,d_2}$ of $(d_2,d_2)$-sos functions is the feasible region of a semidefinite program.
+
+The representation-theoretic decomposition of $\RR[C]$ in this chapter can be performed in a wider setting.
+We performed calculations by hand indicating that the matching polytope of $K_9$ does not equal its second theta body.
+Carrying these out for general $n$ and more complicated varieties will require more sophisticated representation theory.
+In general, the spaces we seek to decompose have already been determined up to isomorphism, but to carry out the sum of squares decomposition, we need explicit maps exhibiting such an isomorphism.
+We give an example of this in Chapter \ref{chap:matchings}.
+
 
 \section{The Representation Theory of Matchings}
 Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern, currently being written.
@@ -634,11 +644,6 @@ In fact, even for $n=2$ we get $6+42$ instead of $6+33$ as conjectured, so the t
 Thus far we have not been able to find the pattern behind the decomposition.
 However, if a pattern is identified, it should be straightforward to generalize the Barbasch-Vogan result to this case.
 The main lemma providing the induction for their result does seem to apply.
-
-The decomposition here originally arose due to work on Chapter \ref{chap:cube}.
-It is possible to apply the symmetry techniques used there to varieties beyond the hypercube.
-In general, since the decompositions of these varieties into $S_n$ irreducibles are more complicated than that of the hypercube, it is harder to prove general statements.
-However, we were able to use the symmetry reduction to compute for the matchings on $K_9$ and show that the second theta body did not capture the convex hull in this case, a previously open question.
 
 \section{A Note on Notation}
 The following chapters were published as separate papers, and in some cases refer to different aspects of the same or related problems. 
