@@ -11,7 +11,8 @@ Chapters \ref{chap:kicover} and \ref{chap:cube} apply sums of squares approximat
 Chapter \ref{chap:matchings} studies the representation theory of the set of matchings and is an offshoot of the work in Chapter \ref{chap:cube}.
 
 \section{Bootstrap Percolation on the Hamming Torus}
-Chapter \ref{chap:bootstrap} is taken from a paper coauthored with Janko Gravner, Christopher Hoffman, and Davis Sivakoff, and submitted to \emph{Annals of Applied Probability}.
+Chapter \ref{chap:bootstrap} is taken from a paper coauthored with Janko Gravner, Christopher Hoffman, and Davis Sivakoff, and submitted to \emph{Annals of Applied Probability} (FIXME).
+It investigates the critical behavior of bootstrap percolation on the Hamming torus.
 
 \subsection{Problem Description}
 \label{section:bootstrap1}
@@ -306,7 +307,8 @@ Therefore the clique inequalities are valid on $\textup{TH}(G)$, and $\textup{ST
 
 
 \section{A Semidefinite Approach to the $K_{\lowercase{i}}$-Cover Problem}
-Chapter \ref{chap:kicover} is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters} and is an application of theta bodies to the $K_i$-cover problem.
+Chapter \ref{chap:kicover} is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters} (FIXME).
+It is an application of theta bodies to the $K_i$-cover problem.
 
 \subsection{Problem Description}
 
@@ -543,6 +545,7 @@ We checked numerically and found that they did not appear to be valid on $\textu
 
 \section{Sums of Squares on the Unit Hypercube}
 Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Jo\~ao Gouveia, currently being written (FIXME).
+It describes a criterion for certain polynomials to be sums of squares mod the ideal of the unit hypercube.
 
 \subsection{Background}
 We begin by describing the {\em max cut problem}.
@@ -641,39 +644,81 @@ We give a partial example of this in Chapter \ref{chap:matchings}.
 
 
 \section{The Representation Theory of Matchings}
-Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern, currently being written.
+Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern, currently being written (FIXME).
+It describes the decomposition of the space of matchings on $K_n$ into irreducible representations of $S_n$.
 
-\subsection{Background}
-A {\em perfect matching} in a graph $G=(V,E)$ is a subset $X \subseteq E$ such that each $v \in V$ meets some $x \in X$, and where each pair $x_1,x_2 \in X$ is disjoint.
-Let $M_{2n}$ be the set of all perfect matchings in the complete graph $K_{2n}$.
-The symmetric group $S_{2n}$ acts naturally on $M_{2n}$ by permuting the labels of vertices.
-We wish to decompose $M_{2n}$ into irreducible representations of $S_{2n}$.
+\subsection{Problem definition}
+A {\em perfect matching} in a graph $G=(V,E)$ is a subset $M \subseteq E$ such that each $v \in V$ meets some $e \in M$, and where each pair $e_1,e_2 \in M$ is disjoint.
+Let $\MMM_{n}$ be the set of all perfect matchings in the complete graph $K_{2n}$.
+The symmetric group $S_{2n}$ acts naturally on $\MMM_{n}$ by permuting the labels of vertices.
+We wish to decompose $\CC[\MMM_{n}]$ into {\em irreducible representations} of $S_{2n}$.
 
 We quickly recall the necessary concepts from representation theory.
-A {\em representation} of a group $G$ is a vector space $V$ on which $G$ acts by linear transformations.
+A {\em representation} of a group $G$ is a vector space $V$ on which $G$ acts by linear transformations: that is, a group homomorphism $\rho: G \to GL(V)$.
 A {\em subrepresentation} of $V$ is a vector subspace $W \subseteq V$ for which $GV = V$.
 A representation $V$ is {\em irreducible} if the only subrepresentations of $V$ are 0 and $V$ itself.
 For the symmetric group $S_n$, the irreducible representations are called the {\em Specht modules} $S^\lambda$ and are in bijection with the partitions $\lambda$ of $n$.
 For their construction, see the textbooks \cite{Sagan} and \cite{Fulton}.
 
+Suppose $V$ is a representation of a group $G$, and $H$ is a subgroup of $G$.
+We can make $V$ into a representation of $H$ by simply forgetting the elements of $G \setminus H$; this operation is known as {\em restriction} and is denoted $\textup{Res}^G_H(V)$.
+A similar operation is {\em induction}.
+Here, we are given a group $G$, a subgroup $H$, and a representation $V$ of $H$.
+We wish to construct a representation $\textup{Ind}_H^G(V)$ in a canonical way.
+The details are more involved than for restriction, but it turns out to be possible.
+The theorem we need here is the {\em Branching rule}, that $\textup{Res}_{S_{n-1}}^{S^n}(S^\lambda) = \sum_{\lambda^-} S^{\lambda^-}$ and $\textup{Ind}_{S_{n-1}}^{S^n}(S^\lambda) = \sum_{\lambda^+} S^{\lambda^+}$.
+The sums $\lambda^-$ and $\lambda^+$ range over all partitions obtained from $\lambda$ by removing, respectively adding, a single cell.
 
-In \cite{bv} Barbasch and Vogan showed that $\CC[M_{2n}] \cong \oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash 2n$ consisting of even parts.
-They showed this by considering the restriction of $\CC[M_{2n}]$ to an $S_{2n-1}$-module and using induction.
-However, they did not provide an explicit description of the isomorphism.
+\subsection{Background}
+In \cite{bv} Barbasch and Vogan showed that $\CC[\MMM_{n}] \cong \oplus_\lambda S^\lambda$, where the sum is over all partitions $\lambda \vdash 2n$ consisting of even parts.
+Their key lemma uses the restriction and induction operations to link the $n-1$ and $n$ cases of the theorem:
+$$ \textup{Ind}_{S_{2n-2}}^{S_{2n-1}}(\CC[\MMM_{n-1}]) \cong \textup{Res}_{S_{2n-1}}^{S_{2n}}( \CC[\MMM_{n}]).$$ 
+From this lemma, it is straightforward to use induction on $n$ to prove the desired decomposition of $\CC[\MMM_{n}]$.
+
+From the perspective of representation theory, this settles the matter, because it describes $\CC[\MMM_{n}]$ up to isomorphism.
+However, to use this in determining sums of squares mod $I$, we need to know the explicit decomposition of $\CC[\MMM_{n}]$ into irreducible representations.
+That is, for each valid $\lambda \vdash 2n$, we require an embedding $S^\lambda \to \CC[\MMM_{n}]$.
+From Barbasch and Vogan, we know such a map exists, but not necessarily how to find it.
+
+A natural idea is to ``increase 2 to $m$'' in the definition of matching.
+There are two natural ways to do this: perfect matchings on hypergraphs, and permutations of cycle type $(m^n)$. We describe hypergraphs first.
+
+An {\em $m$-uniform hypergraph} is a collection $G = (V,E)$ of vertices and edges, where an edge is a collection of $m$ vertices.
+The case $m=2$ gives the usual definition a graph.
+The complete $m$-uniform hypergraph $K^{(m)}_n = ([n],{{[n]} \choose m})$.
+A perfect matching in $K^{(m)}_{mn}$ is a collection of $n$ disjoint edges whose union is $[mn]$.
+Equivalently, it is a set partition of $[mn]$ into $n$ sets of size $m$.
+Let $\MMM_{m,n}$ be the set of all matchings in $K^{(m)}_n$.
+
+The second generalization is based on permutations of a fixed {\em cycle type}.
+Let $\ZZZ_{m,n} \subset S_{mn}$ be the set of all permutations consisting of $n$ disjoint $m$-cycles, such as $(12)(34)(56)(78)$ for $n=4,m=2$.
+Let $S_{mn}$ act on $\ZZZ_{m,n}$ by conjugation: $\sigma \cdot \tau := \sigma \tau \sigma^{-1}$ for $\sigma \in S_{mn}$, $\tau \in \ZZZ_{m,n}$.
+It turns out that $\CC[\MMM_n] \cong \CC[\ZZZ_{2,n}]$; for example, the permutation $(12)(34)(56)(78) \in \ZZZ_{2,4}$ is mapped to the matching also written $(12)(34)(56)(78)$.
+This suggests an alternate generalization of $\CC[\MMM_n]$.
+Fix $m$ and let $\ZZZ_{m,n}$ be the set of all permutations in $S_{mn}$ of cycle type $m^n$.
+For example, when $(m,n) = (4,3)$, an example is $(1234)(5678)(9,10,11,12)$.
 
 \subsection{Results}
-We find an explicit isomorphism between $\CC[M_{2n}]$ and $\oplus_\lambda S^\lambda$, where the sum is over all partitions $\lambda \vdash 2n$ having only even parts.
-To construct the isomorphism, we give a map from each $S^\lambda$ to $\CC[M_{2n}]$ by imposing a matching structure on the elements of $S^\lambda$.
+\begin{itemize}
+\item We find an explicit isomorphism between $\CC[\MMM_{n}]$ and $\oplus_\lambda S^\lambda$.
+To construct the isomorphism, we give a map from each $S^\lambda$ to $\CC[\MMM_{n}]$ by imposing a matching structure on the elements of $S^\lambda$.
 We check that this map is injective; by the Barbasch-Vogan result, it is an isomorphism.
+\item We also extend the induction lemma in Barbasch and Vogan's proof to both of our generalized cases:
+\begin{align*}
+ \textup{Ind}_{S_{m(n-1)} \times S_{m-1}}^{S_{mn-1}}(\CC[\MMM_{m,n-1}] \otimes 1) & \cong \textup{Res}_{S_{mn-1}}^{S_{mn}}( \CC[\MMM_{m,n}]) \\
+ \textup{Ind}_{S_{m(n-1)} }^{S_{mn-1}}(\CC[\ZZZ_{m,n-1}] \otimes 1) & \cong \textup{Res}_{S_{mn-1}}^{S_{mn}}( \CC[\ZZZ_{m,n}])
+\end{align*}
+We use this lemma to compute the decompositions of $\CC[\MMM_{m,n}]$ and $\CC[\ZZZ_{m,n}]$ for small values of $m$ and $n$.
+\end{itemize}
 
 \subsection{Comments}
-A natural idea is to extend both the Barbasch-Vogan result and our explicit map to the case of matchings on hypergraphs.
-That is, let $M_{3,3n}$ be the set of all set partitions of $[3n]$ into $n$ sets of size $3$.
-One might guess that $\CC[M_{3,3n}] \cong \oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash 3n$ with all parts divisible by 3.
-In fact, even for $n=2$ we get $6+42$ instead of $6+33$ as conjectured, so the true decomposition is more complicated.
+We extended the induction lemma to both of our generalized cases.
+By analogy with the case $m=2$, one might guess that $\CC[\MMM_{m,n}]$ or $\CC[\ZZZ_{m,n}]$ would be isomorphic to $\oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash mn$ with all parts divisible by $m$.
+In fact, even for $(m,n)=(3,2)$ we get $\CC[\MMM_{3,2}] \cong S^{(6}) + S^{(4,2)}$ instead of $S^{(6}) + S^{(3,3)}$ as conjectured.
+The decomposition of $\CC[\ZZZ_{3,2}]$ is even farther, consisting of the partitions [6], [2, 1, 1, 1, 1], [2, 2, 2], [4, 2], [3, 1, 1, 1], and [4, 1, 1], each with multiplicity 1.
 Thus far we have not been able to find the pattern behind the decomposition.
-However, if a pattern is identified, it should be straightforward to generalize the Barbasch-Vogan result to this case.
-The main lemma providing the induction for their result does seem to apply.
+However, if a pattern is identified, it should be straightforward to use the generalized induction lemma to prove it.
+
 
 \section{A Note on Notation}
 The following chapters were published as separate papers, and in some cases refer to different aspects of the same or related problems. 
