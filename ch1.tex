@@ -542,72 +542,102 @@ Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated t
 We checked numerically and found that they did not appear to be valid on $\textup{TH}_{\lceil i/2\rceil}(I)$, but they may be valid on higher theta bodies.
 
 \section{Sums of Squares on the Unit Hypercube}
-Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Joao Gouveia, currently being written.
+Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Jo\~ao Gouveia, currently being written (FIXME).
 
 \subsection{Background}
-Let $C = \{0,1\}^n$ be the hypercube.
-Its ideal is $I = \langle x_i^2 - x_i \rangle$, and the space of functions mod $I$ is denoted $\RR[C] = \RR[x]/I$.
-The symmetric group $S_n$ acts on $\RR[C]$ by permuting variables, and we can decompose $\RR[C]$ into $S_n$-irreducibles to analyze its structure.
+We begin by describing the {\em max cut problem}.
+A {\em cut} in a graph $G=(V,E)$ is a partition of $V$ into two sets $A$ and $B$; variously, a cut also refers to the set $C$ of edges between $A$ and $B$.
+The max cut problem is to find a cut containing the maximum number of edges.
+Alternatively, if a set of weights $(w_e)$ is given, it can refer to finding the cut $C$ maximizing $\sum_{e \in C} w_e$.
+For example, in the complete graph $K_n$, max cuts with unit weights are attained by partitioning the vertices into two sets of size $\frac{n}{2}$ if $n$ is even, or sizes $\frac{n-1}{2}$ and $\frac{n+1}{2}$ if $n$ is odd.
 
-Because we can cancel squarefree terms mod $I$, every function in $\RR[C]$ has a unique represenative of lowest degree.
-Therefore, there is a natural notion of degree in $\RR[C]$.
-This allows us to define a notion of divisibility mod $I$ that, like the usual polynomial divisibility, respects degree.
-(Note that this is not the standard definition of divisibility in a ring.)
+As in Section \ref{section:cosos}, we can associate a cut $C$ with its charactistic vector $\chi_C \in \{0,1\}^{n \choose 2}$.
+Let $\mathcal{C}$ be the set of all characteristic vectors of cuts.
+We let the {\em max cut polytope} be $P(G) = \conv (\mathcal{C})$.
+This is called the {\em edge model}.
+In the case $G = K_n$, the max cuts have size $\lfloor \frac{n^2}{4} \rfloor$, so the function $f(x) = \lfloor \frac{n^2}{4} \rfloor - \sum x_{ij} \ge 0$ on $\mathcal{C}$.
+In fact, it defines a facet of the max cut polytope $P(K_n)$.
+To determine how well the $k$th theta body captures this inequality, we can ask for the smallest $\lambda$ such that $\lambda - \sum x_{ij}$ is $k$-sos mod $I(\mathcal{C})$.
+As $k$ increases, $\lambda$ will converge to the true minimum $\lfloor \frac{n^2}{4} \rfloor$.
 
-Recall from Section \ref{section:scosos} that we have a notion of sum of squares mod $I$.
-In this chapter, we will consider functions $f \in \RR[C]$ that are invariant under the $S_n$ action and derive a condition for when they are a sum of squares.
-We also introduce the notion of {\em sum of squares multipliers mod $I$}. 
-A function $f \in \RR[C]$ is said to be $(d_1,d_2)$-sos mod $I$ if there exist $g_1,g_2 \in \RR[C]$, such that $g_i$ is $d_i$-sos mod $I$, and $fg_1=g_2$.
-We also assume in this definition that $g_1> 0$ on $C$.
-Since any $f$ which is $(d_1,d_2)$-sos mod $I$ is also nonnegative on $C$, this gives a generalization of the theta body heirarchy which can still be optimized over in polynomial time.
+In the case $G = K_n$, we can define another model of cuts, the {\em vertex model}. 
+Let $C$ be a cut arising from a partition $[A,B]$ of vertices.
+Associate to $C$ the characteristic vector $\chi_A \in \HHH = \{0,1\}^n$, the unit hypercube.
+This preserves all the information contained in $C$: given a vector $y \in \HHH$, we can recover $A = \{i \in [n]: y_i = 1$ and $B = [n] \setminus A$.
+Note that the cut $C$ also arises from the partition $[B,A]$, so each cut is represented by two vectors in $\HHH$.
+We can translate between the vertex and edge models.
+Given a point $y \in \HHH$, define $x = \tau(y)\in \{0,1\}^{n \choose 2}$ by $x_{ij} = (y_i - y_j)^2$.
+This transformation converts cuts represented by the vertex model to cuts represented by the dge model; if $y_i = y_j$, then the edge $(ij)$ is not a cut edge so $x_{ij}=0$.
+If $y_i \ne y_j$, then $(ij)$ is a cut edge, and indeed $x_{ij} = (y_i-y_j)^2 = 1$.
 
-The idea of sums of squares multipliers came from work in real algebraic geometry, where the same idea is considered.
+Recall that $f(x) = \lfloor \frac{n^2}{4} \rfloor - \sum x_{ij}$ defines the top facet of the max cut polytope $P(K_n)$ in the edge model.
+It turns out that $g(y) = (\lfloor \frac{n}{2} \rfloor - \sum y_i)(\lceil \frac{n}{2} \rceil - \sum y_i)$ defines this same function on the vertex model under the correspondence given by $\tau$.
+To see this, one may apply $\tau$ and reason algebraically.
+Alternatively, this can be seen by considering a cut $C = [A,B]$ represented by $x$ and $y$, and evaluating $f(x) = g(y)$ by hand.
+Results about the sum of squares rank of $g(y)$ can be converted into results about $f(x)$.
+If $f(x)$ is $k$-sos mod $I(\mathcal{C})$ for some $k$, the sum of squares can be written in the variables $x_{ij}$.
+Writing the same sum of squares expression, substituting $(y_i - y_j)^2$ for $x_{ij}$ everywhere, shows that $g(y)$ is also $k$-sos mod $I(\HHH)$.
+
+We will consider functions on the hypercube $\HHH$ satisfying certain properties.
+We give these definitions here.
+First, since the ideal $I = I(\HHH) = \langle x_i^2 - x_i ;\, 1 \le i \le n\rangle$, each function $f \in \RR[\HHH] = \RR[x] / I$ can be represented using squarefree monomials.
+This gives a notion of {\em degree} mod $I$ which coincides with the notion of degree we have used in the definition of $k$-sos.
+This leads to a notion of {\em proper divisibility} mod $I$ in which $f$ is properly divisible by $g$ mod $I$ if there exists $h$ such that $f=gh$ mod $I$ and $\deg(f) = \deg(g) + \deg(h)$.
+Here $f,g,h \in \RR[\HHH]$.
+We also consider the symmetric group $S_n$ acting on $\RR[\HHH]$ by permuting variables.
+A function $f \in \RR[\HHH]$ is {\em invariant} if it is fixed by $S_n$.
+An invariant function has the same value on each {\em level} $\{x \in \HHH: \sum x_i = t \}$ of the hypercube, and is determined by these values.
+We say that $f$ {\em vanishes to degree $k$ on level $t$} if $f$ is properly divisible by $(\sum x_i - t)^k$ but not by $(\sum x_i - t)^{k+1}$.
+
+We also define a generalization of $k$-sos mod $I$ from Section \ref{section:cosos}.
+This notion is denoted $(d_1,d_2)$-sos mod $I$, or being {\em $d_2$-sos with $d_1$-sos multipliers}.
+A function $f \in \RR[\HHH]$ is said to be $(d_1,d_2)$-sos mod $I$ if there exist $g_1,g_2 \in \RR[\HHH]$, with $g_1 > 0 on \HHH$, such that $g_i$ is $d_i$-sos mod $I$, and $fg_1=g_2$.
+Since any $f$ which is $(d_1,d_2)$-sos mod $I$ is also nonnegative on $\HHH$, this gives a generalization of the theta body heirarchy which can still be optimized over in polynomial time.
+
+\subsection{Background}
+A previous semidefinite approximation to the cut polytope was given by Goemans and Williamson \cite{who}, who constructed a 0.878 semidefinit approximation to max cut.
+However, since the max cut problem is NP-hard, an exact semidefinite algorithm should not be efficient.
+Indeed, Laurent \cite{who} showed that the Lasserre relaxations of the max cut polytope $P(K_n)$, equivalent to the theta body heirarchy in this case, do not capture the facet $\lfloor \frac{n^2}{4} \rfloor - \sum x_{ij} \ge 0$ until at least the $n/4$ level of the heirarchy.
+
+The idea of sums of squares multipliers came from work in real algebraic geometry, where the same idea is considered for polynomials on $\RR^n$.
 It is a celebrated result of Hilbert \cite{hilbert} that for homogeneous polynomials $f$ in $n$ variables of even degree $d$, the implication
 \begin{itemize}
 \item $f \ge 0$ everywhere if and only if $f$ is a sum of squares
 \end{itemize}
 holds exactly for $d=2$,$n=2$, and the special case $(n,d)=(3,4)$.
-
+In all other cases, being a sum of squares implies nonnegativity, but not conversely.
 Artin \cite{artin} generalized this result by showing that every nonnegative polynomial can be written as a sum of squares using sum of squares multipliers.
-In general it is known that the degrees of these multipliers must be large, but no constructive examples have existed to this point.
-We find a simple degree-4 polynomial in $n$ variables which requires multipliers of degree at least $n/2$.
-
-We also reprove a result of Laurent on the max cut polytope's theta heirarchy.
-A {\em cut} in a graph is a partition of the vertices into two sets $A,B$; variously, a cut also refers to the set of edges between $A$ and $B$.
-The {\em max cut problem} is the problem of finding a cut containing the maximal number of edges in a given graph.
-For example, in the complete graph $K_n$, max cuts are attained by partitioning the vertices into two sets of size $\frac{n}{2}$ (or $\frac{n-1}{2}$,$\frac{n+1}{2}$ if $n$ is odd).
-The max cut problem is NP-hard \cite{who}.
-We can apply the theta body relaxations to the max cut problem.
-However, Laurent \cite{laurent} showed that the theta body heirarchy does not converge to the max cut polytope until the level at least $n/2$.
-We reprove this result using our criterion for the hypercube.
-It turns out that the quadratic function $f(x) = (\frac{n-1}{2} - \sum x_i)(\frac{n+1}{2} - \sum x_i)$ equals the max cut problem's objective function in the {\em vertex model}, where a cut corresponds to a vector in $\{0,1\}^n$.
-By applying our lemma, we are able to show that this function, though nonnegative on $C$, is not $k$-sos mod $I$ for $k < n/2$.
+In general it is known that the degrees of these multipliers must be large, but no constructive examples have existed to this point. (FIXME - ask Greg for actual literature here)
 
 \subsection{Results}
 \begin{itemize}
-\item Let $f$ be an $S_n$-invariant function on the hypercube.
-Suppose $f$ vanishes to odd degree on a level $\{x \in C: \sum x_i ] t\}$ of the cube for some $t$ with $\deg (f) \le t \le n/2$. 
-Then $f$ is not a sum of squares of degree $\le t$.
+\item Let $f$ be an invariant function on $\HHH$ which vanishes to odd degree on level $t$, for some $t \le n/2$ with $\deg (f) \le t$. 
+Then $f$ is not $k$-sos mod $I$ for $k \le t$.
+To show this, we consider the vector space $\RR[\HHH]$ as an {\em $S_n$-module} and decompose it into {\em irreducible representations}.
+Most of these irreducible representations cannot contribute to a sum of squares which vanishes on level $t$.
+The ones that can contribute each introduce a factor of $(t - \sum x_i)$ of even degree, leading to a parity contradiction.
 \item As a corollary, we show that such an $f$ is not $(d_1,d_2)$-sos for $d_1,d_2 \le t$.
-\item We reprove the result used in Chapter \ref{chap:kicover} that the theta body heirarchy does not converge to the max cut polytope until at least the $n/2$ level.
-To do this, we interpret the objective function of the theta body as a quadratic function on the hypercube.
-This quadratic function is symmetric and vanishes to odd degree, so it cannot be a sum of squares of degree $\le n/2$.
-Since the map preserves degree of sums of squares, we find that the same is true for the theta bodies of the cut polytope.
-\item We give an explicit example of a degree-4 polynomial on $\mathbb{R}^n$ which is nonnegative, but requires multipliers of degree at least $n/2$ to be written as a sum of squares.
-This polynomial is actually the quadratic polynomial from the max cut problem, suitably extended to $\mathbb{R}^n$ from the cube.
+\item We reprove the result of Laurent, used in Chapter \ref{chap:kicover}, that the theta body heirarchy does not converge to the max cut polytope $P(K_n)$ until at least the $n/4$ level.
+To do this, we use the translation between the vertex and edge models of max cuts on $K_n$.
+The function $q(y)$ is invariant and vanishes on level $t = \lfloor n/2 \rfloor$.
+Therefore it cannot be a sum of squares of degree $\le n/2$.
+\item We give an explicit example of a degree-4 polynomial on $\mathbb{R}^n$ which is nonnegative, but requires sum of squares multipliers of degree at least $n/2$ to be written as a sum of squares.
+This polynomial is actually $q(y)$, extended from $\HHH$ to $\mathbb{R}^n$ by adding a multiple of the ideal generators $\sum (x_i^2 - x_i)^2$.
+This gives a new constructive example of a polynomial that requires degree-$O(n)$ sum of squares multipliers.
 \end{itemize}
 
 \subsection{Comments}
-Although for a fixed $f$, the question of whether $f$ is $(d_1,d_2)$-sos can be solved by semidefinite programming, we lose the ability to optimize the constant coefficient of $f$ such that $f$ is $(d_1,d_2)$-sos.
-This doesn't affect complexity considerations, as in general we have a bound on the quantity we want to optimize (e.g. it lies between 0 and $n$ a priori).
+For a fixed $f$, the question of whether $f$ is $(d_1,d_2)$-sos can be solved by semidefinite programming (either mod $I$ or globally).
+However, we lose the ability to optimize the constant coefficient of $f$ such that $f$ is $(d_1,d_2)$-sos, as introducing sos multipliers changes the problem to quadratic optimization, which is NP-hard.
+This doesn't affect complexity considerations, as in general we have a bound on the quantity we want to optimize (e.g. it is known a priori to lie in some interval $[0,C]$).
 Then, we can use binary search to home in on the value to any fixed precision.
 However, it is still an interesting geometric question whether the set $\Sigma_{d_1,d_2}$ of $(d_2,d_2)$-sos functions is the feasible region of a semidefinite program.
+(FIXME - ask Greg for some literature here)
 
-The representation-theoretic decomposition of $\RR[C]$ in this chapter can be performed in a wider setting.
-We performed calculations by hand indicating that the matching polytope of $K_9$ does not equal its second theta body.
+The representation-theoretic decomposition of $\RR[\HHH]$ in this chapter can be performed in a wider setting.
+For example, we performed calculations by hand indicating that the {\em matching polytope} of $K_9$ does not equal its second theta body.
 Carrying these out for general $n$ and more complicated varieties will require more sophisticated representation theory.
-In general, the spaces we seek to decompose have already been determined up to isomorphism, but to carry out the sum of squares decomposition, we need explicit maps exhibiting such an isomorphism.
-We give an example of this in Chapter \ref{chap:matchings}.
+We give a partial example of this in Chapter \ref{chap:matchings}.
 
 
 \section{The Representation Theory of Matchings}
