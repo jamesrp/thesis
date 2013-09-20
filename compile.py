@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
-import subprocess, sys
+import subprocess, sys, os
+
+exts = ["aux","bbl","blg","log","toc","out"]
+files = os.listdir('.')
+for fname in files:
+    if any(ext in fname for ext in exts):
+        os.remove(fname)
 
 if len(sys.argv) > 1: # heh
     subprocess.call(["pdflatex", "thesis.tex"])
@@ -13,12 +19,4 @@ else:
     subprocess.call(["pdflatex", "stub.tex"])
     print "Compiled stub.tex."
 
-exts = ["aux","bbl","blg","log","toc","out"]
 
-import os
-files = os.listdir('.')
-for fname in files:
-    if any(ext in fname for ext in exts):
-        os.remove(fname)
-
-print "Removed temporary files."
