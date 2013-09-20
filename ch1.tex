@@ -35,7 +35,7 @@ The main goal is to determine under what conditions the entire graph eventually 
 In this case, we say that percolation has occurred, or that $S_0$ {\em spans} $G$.
 
 The initial set $S_0 $ of active vertices can be deterministic or random.
-See \cite{huang-lee} for some results on the minimal size of $S_0$ required for percolation in the deterministic case.
+See \cite{pete} for some results on the minimal size of $S_0$ required for percolation in the deterministic case.
 In this paper, we let each vertex be active at time 0 independently with probability $p$.
 Thus, the bootstrap percolation process becomes a random variable.
 We are interested in the probability that percolation occurs.
@@ -86,7 +86,6 @@ As we increase $n$, the transition becomes sharper.
   \draw[thick] (0,0) --   (0.02,0.0) -- (0.04,0.0) -- (0.06,0.0043) -- (0.08,0.0654) -- (0.1,0.2716) -- (.11,.4088) -- (.12,.5414) -- (.13,.6499) -- (0.14,0.7333) -- (0.15,0.8015) -- (0.16,0.8507) -- (0.17,0.8851) -- (0.18,0.9179) -- (0.19,0.9346) -- (0.2,0.9527) -- (.23,.9765) -- (.26,.9893) -- (0.3,0.9968) -- (0.5,1.0)       -- (1,1);
 \end{tikzpicture}
 \caption{Plots of $\mathbb{P}(\textup{percolation})$ vs $p$ for nearest neighbor $[n]^2$, for $n = 5, 10, 15, 20$. Critical probabilities are indicated.}
-\label{htperc}
 \end{figure}
 
 To pin down this transition, we define the {\em critical probability} $p_c$ to be the $p$ at which $\mathbb{P}(\textup{percolation}) = \frac{1}{2}$.
@@ -547,7 +546,7 @@ We checked numerically and found that they did not appear to be valid on $\textu
 Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Jo\~ao Gouveia, currently being written (FIXME).
 It describes a criterion for certain polynomials to be sums of squares mod the ideal of the unit hypercube.
 
-\subsection{Background}
+\subsection{Problem Description}
 We begin by describing the {\em max cut problem}.
 A {\em cut} in a graph $G=(V,E)$ is a partition of $V$ into two sets $A$ and $B$; variously, a cut also refers to the set $C$ of edges between $A$ and $B$.
 The max cut problem is to find a cut containing the maximum number of edges.
@@ -600,9 +599,10 @@ A function $f \in \RR[\HHH]$ is said to be $(d_1,d_2)$-sos mod $I$ if there exis
 Since any $f$ which is $(d_1,d_2)$-sos mod $I$ is also nonnegative on $\HHH$, this leads to a generalization of the theta body heirarchy which can still be optimized over in polynomial time.
 
 \subsection{Background}
-A previous semidefinite approximation to the cut polytope was given by Goemans and Williamson \cite{who}, who constructed a 0.878 semidefinit approximation to max cut.
+A previous semidefinite approximation to the max cut problem was given by Goemans and Williamson \cite{goemans_williamson}.
+They used semidefinite programming to construct a randomized algorithm that produces solutions with objective value at least $0.878$ times the true optimum.
 However, since the max cut problem is NP-hard, an exact semidefinite algorithm should not be efficient.
-Indeed, Laurent \cite{who} showed that the Lasserre relaxations of the max cut polytope $P(K_n)$, equivalent to the theta body heirarchy in this case, do not capture the facet $\lfloor \frac{n^2}{4} \rfloor - \sum x_{ij} \ge 0$ until at least the $n/4$ step of the heirarchy.
+Indeed, Laurent \cite{moniquestuff} showed that the Lasserre relaxations of the max cut polytope $P(K_n)$, equivalent to the theta body heirarchy in this case, do not capture the facet $\lfloor \frac{n^2}{4} \rfloor - \sum x_{ij} \ge 0$ until at least the $n/4$th step of the heirarchy.
 
 The idea of sums of squares multipliers came from work in real algebraic geometry, where the same idea is considered for polynomials on $\RR^n$.
 It is a celebrated result of Hilbert \cite{hilbert} that for homogeneous polynomials $f$ in $n$ variables of even degree $d$, the implication
@@ -621,7 +621,7 @@ To show this, we consider the vector space $\RR[\HHH]$ as an {\em $S_n$-module} 
 Most of these irreducible representations cannot contribute to a sum of squares which vanishes on level $t$.
 The ones that can contribute each introduce a factor of $(t - \sum x_i)$ of even degree, leading to a parity contradiction.
 \item As a corollary, we show that such an $f$ is not $(d_1,d_2)$-sos for $d_1,d_2 \le t$.
-\item We reprove the result of Laurent, mentioned in the Background and used in Chapter \ref{chap:kicover}, that the theta body heirarchy does not converge to the max cut polytope $P(K_n)$ until at least the $n/4$ step.
+\item We reprove the result of Laurent, mentioned in the Background and used in Chapter \ref{chap:kicover}, that the theta body heirarchy does not converge to the max cut polytope $P(K_n)$ until at least the $n/4$th step.
 To do this, we use the translation between the vertex and edge models of max cuts on $K_n$.
 The function $g(y)$ is invariant and vanishes on level $t = \lfloor n/2 \rfloor$.
 Therefore it cannot be a sum of squares of degree $\le n/2$.
@@ -649,7 +649,7 @@ We give a partial example of this in Chapter \ref{chap:matchings}.
 Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern, currently being written (FIXME).
 It describes the decomposition of the space of matchings on $K_n$ into irreducible representations of $S_n$.
 
-\subsection{Problem definition}
+\subsection{Problem Description}
 A {\em perfect matching} in a graph $G=(V,E)$ is a subset $M \subseteq E$ such that each $v \in V$ meets some $e \in M$, and where each pair $e_1,e_2 \in M$ is disjoint.
 Let $\MMM_{n}$ be the set of all perfect matchings in the complete graph $K_{2n}$.
 The symmetric group $S_{2n}$ acts naturally on $\MMM_{n}$ by permuting the labels of vertices.
