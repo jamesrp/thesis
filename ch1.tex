@@ -668,9 +668,8 @@ Suppose $V$ is a representation of a group $G$, and $H$ is a subgroup of $G$.
 We can make $V$ into a representation of $H$ by simply forgetting the elements of $G \setminus H$; this operation is known as {\em restriction} and is denoted $\textup{Res}^G_H(V)$.
 A similar operation is {\em induction}.
 Here, we are given a group $G$, a subgroup $H$, and a representation $V$ of $H$.
-We wish to construct a representation $\textup{Ind}_H^G(V)$ in a canonical way.
-The details are more involved than for restriction, but it turns out to be possible.
-The theorem we need here is the {\em Branching rule}, that $\textup{Res}_{S_{n-1}}^{S^n}(S^\lambda) = \sum_{\lambda^-} S^{\lambda^-}$ and $\textup{Ind}_{S_{n-1}}^{S^n}(S^\lambda) = \sum_{\lambda^+} S^{\lambda^+}$.
+It turns out that we can define the {\em induced representation} $\textup{Ind}_H^G(V) = \mathbb CG\oplus_{\mathbb CH} V$.
+The theorem we need here is the {\em Branching rule} \cite{Sagan}, that $\textup{Res}_{S_{n-1}}^{S^n}(S^\lambda) = \sum_{\lambda^-} S^{\lambda^-}$ and $\textup{Ind}_{S_{n-1}}^{S^n}(S^\lambda) = \sum_{\lambda^+} S^{\lambda^+}$.
 The sums $\lambda^-$ and $\lambda^+$ range over all partitions obtained from $\lambda$ by removing, respectively adding, a single cell.
 
 \subsection{Background}
