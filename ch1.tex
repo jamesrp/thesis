@@ -11,7 +11,7 @@ Chapters \ref{chap:kicover} and \ref{chap:cube} apply sums of squares approximat
 Chapter \ref{chap:matchings} studies the representation theory of the set of matchings and is an offshoot of the work in Chapter \ref{chap:cube}.
 
 \section{Bootstrap Percolation on the Hamming Torus}
-Chapter \ref{chap:bootstrap} is taken from a paper coauthored with Janko Gravner, Christopher Hoffman, and Davis Sivakoff, and submitted to \emph{Annals of Applied Probability}. %FIXME
+Chapter \ref{chap:bootstrap} is taken from a paper coauthored with Janko Gravner, Christopher Hoffman, and Davis Sivakoff \cite{bootstrappaper}, and submitted to \emph{Annals of Applied Probability}. %FIXME
 It investigates the critical behavior of bootstrap percolation on the Hamming torus.
 
 \subsection{Problem Description}
@@ -26,7 +26,7 @@ $$
 0 &\text{else}
 \end{cases}
 $$
-and let $\omega_\infty = \lim_i \omega_i$. This limit is defined pointwise as $(\omega_i(v))_i$ is increasing for each $v$.
+and let $\omega_\infty = \lim_i \omega_i$. This limit is defined pointwise, since $(\omega_i(v))_i$ is increasing for each $v$.
 Let $S_0 = \omega_0^{-1}(1)$.
 
 We think of bootstrap percolation as a growing set of {\em infected} or {\em active} vertices which starts with only the vertices in $S_0$ active.
@@ -40,6 +40,7 @@ In this paper, we let each vertex be active at time 0 independently with probabi
 Thus, the bootstrap percolation process becomes a random variable.
 We are interested in the probability that percolation occurs.
 In Figure \ref{fig:percgraphs}, we plot $\mathbb{P}(\textup{percolation})$ vs $p$ for the graph $[n]^2$ with Euclidean nearest neighbors and threshold $\theta=2$.
+Here $[n] = \{1, \ldots, n\}$.
 As $p$ increases, there is a relatively sharp transition from a low probability of percolation to a high probability.
 As we increase $n$, the transition becomes sharper.
 
@@ -91,7 +92,7 @@ As we increase $n$, the transition becomes sharper.
 To pin down this transition, we define the {\em critical probability} $p_c$ to be the $p$ at which $\mathbb{P}(\textup{percolation}) = \frac{1}{2}$.
 (Since the transition window narrows as $n$ increases, we could choose any fixed $c \in (0,1)$ in the definition without changing the theory.)
 We consider a family of graphs $G_n$ and wish to find the dependence of $p_c$ on $n$.
-For example, in the example in Figure \ref{fig:percgraphs}, it turns out that $p_c$ scales as $\frac{1}{\log n}$.
+For instance, in the example in Figure \ref{fig:percgraphs}, it turns out that $p_c$ scales as $\frac{1}{\log n}$.
 
 For the graphs we consider, it turns out that the critical probability is essentially $n^{a}$ for some $a < 0$ in the following sense.
 Let $p = n^b$.
@@ -99,7 +100,6 @@ If $b < a$, then $\mathbb{P}(\textup{percolation}) \to 0$ as $n \to \infty$, whi
 In certain cases, we are able to look within the {\em scaling window} and determine $f(c) = \mathbb{P}(\textup{percolation})$, when $p = cn^a$.
 
 We study bootstrap percolation on the {\em Hamming torus} $G = ([n]^d,E)$, where $x$ and $y$ are adjacent if they differ in exactly one coordinate.
-Here $[n] = \{1, \ldots, n\}$.
 In Figure \ref{htperc} we see an example of an initial percolating set when $\threshold = 2$ on the two-dimensional Hamming torus.
 \begin{figure}[htd]
 	\centering
@@ -112,7 +112,7 @@ In Figure \ref{htperc} we see an example of an initial percolating set when $\th
 \draw (11*\scaledist,-1*\scaledist) -- (11*\scaledist,5*\scaledist);
 \draw (17*\scaledist,-1*\scaledist) -- (17*\scaledist,5*\scaledist);
 \end{tikzpicture}
-\caption{The bootstrap percolation process with threshold $\threshold = 2$ on the Hamming torus with $n=5$, $d=2$. Nodes are adjacent iff they share an $x$ or $y$ coordinate. This example takes four steps to percolate.}
+\caption{The bootstrap percolation process with threshold $\threshold = 2$ on the Hamming torus with $n=5$, $d=2$. Nodes are adjacent whenever they share an $x$ or $y$ coordinate. This example takes four steps to percolate.}
 \label{htperc}
 \end{figure}
 
@@ -136,9 +136,9 @@ We find an expression for the critical probability of this event for $1 \le i \l
 \item For $d=2$, we find the critical probability exponent for all $\theta$ and describe the behavior within the scaling window as $n \to \infty$.
 For $d=\theta = 3$, we again find the critical probability and describe the limiting behavior within the scaling window.
 These results are powered by Stein's method \cite{poissonbook}, a method for dealing with almost independent events.
-\item For all $d$ and all $i \ge 2$, we show that the critical probability for an $i$-dimensional subgraph to percolate is $p_c = n^{-1-\frac{2}{\theta} + \Theta(\theta^{-\frac{3}{2}})}$.
+\item For all $d$ and all $i \ge 2$, we show that the critical probability for an $i$-dimensional subgraph to percolate is $p_c = n^{-1-\frac{2}{\theta} + \Theta(\theta^{-\frac{3}{2}})}$, independent of $i$.
 We prove this by constructing critical events which are necessary (respectively sufficient) for percolation and which are easier to analyze than the percolation event.
-We show that when $p >> p_c$, the sufficient event happens with probability going to 1, and with $p << p_c$, the necessary event happens with probability going to 0.
+We show that when $p \gg p_c$, the sufficient event happens with probability going to 1, and with $p \ll p_c$, the necessary event happens with probability going to 0.
 \item In particular, we show that the critical probability for the entire graph to percolate is, as above, $p_c = n^{-1-\frac{2}{\theta} + \Theta(\theta^{-\frac{3}{2}})}$.
 \end{itemize}
 
@@ -181,9 +181,9 @@ This is a natural object to study without referring to a specific set $(c_e)$ of
 To explain this geometric approach in general, consider a problem where we optimize a linear function over some feasible collection $\mathcal{C}$ of subsets of a fixed set $X$.
 For instance, in the TSP we let $\mathcal{C}$ be the collection of all tours; here $X$ is the set of edges.
 In the shortest-path problem we consider $\mathcal{C}$ to be the collection of all paths from a fixed $x \to y$; again $X$ is the set of edges.
-A non-graph example is the knapsack problem, where $\mathcal{C}$ is the set of subsets of $X = \{1, \ldots, n\}$ satisfying a capacity constraint.
+A non-graph example is the {\em knapsack problem}, where $\mathcal{C}$ is the set of subsets of $X = \{1, \ldots, n\}$ satisfying a capacity constraint.
 In general, we will assume that $X = \{1, \ldots, n\}$ for some $n$; this can always be accomplished by enumerating $X$.
-For each $C \in \mathcal{C}$, define its characteristic vector $\chi_C \in \{0,1\}^n$, where for $1 \le i \le n$, $(\chi_C)_i = 1$ if and only if $i \in C$.
+For each $C \in \mathcal{C}$, define its {\em characteristic vector} $\chi_C \in \{0,1\}^n$, where for $1 \le i \le n$, $(\chi_C)_i = 1$ if and only if $i \in C$.
 Then define the polytope $P(\mathcal{C}) = \conv \{\chi_C: C \in \mathcal{C}\}$.
 If we can optimize any linear function in polynomial time over $P(\mathcal{C})$, we can optimize the same linear function over $\mathcal{C}$ in polynomial time.
 
@@ -191,8 +191,8 @@ Of course, many combinatorial optimization problems often end up being NP-comple
 That is, we are unlikely to ever find efficient algorithms to solve them exactly.
 In some cases where the abstract mathematical problem does have an efficient algorithm, real-world constraints can make it intractable. 
 For instance, when assigning medical students to residencies, the constraint that married pairs of students live in the same city makes the problem NP-complete.
-Therefore, much research has focused on developing methods to solve these problems approximately. 
-Using various methods, we can construct a relaxation $P'(\mathcal{C})$ to $ P(\mathcal{C})$ and try to show that the gap between them is not very large.
+Therefore, much research has focused on developing methods to approximately solve these problems in polynomial time. 
+Using various methods, we can construct a relaxation $P'(\mathcal{C})$ to $ P(\mathcal{C})$ over which we can optimize efficiently, and try to show that the optimum objective values are close.
 In the next section, we describe one such method based on sums of squares of polynomials.
 
 \subsection{Sums of Squares and the Theta Body}
@@ -232,12 +232,12 @@ This is done using {\em semidefinite programming}, and provides an efficient rel
 
 As an example of the theta body heirarchy, we describe the first theta body of the stable set problem.
 Historically, this was the first example where theta bodies were used, and where the general heirarchy was abstracted from.
-Given a graph $G=(V,E)$, a subset $C$ of $V$ is {\em stable} if for all $i,j \in C$, $(ij) \notin E$. 
+Given a graph $G=(V,E)$, a subset $C$ of $V$ is {\em stable} if for all $i,j \in C$, $ij \notin E$. 
 Let $n = |V|$.
 As in Section \ref{section:copt}, we will consider the set $\mathcal{V} \subset \{0,1\}^n$ of characteristic vectors of stable sets in $G$.
 Our goal is to describe the convex hull $\conv(\mathcal{V})$, denoted $\textup{STAB}(G)$.
 We can check that the ideal of $\mathcal{V}$ is 
-$$I = \langle x_i^2 - x_i \, \forall \le i \le n\, ;\,  x_ix_j \, \forall (ij) \in E \rangle.$$
+$$I = \langle x_i^2 - x_i \, \forall \, i \in [n]\, ;\,  x_ix_j \, \forall \, ij \in E \rangle.$$
 To describe the first theta body $\textup{TH}_1(I)$, denoted $\textup{TH}(G)$ in this case, we must find all linear functions which are sums of squares of linear polynomials mod $I$.
 It turns out that $\textup{TH}(G)$ has a semidefinite description first discovered by Lov\'asz \cite{lovasz}.
 We reproduce it here; see Chapter 9 of \cite{gls} for the derivation: $x \in \textup{TH}(G)$ if and only if there exists $M \in \mathbb{R}^{(n + 1) \times (n + 1)}$
@@ -306,7 +306,7 @@ Therefore the clique inequalities are valid on $\textup{TH}(G)$, and $\textup{ST
 
 
 \section{A Semidefinite Approach to the $K_{\lowercase{i}}$-Cover Problem}
-Chapter \ref{chap:kicover} is taken from a paper coauthored with Jo\~ao Gouveia and submitted to \emph{Operations Research Letters}. %FIXME
+Chapter \ref{chap:kicover} is taken from a paper coauthored with Jo\~ao Gouveia \cite{kipaper} and submitted to \emph{Operations Research Letters}. %FIXME
 It is an application of theta bodies to the $K_i$-cover problem.
 
 \subsection{Problem Description}
@@ -315,8 +315,8 @@ The {\em $K_i$-cover problem} is a generalization of the stable set problem disc
 A graph $G = (V,E)$ is given. 
 For any $k$, a $k$-clique in $G$, denoted $K_i$, is a collection of $k$ nodes, each pair of which is connected by an edge in $E$.
 We define a covering relation where an $i$-clique $H_1$ is covered by an $(i-1)$-clique $H_2$ if $H_1 \supseteq H_2$; i.e., if $H_2$ is a subgraph of $H_1$. 
-A $K_i$-cover in $G$ is a collection $\mathcal{C}$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$ is covered by some element of $\mathcal{C}$. 
-The $K_i$-cover problem is to find such a collection $\mathcal{C}$ of smallest size.
+A $K_i$-cover in $G$ is a collection $C$ of $(i-1)$-cliques in $G$ such that each $i$-clique in $G$ is covered by some element of $C$. 
+The $K_i$-cover problem is to find such a collection $C$ of smallest size.
 In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$.
 
 \begin{figure}[htd]
@@ -366,17 +366,17 @@ In the graph $G$ in Figure \ref{K5}, a $K_4$-cover is given by $\{012,034,023\}$
 	\label{K5}
 \end{figure}
 
-When $i=2$, the $K_i$-cover problem is the \emph{vertex cover problem} - to find the smallest set $\mathcal{C}$ of vertices such that each edge is covered by a vertex in $\mathcal{C}$. 
-To make the connection to the stable set problem, note that $\mathcal{C} \subseteq V$ is a vertex cover if and only if $V \setminus \mathcal{C}$ is a stable set.
+When $i=2$, the $K_i$-cover problem is the \emph{vertex cover problem} - to find the smallest set $C$ of vertices such that each edge is covered by a vertex in $C$. 
+To make the connection to the stable set problem, note that $C \subseteq V$ is a vertex cover if and only if $V \setminus C$ is a stable set.
 Therefore, the problems are essentially equivalent.
 In fact, the polytopes defined by these problems as in section 1.1 are congruent via the transformation $x_j \mapsto 1-x_j$ in each coordinate.
-Similarly, a set $\mathcal{C}$ of $K_{i-1}$s is a $K_i$-cover if and only if its complement $\mathcal{C}^c$ is $K_i$-free.
+Similarly, a set $C$ of $K_{i-1}$s is a $K_i$-cover if and only if its complement $C^c$ is $K_i$-free.
 
 We will need the description of the ideal $I$ of the variety of $K_i$-free sets.
 We merely state it here; for the derivation see Chapter \ref{chap:kicover}.
 Let $X$ be the collection of $K_{i-1}$s in $G$ and $Y$ the collection of $K_i$s in $G$.
-$$I = \langle x_H^2 - x_H\, \forall \le H \in X\, ;\,  \prod_{H \subseteq H'} x_H\, \forall H' \in Y \rangle.$$
-To understand this, recall that we have a variable $x_H$ for each $K_{i-1}$ $H$ in $G$.
+$$I = \langle x_H^2 - x_H\, \forall H \in X\, ;\,  \prod_{H \subseteq H'} x_H\, \forall H' \in Y \rangle.$$
+To understand this, recall that we have a variable $x_H$ for each $(i-1)$-clique $H$ in $G$.
 The functions that generate $I$ come in two forms.
 The type $x_H^2 - x_H = 0$ enforces the constraint that $x_H \in \{0,1\}$, i.e., that $x$ is a characteristic vector.
 The type $\prod_{H \subseteq H'} x_H= 0$ ensures that $x$ actually comes from a $K_i$-free set.
@@ -393,10 +393,10 @@ Since a typical family $\mathcal{F}$ will contain exponentially many elements, i
 Conforti et al left open the existence of oracles for several families of facets, including the family associated with the {\em $K_i$-$p$-holes}. 
 A graph $H$ is a $K_i$-$p$-hole if it contains $p$ copies of $K_i$ arranged in a cycle, with neighboring $K_i$ sharing a common $K_{i-1}$. 
 This does not determine $H$ up to isomorphism; see Figure \ref{chap1:9holeintro} for three nonisomorpic $K_3$-9-holes.
-To understand the facet inequality associated to a $K_i$-$p$-hole, consider the graphs in Figure 2. 
-To construct a $K_3$-cover of minimum size, we need to pick an edge from each $K_3$. 
-We can pick four edges to eliminate eight $K_3$s, but we still need a fifth to pick up the last $K_3$. 
-Therefore, $\sum_{e \subseteq H} x_e \ge 5$ is valid on the polytope $P_3(G)$ for any graph $G$ containing $H$ as a subgraph. 
+To understand the facet inequality associated to a $K_i$-$p$-hole, consider each graph $H$ in Figure \ref{chap1:9holeintro}. 
+To construct a $K_3$-cover of $H$ of minimum size, we need to pick an edge from each $K_3$. 
+Each edge is shared by at most two $K_3$s, so we need at least 5 edges.
+Therefore $\sum_{e \subseteq H} x_e \ge 5$ is valid on the polytope $P_3(G)$ for any graph $G$ containing $H$ as a subgraph. 
 The inequality for general $K_i$-$p$-holes is derived from a similar argument, and is given by $\sum_{e \subseteq H} x_e \ge \lceil \frac{p}{2} \rceil$.
 It defines a facet of $P_i(G)$ for $i \ge 3$ and odd $p$.
 
@@ -527,7 +527,7 @@ We prove this by applying a result of Krivelevich \cite{krivelevich} on a fracti
 \subsection{Comments}
 In our main result, we consider the theta body $\textup{TH}_{\lceil i/2 \rceil}(I)$. 
 The reason for choosing this level of the theta heirarchy is that the generators of the $K_i$-free ideal are polynomials of degree $i$.
-Therefore, they can't capture any inequalities on $\textup{TH}_k(I)$ when $2k < i$, so $\textup{TH}_{\lceil i/2 \rceil}(I)$ is the first theta body it makes sense to consider.
+Therefore, they can't capture any inequalities on $\textup{TH}_k(I)$ when $2k < i$, so $\textup{TH}_{\lceil i/2 \rceil}(I)$ is the first theta body that it makes sense to consider.
 
 We don't fully address the question raised in Conforti et al \cite{conforti} of whether there is a polynomial time separation oracle for the family $\mathcal{F}$ of $K_i$-$p$-hole facets.
 We show that these facets are valid on $\textup{TH}_{\lceil i/2\rceil}(I)$, and that we can check membership of $\textup{TH}_{\lceil i/2 \rceil}(I)$ in polynomial time. 
@@ -543,37 +543,38 @@ Conforti et al \cite{conforti} found additional facets of $P_i(G)$, associated t
 We checked numerically and found that they did not appear to be valid on $\textup{TH}_{\lceil i/2\rceil}(I)$, but they may be valid on higher theta bodies.
 
 \section{Sums of Squares on the Unit Hypercube}
-Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Jo\~ao Gouveia, currently being written. %FIXME
+Chapter \ref{chap:cube} is taken from a paper co-authored with Greg Blekherman and Jo\~ao Gouveia \cite{cubepaper}, currently being written. %FIXME
 It describes a criterion for certain polynomials to be sums of squares mod the ideal of the unit hypercube.
 
 \subsection{Problem Description}
 We begin by describing the {\em max cut problem}.
-A {\em cut} in a graph $G=(V,E)$ is a partition of $V$ into two sets $A$ and $B$; variously, a cut also refers to the set $C$ of edges between $A$ and $B$.
+Let $G=(V,E)$ be a graph, and $n = |V|$.
+A {\em cut} in $G$ is a partition of $V$ into two sets $A$ and $B$; variously, a cut also refers to the set $C$ of edges between $A$ and $B$.
 The max cut problem is to find a cut containing the maximum number of edges.
 Alternatively, if a set of weights $(w_{ij})$ is given, it can refer to finding the cut $C$ maximizing $\sum_{ij \in C} w_{ij}$.
 For example, in the complete graph $K_n$, max cuts with unit weights are attained by partitioning the vertices into two sets of size $\frac{n}{2}$ if $n$ is even, or sizes $\frac{n-1}{2}$ and $\frac{n+1}{2}$ if $n$ is odd.
 
-As in Section \ref{section:cosos}, we can associate a cut $C$ with its charactistic vector $\chi_C \in \{0,1\}^{n \choose 2}$.
+As in Section \ref{section:cosos}, we can associate a cut $C$ with its charactistic vector $\chi_C \in \{0,1\}^E$.
 Let $\mathcal{C}$ be the set of all characteristic vectors of cuts.
 We let the {\em max cut polytope} be $P(G) = \conv (\mathcal{C})$.
-Then the max cut problem becomes $\max \{sum_{ij} w_{ij}x_{ij}: x \in P(G) \}$.
+Then the max cut problem becomes $\max \{\sum_{ij} w_{ij}x_{ij}: x \in P(G) \}$.
 This is called the {\em edge model} of the polyhedral formulation of the max cut problem.
 In the case $G = K_n$, the max cuts have size $\lfloor \frac{n^2}{4} \rfloor$, so the function $f(x) = \lfloor \frac{n^2}{4} \rfloor - \sum x_{ij} \ge 0$ on $\mathcal{C}$.
 In fact, for odd $n$ it defines a facet of the max cut polytope $P(K_n)$.
 To determine how well the $k$th theta body captures this inequality, we can ask for the smallest $\lambda$ such that $\lambda - \sum x_{ij}$ is $k$-sos mod $I(\mathcal{C})$.
 As $k$ increases, $\lambda$ will converge to the true minimum $\lfloor \frac{n^2}{4} \rfloor$.
 
-In the case $G = K_n$, we can define another model of cuts, the {\em vertex model}. 
+We can define another model of cuts, the {\em vertex model}. 
 Let $C$ be a cut arising from a partition $[A,B]$ of vertices.
 Associate to $C$ the characteristic vector $\chi_A \in \HHH = \{0,1\}^n$, the unit hypercube.
 This preserves all the information contained in $C$: given a vector $y \in \HHH$, we can recover $A = \{i \in [n]: y_i = 1\}$ and $B = [n] \setminus A$.
 Note that the cut $C$ also arises from the partition $[B,A]$, so each cut is represented by two vectors in $\HHH$.
 We can translate between the vertex and edge models.
 Given a point $y \in \HHH$, define $x = \tau(y)\in \{0,1\}^{n \choose 2}$ by $x_{ij} = (y_i - y_j)^2$.
-This transformation converts cuts represented by the vertex model to cuts represented by the dge model; if $y_i = y_j$, then the edge $(ij)$ is not a cut edge so $x_{ij}=0$.
-If $y_i \ne y_j$, then $(ij)$ is a cut edge, and indeed $x_{ij} = (y_i-y_j)^2 = 1$.
+This transformation converts cuts represented by the vertex model to cuts represented by the dge model; if $y_i = y_j$, then the edge $ij$ is not a cut edge so $x_{ij}=0$.
+If $y_i \ne y_j$, then $ij$ is a cut edge, and indeed $x_{ij} = (y_i-y_j)^2 = 1$.
 
-Recall that $f(x) = \lfloor \frac{n^2}{4} \rfloor - \sum x_{ij}$ defines a facet of the max cut polytope $P(K_n)$ in the edge model.
+Recall that $f(x) = \lfloor \frac{n^2}{4} \rfloor - \sum x_{ij}$ defines a facet of the max cut polytope $P(K_n)$ in the edge model when $n$ is odd.
 It turns out that $g(y) = (\lfloor \frac{n}{2} \rfloor - \sum y_i)(\lceil \frac{n}{2} \rceil - \sum y_i)$ defines this same function on the vertex model under the correspondence given by $\tau$.
 To see this, one may apply $\tau$ and reason algebraically.
 Alternatively, this can be seen by considering a cut $C = [A,B]$ represented by $x$ and $y$, and evaluating $f(x) = g(y)$ by hand.
@@ -582,8 +583,8 @@ If $f(x)$ is $k$-sos mod $I(\mathcal{C})$ for some $k$, the sum of squares can b
 Writing the same sum of squares expression, substituting $(y_i - y_j)^2$ for $x_{ij}$ everywhere, shows that $g(y)$ is also $k$-sos mod $I(\HHH)$.
 Thus the max cut problem is an example of optimizing a polynomial over the hypercube $\HHH$.
 
-In this paper we will consider the general problem of optimizing a polynomial function over the hypercube $\HHH$. 
-We will consider functions on the hypercube $\HHH$ satisfying certain properties.
+In Chapter \ref{chap:cube} we will consider the general problem of optimizing a polynomial function over the hypercube $\HHH$. 
+We will consider functions on $\HHH$ satisfying certain properties.
 First, since the ideal $I = I(\HHH) = \langle x_i^2 - x_i ;\, 1 \le i \le n\rangle$, each function $f \in \RR[\HHH] = \RR[x] / I$ can be represented using squarefree monomials.
 This gives a notion of {\em degree} mod $I$ which coincides with the notion of degree we have used in the definition of $k$-sos.
 This leads to a notion of {\em proper divisibility} mod $I$ in which $f$ is properly divisible by $g$ mod $I$ if there exists $h$ such that $f=gh$ mod $I$ and $\deg(f) = \deg(g) + \deg(h)$.
@@ -592,10 +593,12 @@ We also consider the symmetric group $S_n$ acting on $\RR[\HHH]$ by permuting va
 A function $f \in \RR[\HHH]$ is {\em invariant} if it is fixed by $S_n$.
 An invariant function has the same value on each {\em level} $\{x \in \HHH: \sum x_i = t \}$ of the hypercube, and is determined by these values.
 We say that $f$ {\em vanishes to degree $k$ on level $t$} if $f$ is properly divisible by $(\sum x_i - t)^k$ but not by $(\sum x_i - t)^{k+1}$.
+For example, the function $g(y) = (\lfloor \frac{n}{2} \rfloor - \sum y_i)(\lceil \frac{n}{2} \rceil - \sum y_i)$ given above vanishes to degree 2 on level $\frac{n}{2}$ when $n$ is even.
+When $n$ is odd, $g(y)$ vanishes to degree 1 on levels $\frac{n-1}{2}$ and $\frac{n+1}{2}$.
 
 We also define a generalization of $k$-sos mod $I$ from Section \ref{section:cosos}.
 This notion is denoted $(d_1,d_2)$-sos mod $I$, or being {\em $d_2$-sos with $d_1$-sos multipliers}.
-A function $f \in \RR[\HHH]$ is said to be $(d_1,d_2)$-sos mod $I$ if there exist $g_1,g_2 \in \RR[\HHH]$, with $g_1 > 0$ on $\HHH$, such that $g_i$ is $d_i$-sos mod $I$, and $fg_1=g_2$.
+A function $f \in \RR[\HHH]$ is said to be $(d_1,d_2)$-sos mod $I$ if there exist $g_1,g_2 \in \RR[\HHH]$, with $g_1 > 0$ on $\HHH$, such that $g_i$ is $d_i$-sos mod $I$, and $fg_1 \equiv g_2$.
 Since any $f$ which is $(d_1,d_2)$-sos mod $I$ is also nonnegative on $\HHH$, this leads to a generalization of the theta body heirarchy which can still be optimized over in polynomial time.
 
 \subsection{Background}
@@ -645,7 +648,7 @@ We give a partial example of this in Chapter \ref{chap:matchings}.
 
 
 \section{The Representation Theory of Matchings}
-Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern, currently being written. %FIXME
+Chapter \ref{chap:matchings} is taken from a paper co-authored with Monty McGovern \cite{matchingspaper}, currently being written. %FIXME
 It describes the decomposition of the space of matchings on $K_n$ into irreducible representations of $S_n$.
 
 \subsection{Problem Description}
@@ -686,7 +689,7 @@ There are two natural ways to do this: perfect matchings on hypergraphs, and per
 
 An {\em $m$-uniform hypergraph} is a collection $G = (V,E)$ of vertices and edges, where an edge is a collection of $m$ vertices.
 The case $m=2$ gives the usual definition a graph.
-The complete $m$-uniform hypergraph $K^{(m)}_n = ([n],{{[n]} \choose m})$.
+Denote the complete $m$-uniform hypergraph by $K^{(m)}_n = ([n],{{[n]} \choose m})$.
 A perfect matching in $K^{(m)}_{mn}$ is a collection of $n$ disjoint edges whose union is $[mn]$.
 Equivalently, it is a set partition of $[mn]$ into $n$ sets of size $m$.
 Let $\MMM_{m,n}$ be the set of all matchings in $K^{(m)}_n$.
@@ -697,7 +700,7 @@ Let $S_{mn}$ act on $\ZZZ_{m,n}$ by conjugation: $\sigma \cdot \tau := \sigma \t
 It turns out that $\CC[\MMM_n] \cong \CC[\ZZZ_{2,n}]$; for example, the permutation $(12)(34)(56)(78) \in \ZZZ_{2,4}$ is mapped to the matching also written $(12)(34)(56)(78)$.
 This suggests an alternate generalization of $\CC[\MMM_n]$.
 Fix $m$ and let $\ZZZ_{m,n}$ be the set of all permutations in $S_{mn}$ of cycle type $m^n$.
-For example, when $(m,n) = (4,3)$, an example is $(1234)(5678)(9,10,11,12)$.
+For example, when $(m,n) = (4,2)$, an example is $(1234)(5678)$.
 
 \subsection{Results}
 \begin{itemize}
@@ -713,11 +716,11 @@ We use this lemma to compute the decompositions of $\CC[\MMM_{m,n}]$ and $\CC[\Z
 \end{itemize}
 
 \subsection{Comments}
-We extended the induction lemma to both of our generalized cases.
+We extended the induction lemma to our generalized cases.
 By analogy with the case $m=2$, one might guess that $\CC[\MMM_{m,n}]$ or $\CC[\ZZZ_{m,n}]$ would be isomorphic to $\oplus_\lambda S^\lambda$, where the sum is over all $\lambda \vdash mn$ with all parts divisible by $m$.
 In fact, even for $(m,n)=(3,2)$ we get $\CC[\MMM_{3,2}] \cong S^{(6}) + S^{(4,2)}$ instead of $S^{(6}) + S^{(3,3)}$ as conjectured.
 The decomposition of $\CC[\ZZZ_{3,2}]$ is even further from the conjectured $(6),(3,3)$, instead consisting of the partitions $(6), (2, 1, 1, 1, 1), (2, 2, 2), (4, 2), (3, 1, 1, 1)$, and $(4, 1, 1)$, each with multiplicity 1.
-Thus far we have not been able to find the pattern behind the decomposition.
+So far we have not been able to find the pattern behind the decomposition.
 However, if a pattern is identified, it should be straightforward to use the generalized induction lemma to prove it.
 
 
