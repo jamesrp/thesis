@@ -2,3 +2,286 @@
 
 \chapter{Sums of Squares on the Unit Hypercube}
 \label{chap:cube}
+
+\section{Introduction}\label{Section:Introduction}
+
+Our main results in this paper are upper and lower bounds on the degrees of sum of squares multipliers needed to write certain polynomials as sums of squares mod $I$, the ideal of the hypercube $C = \{0,1\}^n$. 
+That is, given a polynomial $f$ on $C$, we ask whether we can write $fg=h$, where both $g$ and $h$ are sums of squares of polynomials: $g = \sum_i g_i^2$ and $h = \sum_j h_j^2$ mod $I$.
+In Section \ref{Section:LowerBound} we prove a lower bound on these degrees for invariant polynomials $f$ vanishing to odd degree on a slice of the hypercube.
+Correspondingly, in Section \ref{Section:UpperBound} we prove an upper bound on these degrees.
+In the case of quadratics on the hypercube these bounds are tight.
+
+This work is motivated by the recent study of sum of squares relaxations and their application to combinatorial optimization. 
+Testing whether $f - c$ is nonnegative can be repeated to find $\min(f)$.
+In practice, replacing the nonnegativity of $f-c$ with a sum of squares condition has been an effective relaxation in some problems \cite{gpt} \cite{sostools}. 
+We can fix $k$ and ask whether a nonnegative polynomial $f$ is a sum of squares of degree at most $k$. 
+For given $f,k$, this can be solved via semidefinite programming, leading to a hierarchy of approximations called {\em theta bodies} \cite{gpt}. 
+Proofs about theta bodies then involve proving that an $f$ is, or is not, a sum of squares of degree $k$ mod $I$, and our results give exactly this information.
+As a corollary to our lower bound, we reprove a result of Laurent \cite{moniquestuff} that the Lasserre rank of the cut polytope is at least $n/2$.
+Our upper bound in fact answers a conjecture of Laurent that this rank is exactly $n/2$.
+
+A second motivation is Hilbert's 17th problem: whether every nonnegative polynomial on $\RR^n$ can be written as a sum of squares of rational functions.
+Artin proved that this is the case, and there has been some work on considering the degrees of the functions involved, but no general lower bounds exist.
+As a corollary to our lower bound, in Section \ref{Section:Applications} we provide the first lower bounds on such degrees.
+
+The layout of the paper is as follows: in section \ref{Section:Background}, we give the algebraic background necessary for the paper. In section \ref{Section:LowerBound}, we prove the lower bound for sos multipliers on the hypercube $C$. In section \ref{Section:UpperBound}, we prove the upper bound for multipliers on $C$. In section \ref{Section:Applications}, we discuss applications to Hilbert's 17th problem, and to the max cut problem.
+
+
+
+
+
+
+
+\section{Algebraic background}\label{Section:Background}
+Let $X \subseteq \RR^n$ be an algebraic set and $I \subseteq \RR[x] := \RR[x_1,\ldots,x_n]$ its vanishing ideal. That is, $I = \{f \in \RR[x]: f(x) = 0 \textup{ on } X\}$. This lets us define an equivalence relation $f \equiv g \mod I$ if and only if $f - g \in I$; i.e.\ if $f$ and $g$ agree on $X$. The equivalence classes are the cosets $f + I$, and the space of equivalence classes is denoted $\RR[X] := \RR[x]/I$, which we can think of as polynomials on $X$. In the ring $\RR[X]$, equality is defined by equivalence mod $I$, so for most of the paper we will write $f=g$ for $f \equiv g \mod I$. For $f \in \RR[X]$, let $\deg(f) = \min \{ \deg(g): g \in f \}$. Our main example is the hypercube $C = \{0,1\}^n$ with ideal $I = \langle x_i^2 - x_i : 1 \le i \le n \rangle$, so each $f \in \RR[C]$ has a natural representative of smallest degree; namely, the representative using only squarefree monomials.
+
+For $f \in \RR[X]$ and $d \ge 0$, we say $f$ is $d$-{\em sos mod $I$}, or simply $d$-sos if $I$ is clear from context, if $f = \sum_{i=1}^k g_i^2$ for some $g_i \in \RR[X]$ with $\deg(g_i) \le d$. Note that this implies $f \ge 0$ on $X$. 
+
+We will also need to discuss the notion of divisibility mod $I$. It may happen that, due to cancellation mod $I$, the ring-theoretic definition of divisibility in $\RR[X]$ doesn't correspond well to the usual notion of divisibility of polynomials. For instance, we may have $f=gh$ but $\deg(f) < \deg(g) + \deg(h)$; in the case of the hypercube, $x \cdot x = x$. To fix this, for $f,g \in \RR[X]$, we say that $g$ {\em properly divides $f$ mod $I$} if there is $h \in \RR[X]$ such that $f=gh$ and $\deg(f) = \deg(g) + \deg(h)$. Again, if $I$ is clear we can drop ``mod $I$.'' We will also say that {\em $g$ properly divides $f$ to order $m$} if $g^m$ properly divides $f$, but $g^{m+1}$ does not.
+
+Recall our main example $C = \{0,1\}^n$ and $I = \langle x_i^2 - x_i, \,\, i=1, \ldots, n \rangle$. It will simplify the notation to use subsets of $[n]$ as exponents: $x^{\{1,4\}} = x_1x_4$. Then the space of functions $\RR[C]$ has a basis $\{x^m: m \subseteq [n]\}$ of squarefree monomials. Thus we can write any function $f \in \RR[C]$ as 
+$f = \sum_{m \subset [n]} c_mx^m$, and we have $\deg(f) = \max \{|m|: c_m \ne 0\}$. We define $\RR[C]_d$ to be the collection of homogeneous degree-$d$ functions, and $\RR[C]_{\le d}=\oplus_{i=0}^d \RR[C]_i$ the collection of functions of degree at most $d$.
+
+
+
+
+
+
+
+% MULTIPLIERS LOWER BOUND
+\section{Lower Bound on Multipliers}\label{Section:LowerBound}
+In this section we prove our main results, which deal with $S_n$-invariant polynomials which vanish on a {\em level} $T = \{x \in C: \sum x_i = t\}$ of the hypercube. Such functions come up naturally in combinatorial optimization, where we are counting objects subject to some symmetric restrictions; see Section \ref{Subsection:MaxCut}. We will show that such functions cannot be sums of squares of low degree. For the rest of this section, we abbreviate $$l = t - \sum x_i,$$ the parameter $t$ will be fixed.
+
+To start, we decompose $\RR[C]$ into {\em irreducible representations} of the symmetric group $S_n$. For background on representation theory in general and on the representation theory of $S_n$ in particular, see the introduction by Sagan \cite{Sagan}, whose notation we adopt here. Note that we treat $(n,0)$ as an alias for the partition $(n)$ to simplify our notation. We let $S_n$ act on $\RR[C]$ by permuting the variables directly: $(123) x_1 = x_2$.
+
+We will define an isomorphism between tabloids and monomials. Suppose $k \le n/2$. Define $\phi_k: M^{(n-k,k)} \to \RR[C]$ by $\phi_k([m^c,m]) = x^m$, and extend by linearity. For example, $\phi_3([12345,678]) = x_6x_7x_8$. The image of $\phi_k$ is exactly the subspace $\RR[C]_k$ of homogeneous degree-$k$ functions. We also have $\RR[C]_k \cong \RR[C]_{n-k}$ as $S_n$-modules, since we can take complements in the exponent: if $n=6$, then $x_1x_2 \in \RR[C]_2 \leftrightarrow x_3x_4x_5x_6 \in \RR[C]_4$.
+
+\begin{proposition} \label{Proposition:CubeMultiplicities}
+The $S_n$-module $\RR[C]$ decomposes into $n+1-2k$ copies of $S^{(n-k,k)}$, for $0 \le k \le \frac{n}{2}$.
+\end{proposition}
+\begin{proof}
+By Young's rule (Theorem 2.11.2 in \cite{Sagan}), $M^{(n-k,k)}$ contributes one copy of $S^{(n-i,i)}$ for each $0 \le i \le k$. By the above, if $k \le n/2$, $\RR[C]_{n-k} \cong \RR[C]_k \cong M^{(n-k,k)}$. 
+If $n$ is odd, then 
+\begin{align*}
+\RR[C] &= \bigoplus_{0 \le k < n/2} (\RR[C]_k \oplus \RR[C]_{n-k} ) \\
+&\cong 2 \bigoplus_{0 \le k < n/2}  M^{(n-k,k)} \\
+&\cong 2 \bigoplus_{0 \le k < n/2}  \left ( \bigoplus_{i=0}^k S^{(n-i,i)} \right ) \\
+&\cong 2  \bigoplus_{i=0}^{\lfloor n/2 \rfloor} \left(\frac{n-1}{2} -i +1 \right) S^{(n-i,i)},
+\end{align*}
+which gives the result when $n$ is odd. For even $n$ just add the single copy of $\RR[C]_{n/2} \cong M^{(n/2,n/2)}$.
+\end{proof}
+
+Proposition \ref{Proposition:CubeMultiplicities} gave the decomposition of $\RR[C]$ into irreducibles, up to isomorphism. But to analyze a specific $f \in \RR[C]$ in terms of this decomposition, we need to know how the irreducible submodules lie inside $\RR[C]$; that is, we need to know an isomorphism explicitly. We will choose a slightly idiosyncratic description which will be useful later. Fix $t \in \RR$. Recalling that $S^{(n-k,k)} \subset M^{(n-k,k)}$, define $H_{k0} = \phi(S^{(n-k,k)}) \subseteq \RR[C]_k$. Since $\phi$ is an $S_n$-module isomorphism, we have $H_{k0} \cong S^{(n-k,k)}$. Then for $i = 1, \ldots, n-2k$, define $H_{ki} = (t-\sum_j x_j)^i \cdot H_{k0}$. Note that no nonzero element of $H_{k0}$ is properly divisible by $\ell$.
+
+\begin{theorem} \label{Theorem:CubeDecomposition}
+$\RR[C]$ has the following decomposition into irreducibles:
+$$\RR[C] = \bigoplus_{k=0}^{\lfloor n/2 \rfloor} \left( \bigoplus_{i=0}^{n+1-2k}H_{ki}\right).$$ This decomposition respects degree: for any $d$,
+$$\RR[C]_{\le d} = \bigoplus_{k+i \le d} H_{ki}.$$
+\end{theorem}
+
+
+\begin{proof}
+By Proposition \ref{Proposition:CubeMultiplicities}, the proposed decomposition contains the correct number of each irreducible. Therefore, we need to show that the summands are
+linearly independent. 
+
+By Corollary 2.11 in \cite{stanley}, the map $U: \RR[C]_k \to \RR[C]_{\le n-k}$ given by $U(f)=(t - \sum x_j)^{n-2k}f$ is a bijection. 
+Therefore, the map $U': \RR[C]_k \to \RR[C]_{\le k + i}$ given by $f \mapsto  (t - \sum x_j)^{i}f$ is injective for $i \le n-2k$, since $U'$ is a precomposition of $U$. 
+Since $H_{ki} = U'(H_{k0})$, we have that $\deg(f) = k+i$ for each nonzero $f \in H_{ki}$; in particular, $H_{ki} \ne 0$. Since $S_n$ acts trivially on $(t - \sum_j x_j)^i$, $H_{ki} \cong H_{k0}$. By irreducibility, we know that $H_{ki}$ and $H_{k'i'}$ are linearly independent if $k \ne k'$. It remains to consider $H_{ki}$ for varying $i$; but since each nonzero $f_i \in H_{ki}$ has degree exactly $k+i$, these are linearly independent as well.
+
+The expression for $\RR[C]_{\le d}$ now follows from the linear independence of the $H_{ki}$.
+\end{proof}
+
+We now show that proper divisibility holds for functions of low degree vanishing on a level $T$.
+
+\begin{lemma} \label{Lemma:Vanishing}
+Let $T = \{x \in C: \sum_i x_i = t\}$, for fixed $t \in \{0,\ldots,n\}$. Suppose $f \in \RR[C]_{\le d}$, and $f$ vanishes on $T$. If $d \le t \le n-d$, then $f$ is properly divisible by $l$.
+\end{lemma}
+\begin{proof}
+Let  $V$ be the $S_n$-submodule of $\RR[C]_{\leq d}$  consisting of polynomials that are properly divisible by $l$ and let $$W = H_{00} \oplus \ldots \oplus H_{d0} \cong S^{(n)} \oplus \cdots \oplus S^{(n-d,d)}.$$ 
+By Theorem \ref{Theorem:CubeDecomposition} we have $\RR[C]_{\leq d}=V\oplus W$.
+Let $U \subset W$ be the $S_n$-submodule of polynomials vanishing on $T$. It suffices to show that $U=0$. Since the $H_{i0}$ are nonisomorphic irreducible modules, it follows that $$U=\bigoplus_{i \in I} H_{i0},$$ 
+where $I$ is a subset of $\{0,\dots,d\}$. Now we claim that polynomials in $H_{i0}$ do not identically vanish on $T$ for all $0\leq i \leq d$. Since $H_{i0}$ is an irreducible $S_n$-module it suffices to exhibit a single polynomial $p \in H_{i0}$ not vanishing on $T$.
+
+To see this, let $q$ be the standard tableau of shape $(n-i,i)$ where the first row contains $\{1,\dots,n-i\}$ and the second row contains $\{n-i+1,\dots,n\}$. Let $\hat x\in C$ be given by $$\hat x=e_{n-t+1}+\dots+e_n.$$
+Since $i\leq t \leq n-i$, the support of $\hat x$ contains the second row of $q$ and does not contain any of the first $i$ entries of the first row of $q$. Consider $p=\phi(e_q)$, $p \in H_{i0}$. It follows that $p(\hat x)=1$, since only the monomial $\phi(q)$ is nonzero on $\hat x$ in $\phi(e_q)$ and $\phi(q)(\hat x)=1$.
+See Figure \ref{Figure:VanishingTableau} for an example.
+\end{proof}
+
+
+\begin{figure}[htd]
+\label{Figure:VanishingTableau}
+\ytableausetup{notabloids}
+\begin{align*}q &= \ytableaushort{
+1234567,89
+}\\
+\hat x & = (0,0,0,0,0,0,1,1,1) \\
+p = \phi(e_q) &= x_8x_9 - x_1x_9 - x_8x_2 + x_1x_2
+\end{align*}
+\caption{A standard tableau $q$ with sorted rows, and an associated $\hat x$. Here $n=9,i=2,t=3$. We have $p(\hat x) = 1$.}
+\end{figure}
+
+Now we can prove our main result.
+
+\begin{theorem}\label{Theorem:SosMultipliers}
+Suppose $f\in \RR[C]_{\leq t}$ with $t \le n/2$ is an $S_n$-invariant polynomial, and $f$ is properly divisible by $l=t-(x_1+\dots+x_n)$ to odd order. Then $f$ is not $(d_1,d_2)$-sos for $d_1\leq \min\left\{\frac{n-\deg f}{2},t\right\}$, $d_2 \le t$.
+\end{theorem}
+\begin{proof}
+Suppose that $f \sum g_i^2 = \sum h_j^2$ with $g_i\in \RR[C]_{\leq d_1}$, $g_i\neq 0$ and $h_j\in \RR[C]_{\leq d_2}$. Let $g=\sum g_i^2$ and $h=\sum h_j^2$. Without loss of generality we may assume that $g$ and $h$ are $S_n$-invariant polynomials, otherwise we may replace them by their $S_n$ symmetrizations.
+
+Since $d_2 \leq t$ by Lemma \ref{Lemma:Vanishing} we can write $h_j=l^{a_j}q_j$ with $S_n$-invariant polynomials $q_j$ such that  $ \deg q_j=\deg h_j-\deg a_j$ and $q_j$ is non-zero on any point of $T$. Therefore $h=l^{2a}q$ where $a=\min a_j$ and $q$ is an $S_n$ invariant polynomial, $\deg q=\deg h-2a$,  and $q$ is strictly positive on $T$.
+
+Similarly, since $d_1 \leq t$ we argue that $g=l^{2b}r$, where $r$ is $S_n$-invariant polynomial positive on $T$, and $\deg r=\deg g -2b$. Finally, $f=l^c p$ where $c$ is odd and $p$ is an $S_n$-invariant polynomial not identically $0$ on $T$ with $\deg p=\deg f-c$. Combining, we see that $$l^{2b+c}pr-l^{2a}q=0.$$
+Let $\alpha=\min \{2a,2b+c\}$. By factoring out $l^\alpha$ in the equation above we obtain
+$$l^\alpha s=0,$$
+for an $S_n$-invariant polynomial $s \in \RR[C]$ of degree strictly less than $n$ since $d_1\leq \min\left\{\frac{n-t}{2},t\right\}$ and $d_2 \le t$. Since $q$ and $r$ are strictly positive on $T$ and $p$ is not identically zero on $T$, it follows that $s$ does not vanish on $T$. Thus $s$ is a non-zero symmetric polynomial in $\RR[C]$ vanishing on $C\setminus T$. Therefore $s=\beta \chi_T$ for some constant $\beta \ne 0$, where $\chi_T\in \RR[C]$ is the polynomial vanishing on $C\setminus T$ and equal to $1$ on $T$. However, it is not hard to check that $\deg \chi_T=n$ for any level $T$ and therefore we arrive at a contradiction.
+
+
+
+\end{proof}
+
+
+\begin{corollary}  \label{Corollary:Sos}
+Fix $t \leq n/2$ and let $f \in \RR[C]_{\leq t}$ be fixed by $S_n$. Suppose that $f$ is properly divisible by $l=t-(x_1+\dots+x_n)$ to odd order. Then $f$ is not $d$-sos for $d \le t$.
+\end{corollary}
+\begin{proof}
+Apply Theorem \ref{Theorem:SosMultipliers} with $d_1=0$.
+\end{proof}
+
+\begin{corollary}\label{Corollary:Quadratic}
+Let $k=\lfloor \frac{n}{2}\rfloor$ and let $f\in \RR[C]$ be given by $$f=(x_1+\dots+x_n-k)(x_1+\dots+x_n-k-1).$$
+Then $f$ is nonnegative on $C$ but $f$ is not $(k-1,k)$-sos.
+\end{corollary}
+\begin{proof}
+Apply Theorem \ref{Theorem:SosMultipliers}.
+\end{proof}
+
+% UPPER BOUND SECTION
+\section{Upper Bound on Multipliers}\label{Section:UpperBound}
+
+Let $\Gamma=\{v_1,\ldots,v_m\}$ be a finite set of points in $\RR^n$. We consider sums of squares in $\RR[\Gamma]$.
+
+\begin{lemma} \label{Lemma:GenClosed}
+Fix $d_1,d_2\in \mathbb{N}$. The set $A \subseteq \RR[\Gamma]_{\leq d}$ of polynomials which are $(d_1,d_2)$-sos is closed in $\RR[\Gamma]_{\leq d}$ for all $d$.
+\end{lemma}
+\begin{proof}
+One can check that $\Sigma(\Gamma)_{\leq 2d}$ is a closed pointed cone.
+Suppose that $f_i \in \RR[\Gamma]_{\leq d}$ are $(d_1,d_2)$-sos and $f_i \rightarrow f$. Then there exist $g_i$, $h_i$ which are respectively $d_1$ and $d_2$-sos and $f_ig_i=h_i$. We may rescale $g_i$ and assume that $$\frac{1}{|\Gamma|}\sum_{x \in \Gamma} g_i(x)=1.$$
+The set of $d_1$-sos polynomials with average $1$ on $\Gamma$ is compact. Therefore a subsequence of $\{g_i\}$ converges to $g$, which is also $d_1$-sos. Then $f_ig_i$ converge to $fg$ and since each $f_ig_i$ is $d_2$-sos it follows that $fg$ is $d_2$-sos. 
+
+\end{proof}
+
+Let $\ell: R[\Gamma]_{\leq 2d} \rightarrow \RR$ be a linear functional given as a combination of evaluations on $\Gamma$:
+$$\ell(f)=\sum_{i=1}^m \mu_if(v_i),\quad f \in R[\Gamma]_{2d}, \, \mu_i \in \RR.$$
+
+\noindent Let $Q_{\ell}: R[\Gamma]_{\leq d} \rightarrow \RR$ be the quadratic form associated to $\ell$ given by 
+$$Q_{\ell}(f)=\ell(f^2)=\sum_{i=1}^m \mu_if^2(v_i).$$ 
+We assume that the coefficients $\mu_i$ are non-zero and let $m_+$ and $m_-$ be the number of positive and negative $\mu_i$ respectively.  
+
+
+\begin{lemma}\label{Lemma:Signs} Suppose that the quadratic form $Q_{\ell}$ is positive semidefinite. Then $m_+\geq \dim R[\Gamma]_{\leq d}$.
+\end{lemma}
+\begin{proof}
+Let $\pi_{\Gamma}: R[\Gamma]_{\leq d} \rightarrow \mathbb{R}^{m}$ be the evaluation projection of forms in $R[\Gamma]_{\leq d}$ given by
+$$\pi_{\Gamma}(f)=\left(f(v_1),\ldots,f(v_m)\right), \quad f \in R[\Gamma]_{\leq d}.$$
+
+\noindent We observe that the map $\pi_{\Gamma}$ has no kernel and therefore $$\dim \pi_{\Gamma}(R[\Gamma]_{\leq d})=\dim R[\Gamma]_{\leq d}.$$
+
+
+\noindent Let $\bar{Q}_{\ell}$ be the quadratic form on $\RR^{m}$ given by: $$\sum_{i=1}^m \mu_ix_i^2.$$
+
+\noindent By its definition, the form $Q_{\ell}$ is a composition of $\pi_{\Gamma}$ and $\bar{Q}_{\ell}$:
+$$Q_{\ell}=\bar{Q}_{\ell}\circ \pi_{\Gamma}.$$
+The form $\bar{Q}_{\ell}$ has $m_-$ negative eigenvalues, and thus $\bar{Q}_{\ell}$ is strictly negative on a subspace of dimension $m_-$. Recall that the form $Q_{\ell}$ is positive semidefinite, which implies that $\bar{Q}_{\ell}$ is positive semidefinite on the image of $\pi_{\Gamma}$. Thus the image of $\pi_{\Gamma}$ has codimension at least $m_-$ in $\RR^m$. Since $m_++m_-=m$ the Lemma follows.
+\end{proof}
+
+
+
+Let $H_\Gamma(t)$ denote the Hilbert function of $\Gamma$: $$H_\Gamma(t)=\dim \RR[\Gamma]_{\leq t}.$$
+
+\begin{theorem}\label{Theorem:MainBound}
+Let $p \in \RR[\Gamma]_{\leq 2s}$ be a polynomial of degree at most $2s$ nonnegative on $\Gamma$. Suppose that for some $k \in \RR$ we have
+$$H_\Gamma(k+s)+H_\Gamma(k)>H_\Gamma(2k+2s).$$
+Then $p$ is $(k,k+s)$-sos on $\Gamma$, i.e. there exists $q \in \Sigma(\Gamma)_{\leq 2k}$ such that $pq \in \Sigma(\Gamma)_{\leq 2s+2k}$.
+\end{theorem}
+\begin{proof}
+Suppose not. By Lemma \ref{Lemma:GenClosed}, the set of all polynomials in $\RR[\Gamma]_{\leq 2s}$ that is not $(k,k+s)$-sos is open. Thus we can find $p\in \RR[\Gamma]_{\leq 2s}$ that is strictly positive on $\Gamma$ but is not $(k,k+s)$-sos. Now consider the pointed, closed convex cones $p\Sigma(\Gamma)_{\leq 2k}$ and $\Sigma(\Gamma)_{\leq 2k+2s}$ in $\RR(\Gamma)_{\leq 2k+2s}$. By our assumption $$p\Sigma(\Gamma)_{\leq 2k} \cap \Sigma(\Gamma)_{\leq 2k+2s}=\{0\}.$$
+Therefore there exists a linear functional $\ell:\RR[\Gamma]_{\leq 2k+2s} \rightarrow \RR$ strictly separating the two cones: $\ell(f)>0$ for all nonzero $f \in \Sigma(\Gamma)_{\leq 2k+2s}$ and $\ell(f)<0$ for all nonzero $f \in p\Sigma(\Gamma)_{\leq 2k}$. 
+
+Let $\Gamma'\subseteq \Gamma$ be a subset of $\Gamma$ such that point evaluations on $\Gamma'$ form a basis of $\RR[\Gamma]_{\leq 2k+2s}^*$. In particular, $|\Gamma'|=\dim \RR(\Gamma)_{\leq 2k+2s}$. Therefore the separating functional $\ell$ can be written as 
+$$\ell=\sum_{v_i \in \Gamma'} \mu_i\ell_{v_i}, \,\,\,\, \mu_i \in \RR.$$
+Since $\ell$ strictly separates the two cones we may assume without loss of generality that all coefficients $\mu_i$ are non-zero. Let $m_+$ and $m_-$ be the number of positive and negative $\mu_i$ respectively. Then by Lemma \ref{Lemma:Signs} we know that $m_+ \geq \dim \RR[\Gamma]_{\leq k+s}$.
+
+Now define $\ell': \RR[\Gamma]_{\leq 2k} \rightarrow \RR$ by $$\ell'=\sum_{v_i \in \Gamma'}\mu_ip(v_i)\ell_{v_i}.$$
+It follows that $Q_{\ell'}:\RR[\Gamma]_{\leq k} \rightarrow \RR$ is a negative definite quadratic form. Therefore, by applying Lemma \ref{Lemma:Signs}, we see that $m_-\geq \dim \RR[\Gamma]_{\leq k}$, since $p(v_i)>0$ for all $v_i\in \Gamma$. Combining, we see that $$|\Gamma'|=m_+ + m_-=H_\Gamma(2k+2s) \geq H_\Gamma(k+s)+H_\Gamma(k),$$
+which is a contradiction.
+\end{proof}
+
+\begin{corollary}\label{Corollary:QuadraticBound}
+Let $p\in \RR[C]_{\leq 2}$ be a quadratic polynomial nonnegative on $C$ and let $k=\lfloor \frac{n}{2}\rfloor$. Then $p$ is $(k,k+1)$-sos.
+\end{corollary}
+\begin{proof}
+This follows immediately from Theorem \ref{Theorem:MainBound} since $H_C(t)=\sum_{i=0}^t \binom{n}{i}$.
+\end{proof}
+This gives insight into a conjecture of Laurent \cite{moniquestuff} that the Lasserre rank of the max cut polytope on $K_n$ is exactly $n/2$.
+It was already known to be at least $n/2$; see for instance Section \ref{Subsection:MaxCut} of this paper. 
+By Corollary \ref{Corollary:QuadraticBound}, rank $n/2$ is required when using multipliers.
+It remains to check whether allowing multipliers reduces the degree required in this case.
+
+
+
+
+% APPLICATIONS SECTION
+\section{Applications}\label{Section:Applications}
+We give two applications of our results. Section \ref{Subsection:MaxCut} deals with the max cut problem on $K_n$, and is an application to combinatorial optimization. Section \ref{Subsection:Hilbert} deals with degree bounds in Hilbert's 17th problem.
+% writing functions as $(d_1,d_2)$-sos on $\RR^n$, not mod $I$, and is an application to real algebraic geometry.
+
+\subsection{The max cut problem}\label{Subsection:MaxCut}
+A {\em cut} in a graph arises from a partition of the vertices into two sets $S_1,S_2$; then the cut is the collection of all edges from $S_1$ to $S_2$. Note that switching $S_1$ and $S_2$ gives the same cut. We write $C = [S_1,S_2] = [S_2,S_1]$, and let $|S| = $ the number of edges from $S_1$ to $S_2$. A {\em max cut} is a cut maximizing $|S|$.
+
+ In the complete graph $K_n$, the max cuts come from any partition of $[n]$ into two sets of $n/2$ vertices, or $(n\pm 1)/2$ when $n$ is odd. Given a cut $S = [S_1,S_2]$ in $K_n$, let $x = x(S) \in \{0,1\}^n$ be defined by $x_i = 1$ if $i \in S_1$; $x_i = 0$ if $i \in S_2$. Observe that for $i \ne j$, the quantity 
+$$(2x_i-1)(2x_j-1) = \left\{
+\begin{array}{rl}
+1 & \textup{if $i,j$ are in the same half of $S$,} \\
+-1 & \textup{if $i,j$ are in different halves of $S$.}
+\end{array}
+\right.$$
+
+We will calculate the function on $\{0,1\}^n$ that counts the number of edges in a cut. 
+If $x$ represents a cut with $|S|$ edges, then 
+$$\sum_{i < j} (2x_i-1)(2x_j-1) = \left({n \choose 2} - |S|\right)\cdot 1 + \left(|S|\right) \cdot -1 = {n \choose 2} - 2|S|.$$
+ Therefore, $|S| = \frac{n^2-n}{4} - \frac{1}{2} \sum_{i < j} (2x_i-1)(2x_j-1)$. For $n$ odd, the maximum size of a cut is $\frac{n-1}{2}\frac{n+1}{2} = \frac{n^2-1}{4}$. Put 
+$$q = \frac{n^2-1}{4} - \left(\frac{n^2-n}{4} - \frac{1}{2} \sum_{i < j} (2x_i-1)(2x_j-1) \right).$$ Then we have the following factorization and inequality.
+
+\begin{proposition} \label{Proposition:CutFunction}
+Let $n$ be odd and $q$ as above. $q$ factors mod $I$ as $ (\frac{n-1}{2} - \sum x_i)(\frac{n+1}{2} - \sum x_i)$. For $x \in \{0,1\}^n$, $q(x) \ge 0$, and $q(x) = 0$ only for the vectors representing max cuts in $K_n$.
+\end{proposition}
+\begin{proof}
+The factorization is routine algebra; recall that the ideal $I$ of the cube allows simplification $x_i^2 = x_i$. The nonnegativity and equality statements follow from the preceding discussion.
+\end{proof}
+
+Note that the $q$ defined above satisfies the conditions of Theorem \ref{Corollary:Sos}, for $t = \frac{n-1}{2}$. Therefore, it is not $d$-sos mod $I$ for $d \le t$. This will allow us to reprove a result of Laurent. In \cite{moniquestuff}, Theorem 4, it is shown that the Lasserre rank of the cut polytope of $K_n$, $n$ odd, is at least $\frac{n+1}{2}$. The Lasserre relaxation is a hierarchy of semidefinite program approximations to a 0/1 polytope based on sums of squares, and we can reprove Laurent's result by showing that $q$ is not $d$-sos for $d < \frac{n+1}{2}$.
+
+\begin{corollary}\label{Corollary:Cut}
+Let $n$ be odd and $I$ the ideal of the hypercube $C$. Then $q$, as above, is not a sum of squares mod $I$ of degree $\le \frac{n-1}{2}$.
+\end{corollary}
+\begin{proof}
+This is just \ref{Corollary:Quadratic}.
+\end{proof}
+
+\subsection{Globally nonnegative function with large multipliers}\label{Subsection:Hilbert}
+
+We finish with an application to Hilbert's 17th problem about sums of rational squares on $\RR^n$.
+
+\begin{theorem} \label{Theorem:Global}
+Let $k=\lfloor \frac{n}{2}\rfloor$. There exists a polynomial $p$ of degree $4$ nonnegative on $\RR^n$ which is not $(k-2,k)$-sos.
+\end{theorem}
+\begin{proof}
+Let $k=\lfloor \frac{n}{2}\rfloor$ and let $f\in \RR[x]$ be given by $$f=(x_1+\dots+x_n-k)(x_1+\dots+x_n-k-1).$$
+By Corollary \ref{Corollary:Quadratic} we know that $f$ is not $(k-1,k)$-sos in $\RR[C]$. Using Lemma \ref{Lemma:GenClosed} with $\Gamma = C$ it follows that $f+\epsilon$ is not $(k-1,k)$-sos in $\RR[C]$ for sufficiently small $\epsilon>0$. Let $f'=f+\epsilon$ for a fixed such $\epsilon$.
+
+Let $r=\sum_{i=1}^n (x_i^2-x_i)^2$. For sufficiently large $\lambda>0$ the polynomial $q=f'+\lambda r$ is positive on $\RR^n$. 
+Suppose that $q$ is $(k-2,k)$-sos in $\RR[x]$: we have $qg=h$ with $(k-2)$-sos non-zero $g$, and $k$-sos $h$. 
+
+
+For $\alpha=(\alpha_1,\dots,\alpha_n) \in \RR^n$ let $C_{\alpha}$ be the hypercube given by equations $(x_i-\alpha_i)(x_i-\alpha_i-1)=0$. By Lemma \ref{Lemma:GenClosed} it follows that $q$ is not $(k-2,k)$-sos in $\RR[C_{\alpha}]$ for all $\alpha$ sufficiently close to $0$. However, there exist $\alpha$ arbitrarily close to $0$ such that $g \not \equiv 0$ in $\RR[C_{\alpha}]$. This is a contradiction since it follows that $q$ is $(k-2,k)$-sos in $\RR[C_\alpha]$ for such $\alpha$.
+\end{proof}
